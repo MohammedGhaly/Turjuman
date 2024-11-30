@@ -14,22 +14,35 @@ export default defineConfig({
         { src: "src/chrome-extension/public/32.png", dest: "./public" },
         { src: "src/chrome-extension/public/48.png", dest: "./public" },
         { src: "src/chrome-extension/public/192.png", dest: "./public" },
+        { src: "src/chrome-extension/public/dropdown.svg", dest: "./assets" },
+        { src: "src/chrome-extension/public/logo.png", dest: "./assets" },
       ],
     }),
   ],
+
   server: {
-    open: "/popup-local.html",
+    open: "/extension-local.html",
   },
   build: {
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, "popup.html"),
+        extension: resolve(__dirname, "extension.html"),
         options: resolve(__dirname, "options.html"),
         background: resolve(__dirname, "src/background.ts"),
+        // contentScript: resolve(__dirname, "src/contentScript.tsx"),
       },
       output: {
+        // format: "iife",
+        // inlineDynamicImports: true,
         entryFileNames: "[name].js",
       },
     },
+    emptyOutDir: false,
+    target: "es2015", // Ensures compatibility with Chrome's JavaScript environment
+    minify: true,
+    // outDir: "dist/content",
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom"],
   },
 });

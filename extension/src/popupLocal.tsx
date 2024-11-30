@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Extension } from "./chrome-extension/extension/index";
 import "./chrome-extension/global.css";
+import Popup from "./chrome-extension/popup/Popup";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Extension />
+    <div className="bg-white w-full">
+      <Popup onClose={() => {}} word="eat" />
+    </div>
   </StrictMode>
 );

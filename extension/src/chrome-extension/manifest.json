@@ -3,7 +3,7 @@
   "name": "Chrome Extension Starter",
   "version": "1.0.0",
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "extension.html"
   },
   "options_page": "options.html",
   "description": "This is the description of your extension",
@@ -16,5 +16,17 @@
   "background": {
     "service_worker": "background.js",
     "type": "module"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["tailwind.css", "assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

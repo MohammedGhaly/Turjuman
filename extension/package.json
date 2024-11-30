@@ -5,19 +5,29 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --minify",
+    "build:content": "vite build --config vite.config.content.ts",
+    "build:base": "vite build --config vite.config.base.ts",
+    "build": "tsc -b && npm run build:base && npm run build:content && npm run build:css",
+    "rebuild": "tsc -b && npm run build:content",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/node": "^22.5.5",
+    "@radix-ui/react-switch": "^1.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.455.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
     "vite-plugin-static-copy": "^1.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/chrome": "^0.0.271",
+    "@types/node": "^22.9.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
