@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --primary: #000;
   --primary-lower-opacity: #00000028;
   --foreground: #fff;
@@ -19,7 +19,7 @@
   --tab-hover: #00000028;
   --icon-hover: #46464688;
   --radius: 9px;
-}
+} */
 
 .theme-light {
   --primary: #ffffff;
@@ -36,6 +36,25 @@
   --tab-hover: #3597dd21;
   --active-tab-title: #ffffff;
   --icon-hover: #3597dd21;
+  --radius: 9px;
+}
+
+.theme-dark {
+  --primary: #000;
+  --primary-lower-opacity: #00000028;
+  --foreground: #fff;
+  --secondary: #27262b;
+  --secondary-lower-opacity: #27262b28;
+  --accent: #464646;
+  --accent-low-opacity: #46464644;
+  --border: #27262b;
+  --switch-on: #fff;
+  --switch-off: #464646;
+  --tab-fill: #000;
+  --active-tab-title: #ffffff;
+  --tab-hover: #00000028;
+  --icon-hover: #46464688;
+  --radius: 9px;
 }
 
 * {

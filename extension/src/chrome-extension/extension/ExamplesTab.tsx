@@ -3,8 +3,8 @@ import { useState } from "react";
 
 const fakeExamples = [
   "Do you eat meat?",
-  " He ate a hamburger for lunch.",
-  "He ate the whole cake.",
+  " He ate a hamburger.",
+  "He ate all the cakes.",
   " He ate a hamburger for lunch.",
   "He ate the whole cake.",
 ];
@@ -13,7 +13,7 @@ function ExamplesTab() {
   return (
     <div className="turjuman-examples-container flex flex-col gap-2 overflow-y-scroll max-h-[144px]">
       {examples.map((e) => (
-        <Example exampleText={e} />
+        <Example exampleText={e} key={e} />
       ))}
     </div>
   );

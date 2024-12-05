@@ -1,5 +1,4 @@
 import { Cog, XIcon } from "lucide-react";
-import "../global.css";
 import logo from "../public/logo.png";
 
 let logosrc = logo;
@@ -17,28 +16,55 @@ export type TabS = "translate" | "definition" | "examples";
 interface PopupTopBarProps {
   activeTab: TabS;
   setActiveTab: React.Dispatch<React.SetStateAction<TabS>>;
+  theme: string;
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
+  closePopup: () => void;
 }
 
-function PopupTopBar({ activeTab, setActiveTab }: PopupTopBarProps) {
+function PopupTopBar({
+  activeTab,
+  setActiveTab,
+  theme,
+  setTheme,
+  closePopup,
+}: PopupTopBarProps) {
   return (
-    <div className="p-[6px] flex justify-between bg-[var(--primary)]">
-      <div className="flex items-center gap-3 ml-1">
+    <div
+      className="p-[6px] flex justify-between bg-[var(--primary)]"
+      onClick={() => {
+        if (theme === "theme-dark") {
+          setTheme("theme-light");
+        } else {
+          setTheme("theme-dark");
+        }
+      }}
+    >
+      <div
+        className="flex items-center gap-3 ml-1"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <Logo />
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
-      <Controls />
+      <Controls closePopup={closePopup} />
     </div>
   );
 }
 
-function Controls() {
+interface ControlsProps {
+  closePopup: () => void;
+}
+
+function Controls({ closePopup }: ControlsProps) {
   return (
     <div className="flex gap-2 justify-center items-center">
       <div className="settings">
-        <Cog />
+        <Cog className="cursor-pointer" />
       </div>
       <div className="close">
-        <XIcon />
+        <XIcon onClick={closePopup} className="cursor-pointer" />
       </div>
     </div>
   );
@@ -59,7 +85,7 @@ interface TabsProps {
 
 function Tabs({ setActiveTab, activeTab }: TabsProps) {
   return (
-    <div className="flex bg-[var(--secondary)] rounded-md p-1">
+    <div className="flex gap-2 bg-[var(--secondary)] text-[var(--foreground)] border-[var(--border)] border rounded-md p-1">
       {Object.values(tabs).map((t) => (
         <Tab
           title={t}
@@ -81,9 +107,11 @@ interface TabProps {
 function Tab({ title, isActive, setActiveTab }: TabProps) {
   return (
     <div
-      className={`px-2 py-1 flex justify-center gap-1 rounded-md transition-colors duration-200 ${
-        isActive ? "bg-[var(--primary)]" : ""
-      } `}
+      className={`px-2 py-1 flex justify-center font-semibold rounded-md cursor-pointer transition-colors duration-200 ${
+        isActive
+          ? "bg-[var(--tab-fill)] text-[var(--active-tab-title)]"
+          : "text-[var(--foreground)]"
+      } ${!isActive ? "hover:bg-[var(--tab-hover)] " : ""}`}
       onClick={() => setActiveTab(title)}
     >
       <span className="font-semibold">{title}</span>
