@@ -6,7 +6,7 @@ function DefinitionTab() {
   );
   return (
     <div className=" bg-[var(--secondary)] rounded-lg h-auto py-1 border-[var(--border)] border">
-      <p className="turjuman-definition-p overflow-y-scroll max-h-32 px-2 mx-1 py-1 ">
+      <p className="turjuman-scrollable overflow-y-scroll max-h-32 px-2 mx-1 py-1 ">
         {definition}
       </p>
     </div>

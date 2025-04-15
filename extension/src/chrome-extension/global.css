@@ -76,20 +76,37 @@ body {
   font-family: "Inter", sans-serif !important;
   font-optical-sizing: auto;
 }
-
+/*
 .turjuman-definition-p::-webkit-scrollbar {
   width: 8px;
 }
 
 .turjuman-definition-p::-webkit-scrollbar-track {
   border-radius: 9px;
-  background: var(--secondary); /* color of the tracking area */
+  background: var(--secondary); /* color of the tracking area 
 }
 .turjuman-definition-p::-webkit-scrollbar-thumb {
   border-radius: 9px;
-  background: var(--accent-low-opacity); /* color of the tracking area */
+  background: var(--accent-low-opacity); /* color of the tracking area 
 }
 .turjuman-definition-p::-webkit-scrollbar-thumb:hover {
+  background: var(--accent); /* color of the tracking area 
+}
+*/
+
+.turjuman-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.turjuman-scrollable::-webkit-scrollbar-track {
+  border-radius: 9px;
+  background: var(--secondary); /* color of the tracking area */
+}
+.turjuman-scrollable::-webkit-scrollbar-thumb {
+  border-radius: 9px;
+  background: var(--accent-low-opacity); /* color of the tracking area */
+}
+.turjuman-scrollable::-webkit-scrollbar-thumb:hover {
   background: var(--accent); /* color of the tracking area */
 }
 

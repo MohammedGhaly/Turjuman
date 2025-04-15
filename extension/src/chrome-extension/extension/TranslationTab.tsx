@@ -7,7 +7,7 @@ function TranslationTab() {
         <WordList words={["يتناول", "يمضغ", "يلتهم", "أكل", "يأكل"]} />
         <div>
           <h4 className="mb-2">synonyms</h4>
-          <WordList words={["feed", "chew", "dine", "inhale", "bite"]} />
+          <WordList words={["feed", "chew", "dine", "inhale"]} />
         </div>
       </div>
     </div>

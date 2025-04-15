@@ -25,18 +25,19 @@ export const Extension = () => {
 
       <div className="flex-grow p-4">
         <div className="flex flex-col justify-between h-full gap-3">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 h-fit">
             <InputBar />
             <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
             <WordBar word="Eat" aiTranslation="يأكل" />
           </div>
-          <div className=" flex-grow text-[var(--foreground)] mt-1">
+
+          <div className=" flex-1 basis-0 text-[var(--foreground)] mt-1 overflow-y-auto turjuman-scrollable">
             {activeTab === "translation" && <TranslationTab />}
             {activeTab === "definition" && <DefinitionTab />}
             {activeTab === "examples" && <ExamplesTab />}
           </div>
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center h-6">
             <div className="text-white bg-[var(--secondary)] h-6 w-10 rounded-full border border-[var(--border)]">
               <Youtube
                 className="mx-auto"

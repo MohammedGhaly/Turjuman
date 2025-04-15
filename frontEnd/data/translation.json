@@ -1,0 +1,17 @@
+{
+  "translations": [
+    {
+      "success": true,
+      "word": "eat",
+      "translation": "يأكل",
+      "synonyms_target": ["يتناول", "يلتهم", "يستهلك", "يأكل بشراهة", "يتغذى"],
+      "synonyms_source": ["consume", "devour", "ingest", "chew", "nibble"],
+      "definition": "To put food into your mouth, chew it, and swallow it.",
+      "examples": [
+        "They do not eat or drink anything from sunrise to sunset.",
+        "For the first three days he didn't eat anything.",
+        "Some of my family members eat quickly, while others eat slowly."
+      ]
+    }
+  ]
+}

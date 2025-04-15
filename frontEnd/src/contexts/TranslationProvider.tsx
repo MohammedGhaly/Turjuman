@@ -1,0 +1,199 @@
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { SupportedLanguageEnum } from "../types/SupportedLanguages";
+import { TranslationResponse } from "../types/Translation";
+
+const URL = "http://localhost:9000/";
+
+interface Props {
+  children: React.JSX.Element;
+}
+
+interface TranslationPageState {
+  fromLang: SupportedLanguageEnum;
+  toLang: SupportedLanguageEnum;
+  isLoading: boolean;
+  error: string;
+  text: string;
+  translation: TranslationResponse;
+  swapLangs: null | (() => void);
+  setText: null | ((text: string) => void);
+  setToLang: null | ((toLang: SupportedLanguageEnum) => void);
+  setFromLang: null | ((fromLang: SupportedLanguageEnum) => void);
+}
+
+const translationInitialState = {
+  translation: "",
+  word: "",
+  definition: "",
+  examples: [],
+  synonymsSource: [],
+  synonymsTarget: [],
+};
+
+const initialState: TranslationPageState = {
+  fromLang: SupportedLanguageEnum.English,
+  toLang: SupportedLanguageEnum.Arabic,
+  isLoading: false,
+  error: "",
+  text: "",
+  translation: translationInitialState,
+  swapLangs: null,
+  setText: null,
+  setToLang: null,
+  setFromLang: null,
+};
+
+type TEXT_CHANGED = { type: "TEXT_CHANGED"; payload: string };
+type FROM_LANG_CHANGED = {
+  type: "FROM_LANG_CHANGED";
+  payload: SupportedLanguageEnum;
+};
+type TO_LANG_CHANGED = {
+  type: "TO_LANG_CHANGED";
+  payload: SupportedLanguageEnum;
+};
+type SWAP_LANGS = { type: "SWAP_LANGS" };
+
+type CLEAR_TRANSLATION = { type: "CLEAR_TRANSLATION" };
+type SET_TRANSLATION = {
+  type: "SET_TRANSLATION";
+  payload: TranslationResponse;
+};
+
+type ReducerAction =
+  | TEXT_CHANGED
+  | SWAP_LANGS
+  | FROM_LANG_CHANGED
+  | TO_LANG_CHANGED
+  | CLEAR_TRANSLATION
+  | SET_TRANSLATION;
+
+const TranslationPageContext =
+  createContext<TranslationPageState>(initialState);
+
+function reducer(
+  state: TranslationPageState,
+  action: ReducerAction
+): TranslationPageState {
+  switch (action.type) {
+    case "FROM_LANG_CHANGED":
+      return {
+        ...state,
+        fromLang: action.payload,
+        toLang: state.toLang === action.payload ? state.fromLang : state.toLang,
+      };
+    case "TO_LANG_CHANGED":
+      return {
+        ...state,
+        toLang: action.payload,
+        fromLang:
+          state.fromLang === action.payload ? state.toLang : state.fromLang,
+      };
+    case "SWAP_LANGS":
+      return { ...state, fromLang: state.toLang, toLang: state.fromLang };
+    case "TEXT_CHANGED":
+      return { ...state, text: action.payload };
+    case "CLEAR_TRANSLATION":
+      return { ...state, translation: translationInitialState };
+    case "SET_TRANSLATION":
+      return { ...state, translation: action.payload };
+    default:
+      return state;
+  }
+}
+
+function TranslationPageProvider({ children }: Props) {
+  const [{ fromLang, toLang, isLoading, error, text, translation }, dispatch] =
+    useReducer(reducer, initialState);
+
+  useEffect(() => {
+    if (!text.trim()) {
+      dispatch({ type: "CLEAR_TRANSLATION" }); // Reset translation if input is empty
+      return;
+    }
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const delayDebounce = setTimeout(async () => {
+      try {
+        const response = await fetch(`${URL}translation?word=eat`, {
+          signal,
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch translation");
+
+        const data = await response.json();
+        console.log("data=> ", data);
+        // if (data.success) {
+        dispatch({
+          type: "SET_TRANSLATION",
+          payload: {
+            translation: data.translation,
+            word: data.word,
+            definition: data.definition,
+            examples: data.examples,
+            synonymsSource: data.synonyms_source,
+            synonymsTarget: data.synonyms_target,
+          },
+        });
+        // }
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name === "AbortError") {
+          console.log("Request aborted due to new input");
+        } else {
+          console.error(error);
+        }
+      }
+    }, 1500);
+
+    return () => {
+      clearTimeout(delayDebounce);
+      controller.abort();
+    };
+  }, [text, fromLang, toLang]);
+
+  // #region state funs
+  function setText(text: string) {
+    dispatch({ type: "TEXT_CHANGED", payload: text });
+  }
+  function swapLangs() {
+    dispatch({ type: "SWAP_LANGS" });
+  }
+  function setToLang(toLang: SupportedLanguageEnum) {
+    dispatch({ type: "TO_LANG_CHANGED", payload: toLang });
+  }
+  function setFromLang(fromLang: SupportedLanguageEnum) {
+    dispatch({ type: "FROM_LANG_CHANGED", payload: fromLang });
+  }
+  // #endregion state funs
+  return (
+    <TranslationPageContext.Provider
+      value={{
+        fromLang,
+        text,
+        toLang,
+        translation,
+        isLoading,
+        error,
+        setText,
+        swapLangs,
+        setToLang,
+        setFromLang,
+      }}
+    >
+      {children}
+    </TranslationPageContext.Provider>
+  );
+}
+
+function useTranslationPage() {
+  const context = useContext(TranslationPageContext);
+  if (context === undefined)
+    throw new Error(
+      "'TranslationPageContext' is used outside the 'TranslationPageProvider'"
+    );
+  return context;
+}
+
+export { TranslationPageProvider, useTranslationPage };

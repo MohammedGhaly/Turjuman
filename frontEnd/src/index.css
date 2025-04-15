@@ -1,14 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+* {
+  transition: all;
+  transition-duration: 100ms;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --sds-size-depth-1200: 48px;
+
+  --background: white;
+  --foreground: black;
+
+  --input-border: #cbd5e1;
+  --word-item-border: #d9d9d9;
+  --box-border: #d9d9d9;
+  --forgot-pw: #64748b;
+  --input-background: #f1f5f9;
+  --searchbar-background: #f1f5f9;
+  --nav-bg: #f1f5f9;
+  --nav-item-bg: #fff;
+  --login-button-background: #0f172a;
+  --login-button-background-hover: #162036;
+  --login-button-foreground: white;
+  --auth-options-facebook-bg: #e0e7ff;
+  --auth-options-google-bg: #fff4f4;
+  --switch-on: #3596dd;
+  --switch-off: #000;
+  --switch-thumb-on: white;
+  --switch-thumb-off: white;
+  --word-tile: #fff;
+  --word-tile-border: #cbd5e1;
+  --inner-boxes-bg: white;
+  --outer-boxes-bg: #f1f5f9;
+  --shaded-text: #7f7f7f;
+  --user-img-bg: #c8ced8;
+}
+
+.dark {
+  --background: #0f0f0f;
+  --foreground: white;
+
+  --nav-bg: #000000;
+  --nav-item-bg: #27262b;
+
+  --input-border: #555555;
+  --word-item-border: #d9d9d9;
+  --box-border: #555555;
+  --forgot-pw: #64748b;
+  --input-background: #27262b;
+  --searchbar-background: #080808;
+  --login-button-background: #0f172a;
+  --login-button-background-hover: #162036;
+  --login-button-foreground: white;
+  --auth-options-facebook-bg: #e0e7ff;
+  --auth-options-google-bg: #fff4f4;
+  --switch-on: #3596dd;
+  --switch-off: #000;
+  --switch-thumb-on: white;
+  --switch-thumb-off: white;
+  --word-tile: #27262b;
+  --word-tile-border: #555555;
+  --inner-boxes-bg: #27262b;
+  --outer-boxes-bg: #080808;
+  --shaded-text: #bdbdbd;
+  --user-img-bg: #27262b;
+}
+
+.auth-view-shadow {
+  box-shadow: 0px 4px var(--sds-size-depth-1200) 0px rgba(0, 0, 0, 0.25);
+}
+.auth-options-shadow {
+  box-shadow: 0px 4px var(20px) 0px rgba(0, 0, 0, 0.25);
+}
+
+.darker-hover:hover {
+  transition: all;
+  transition-duration: 0.2s;
+  filter: brightness(0.9);
 }
