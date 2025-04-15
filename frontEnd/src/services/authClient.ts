@@ -19,5 +19,5 @@ export async function authLogin(email: string, password: string) {
 
 export async function authRegister() {}
 export function authLogout() {}
-export async function authFetchUser(id: string) {}
+export async function authFetchUser() {}
 export async function authUpdateUser() {}
