@@ -21,9 +21,9 @@ function App() {
         <ThemeProvider>
           <TranslationPageProvider>
             <Routes>
-              <Route index element={<Navigate replace to="app/homepage" />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
+              <Route index element={<Navigate replace to="login" />} />
 
               <Route path="app" element={<AppLayout />}>
                 <Route index element={<Navigate replace to="homepage" />} />
