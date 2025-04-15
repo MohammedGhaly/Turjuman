@@ -12,7 +12,12 @@ interface Auth {
   login: undefined | ((email: string, password: string) => void);
   register:
     | undefined
-    | ((email: string, password: string, confirmPassword: string) => void);
+    | ((
+        name: string,
+        email: string,
+        password: string,
+        confirmPassword: string
+      ) => void);
   logout: undefined | (() => void);
   updateUser: undefined | (() => void);
 }
@@ -88,7 +93,7 @@ export function reducer(state: Auth, action: ReducerAction): Auth {
         error: "",
       };
     case "LOGOUT":
-      return { ...authInitialState, fetchingToken: false };
+      return { ...authInitialState, fetchingToken: false, isLoading: false };
     case "START_FETCHING_TOKEN":
       return { ...state, fetchingToken: true };
     case "DONE_FETCHING_TOKEN":

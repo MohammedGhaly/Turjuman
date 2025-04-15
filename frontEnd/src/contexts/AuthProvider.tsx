@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 import { useNavigate } from "react-router";
-import { authLogin } from "../services/authClient";
+import { authLogin, authLogout, authRegister } from "../services/authClient";
 import { homepageRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
 
@@ -61,8 +61,49 @@ export default function AuthenticationProvider({
       }
     }
   }
-  async function register() {}
-  function logout() {}
+  async function register(
+    name: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) {
+    dispatch({ type: "LOADING", payload: true });
+    try {
+      const fetchedUser = await authRegister(
+        name,
+        email,
+        password,
+        confirmPassword
+      );
+      console.log("fetchedUser: ", fetchedUser);
+      dispatch({
+        type: "REGISTER",
+        payload: {
+          user: fetchedUser,
+        },
+      });
+      navigate(homepageRoute);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+        dispatch({ type: "LOADING", payload: false });
+      }
+    }
+  }
+  async function logout() {
+    dispatch({ type: "LOADING", payload: true });
+    try {
+      const res = await authLogout();
+      if (res) {
+        dispatch({ type: "LOGOUT" });
+        navigate("login");
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log("Error ocurred while logging out : ", err);
+      }
+    }
+  }
   // async function fetchUser(id: string) {}
   async function updateUser() {}
 

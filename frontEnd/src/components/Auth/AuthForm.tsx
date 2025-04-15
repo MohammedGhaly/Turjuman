@@ -11,6 +11,7 @@ interface Props {
 }
 
 function AuthForm({ isLogin }: Props) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,7 +20,7 @@ function AuthForm({ isLogin }: Props) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isLogin) login?.(email, password);
-    else register?.(email, password, confirmPassword);
+    else register?.(name, email, password, confirmPassword);
   }
 
   return (
@@ -28,6 +29,19 @@ function AuthForm({ isLogin }: Props) {
         className="flex flex-col gap-4 items-center"
         onSubmit={(e) => handleSubmit(e)}
       >
+        {!isLogin && (
+          <label className={labelClassname}>
+            Username
+            <input
+              type="text"
+              name="text"
+              className={`${inputClassname}`}
+              placeholder="Username"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+        )}
         <label className={labelClassname}>
           Email
           <input
@@ -68,7 +82,7 @@ function AuthForm({ isLogin }: Props) {
             forgot password?
           </a>
         )}
-        <button className="bg-[var(--login-button-background)] rounded-2xl text-[var(--login-button-foreground)] min-w-36 py-2 flex justify-center text-xl mt-4 mb-4 hover:bg-[var(--login-button-background-hover)] duration-200 transition-all shadow-md font-semibold">
+        <button className="bg-[var(--login-button-background)] rounded-2xl text-[var(--login-button-foreground)] min-w-36 py-2 flex justify-center text-xl mt-4 mb-4 lg:mb-2 hover:bg-[var(--login-button-background-hover)] duration-200 transition-all shadow-md font-semibold">
           {isLogin ? isLoading ? <Spinner size={7} /> : "Login" : "Signup"}
         </button>
       </form>

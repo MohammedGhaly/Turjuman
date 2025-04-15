@@ -1,9 +1,12 @@
 import { CirclePlus, Cog, User } from "lucide-react";
 import { Switch } from "../components/Switch";
 import { useTheme } from "../contexts/ThemeProvider";
+import { useAuth } from "../hooks/useAuth";
+import Spinner from "../components/Spinner";
 
 function ProfilePage() {
   const { theme, setTheme } = useTheme();
+  const { logout, isLoading } = useAuth();
   return (
     <div className="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto border-t border-t-[var(--box-border)] pt-6">
       <div className="relative w-fit">
@@ -87,6 +90,12 @@ function ProfilePage() {
               Auto save <Switch />
             </div>
           </div>
+          <button
+            onClick={logout}
+            className="bg-red-600 bg-opacity-25 mt-2 rounded-lg w-full text-foreground flex justify-center hover:bg-opacity-30 duration-200 transition-colors text-lg p-2 font-semibold"
+          >
+            {isLoading ? <Spinner size={7} /> : "Logout"}
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 function AuthOptions() {
   return (
-    <div className="flex flex-col justify-center items-center w-full gap-4">
-      <h4 className="text-xl font-semibold">or login with</h4>
+    <div className="flex flex-col justify-center items-center w-full gap-2">
+      <h4 className="text-xl lg:text-lg font-semibold">or login with</h4>
       <div className="flex justify-center w-full gap-12">
         {/* face book button */}
         <button className="rounded-full bg-[var(--auth-options-facebook-bg)] p-2 shadow-lg hover:scale-105 duration-200 transition-all">
