@@ -16,7 +16,7 @@ interface Auth {
         name: string,
         email: string,
         password: string,
-        confirmPassword: string
+        passwordConfirm: string
       ) => void);
   logout: undefined | (() => void);
   updateUser: undefined | (() => void);

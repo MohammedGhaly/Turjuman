@@ -23,9 +23,9 @@ export async function authRegister(
   name: string,
   email: string,
   password: string,
-  confirmPassword: string
+  passwordConfirm: string
 ) {
-  const body = { name, email, password, confirmPassword };
+  const body = { name, email, password, passwordConfirm, role: "user" };
   const response = await api_client.post(signupEndpoint, body, {
     withCredentials: true,
     headers: {
@@ -39,7 +39,7 @@ export async function authRegister(
 }
 
 export async function authLogout() {
-  await api_client.post(logoutEndpoint, {
+  await api_client.get(logoutEndpoint, {
     withCredentials: true,
     validateStatus: () => true, // prevent axios from throwing on 3xx
   });

@@ -65,7 +65,7 @@ export default function AuthenticationProvider({
     name: string,
     email: string,
     password: string,
-    confirmPassword: string
+    passwordConfirm: string
   ) {
     dispatch({ type: "LOADING", payload: true });
     try {
@@ -73,7 +73,7 @@ export default function AuthenticationProvider({
         name,
         email,
         password,
-        confirmPassword
+        passwordConfirm
       );
       console.log("fetchedUser: ", fetchedUser);
       dispatch({

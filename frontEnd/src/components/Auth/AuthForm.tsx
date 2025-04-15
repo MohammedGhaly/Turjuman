@@ -14,13 +14,13 @@ function AuthForm({ isLogin }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const { login, register, isLoading } = useAuth();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isLogin) login?.(email, password);
-    else register?.(name, email, password, confirmPassword);
+    else register?.(name, email, password, passwordConfirm);
   }
 
   return (
@@ -72,8 +72,8 @@ function AuthForm({ isLogin }: Props) {
               name="password"
               className={`${inputClassname}`}
               placeholder="Confirm your password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
             />
           </label>
         )}
