@@ -1,6 +1,6 @@
 import {
   BrowserRouter,
-  HashRouter,
+  // HashRouter,
   Navigate,
   Route,
   Routes,
