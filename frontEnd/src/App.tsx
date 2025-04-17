@@ -19,6 +19,7 @@ import { TranslationPageProvider } from "./contexts/TranslationProvider";
 import WordPage from "./pages/WordPage";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import AuthenticationProvider from "./contexts/AuthProvider";
+import AuthCallbackPage from "./pages/AuthCallbackPage";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
             <Routes>
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
+              <Route
+                path="auth/google/callback"
+                element={<AuthCallbackPage />}
+              />
               <Route index element={<Navigate replace to="login" />} />
 
               <Route path="app" element={<AppLayout />}>
