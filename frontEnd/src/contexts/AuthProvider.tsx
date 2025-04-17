@@ -114,7 +114,6 @@ export default function AuthenticationProvider({
     dispatch({ type: "LOADING", payload: true });
     try {
       await authGoogleLogin();
-      navigate(homepageRoute);
     } catch (err) {
       if (err instanceof Error) {
         console.log(err.message);
@@ -126,7 +125,6 @@ export default function AuthenticationProvider({
     dispatch({ type: "LOADING", payload: true });
     try {
       await authFacebookLogin();
-      navigate(homepageRoute);
     } catch (err) {
       if (err instanceof Error) {
         console.log(err.message);
