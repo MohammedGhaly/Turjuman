@@ -1,10 +1,17 @@
+import { useAuth } from "../../hooks/useAuth";
+
 function AuthOptions() {
+  const { facebookLogin, googleLogin } = useAuth();
+
   return (
     <div className="flex flex-col justify-center items-center w-full gap-2">
       <h4 className="text-xl lg:text-lg font-semibold">or login with</h4>
       <div className="flex justify-center w-full gap-12">
         {/* face book button */}
-        <button className="rounded-full bg-[var(--auth-options-facebook-bg)] p-2 shadow-lg hover:scale-105 duration-200 transition-all">
+        <button
+          onClick={facebookLogin}
+          className="rounded-full bg-[var(--auth-options-facebook-bg)] p-2 shadow-lg hover:scale-105 duration-200 transition-all"
+        >
           <svg
             width="66"
             height="66"
@@ -24,7 +31,10 @@ function AuthOptions() {
           </svg>
         </button>
         {/* google button */}
-        <button className="rounded-full bg-[var(--auth-options-google-bg)] p-2 shadow-lg hover:scale-105 duration-200 transition-all">
+        <button
+          onClick={googleLogin}
+          className="rounded-full bg-[var(--auth-options-google-bg)] p-2 shadow-lg hover:scale-105 duration-200 transition-all"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="65"

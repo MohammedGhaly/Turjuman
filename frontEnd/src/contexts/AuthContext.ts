@@ -9,6 +9,8 @@ interface Auth {
   error: string;
   fetchingToken: boolean;
   isLoading: boolean;
+  facebookLogin: undefined | (() => void);
+  googleLogin: undefined | (() => void);
   login: undefined | ((email: string, password: string) => void);
   register:
     | undefined
@@ -32,6 +34,8 @@ export const authInitialState: Auth = {
   logout: undefined,
   register: undefined,
   updateUser: undefined,
+  facebookLogin: undefined,
+  googleLogin: undefined,
 };
 
 // #region reducer types

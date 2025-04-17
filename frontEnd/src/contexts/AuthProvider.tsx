@@ -1,7 +1,13 @@
 import { useReducer } from "react";
 
 import { useNavigate } from "react-router";
-import { authLogin, authLogout, authRegister } from "../services/authClient";
+import {
+  authFacebookLogin,
+  authGoogleLogin,
+  authLogin,
+  authLogout,
+  authRegister,
+} from "../services/authClient";
 import { homepageRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
 
@@ -104,6 +110,31 @@ export default function AuthenticationProvider({
       }
     }
   }
+  async function googleLogin() {
+    dispatch({ type: "LOADING", payload: true });
+    try {
+      await authGoogleLogin();
+      navigate(homepageRoute);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+        dispatch({ type: "LOADING", payload: false });
+      }
+    }
+  }
+  async function facebookLogin() {
+    dispatch({ type: "LOADING", payload: true });
+    try {
+      await authFacebookLogin();
+      navigate(homepageRoute);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+        dispatch({ type: "LOADING", payload: false });
+      }
+    }
+  }
+
   // async function fetchUser(id: string) {}
   async function updateUser() {}
 
@@ -119,6 +150,8 @@ export default function AuthenticationProvider({
         login,
         logout,
         updateUser,
+        facebookLogin,
+        googleLogin,
       }}
     >
       {children}

@@ -1,9 +1,11 @@
 import { User } from "../types/User";
 import api_client from "./api_client";
-
+import { BASE_URL } from "./api_client";
 const loginEndpoint = "api/v1/users/login";
 const signupEndpoint = "api/v1/users/signup";
 const logoutEndpoint = "api/v1/users/logout";
+const googleLoginEndpoint = "auth/google";
+const facebookLoginEndpoint = "auth/facebook";
 
 export async function authLogin(email: string, password: string) {
   const body = { email, password };
@@ -44,6 +46,12 @@ export async function authLogout() {
     validateStatus: () => true, // prevent axios from throwing on 3xx
   });
   return true;
+}
+export async function authGoogleLogin() {
+  window.location.href = BASE_URL + googleLoginEndpoint;
+}
+export async function authFacebookLogin() {
+  window.location.href = BASE_URL + facebookLoginEndpoint;
 }
 export async function authFetchUser() {}
 export async function authUpdateUser() {}

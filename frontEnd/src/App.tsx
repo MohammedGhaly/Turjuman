@@ -1,4 +1,10 @@
-import { HashRouter, Navigate, Route, Routes } from "react-router";
+import {
+  BrowserRouter,
+  HashRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/LoginPage";
@@ -16,7 +22,7 @@ import AuthenticationProvider from "./contexts/AuthProvider";
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AuthenticationProvider>
         <ThemeProvider>
           <TranslationPageProvider>
@@ -39,7 +45,7 @@ function App() {
           </TranslationPageProvider>
         </ThemeProvider>
       </AuthenticationProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
