@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import AuthView from "../components/Auth/AuthView";
 import HomeLogo from "../components/HomeLogo";
 
@@ -10,6 +11,7 @@ function LoginPage() {
       <div className="flex items-center justify-center flex-1">
         <AuthView isLogin={true} />
       </div>
+      <Toaster />
     </div>
   );
 }

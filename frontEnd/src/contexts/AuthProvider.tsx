@@ -10,6 +10,7 @@ import {
 } from "../services/authClient";
 import { homepageRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface AuthProviderProps {
   children: React.JSX.Element;
@@ -21,6 +22,7 @@ export default function AuthenticationProvider({
   const [{ user, isAuthenticated, error, fetchingToken, isLoading }, dispatch] =
     useReducer(reducer, authInitialState);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // useEffect(function () {
   //   async function handleTokenLogin() {
@@ -51,6 +53,15 @@ export default function AuthenticationProvider({
   async function login(email: string, password: string) {
     dispatch({ type: "LOADING", payload: true });
     try {
+      if (!email || !password) {
+        toast({
+          title: "Error",
+          description: "please fill in all fields",
+          variant: "destructive",
+        });
+        dispatch({ type: "LOADING", payload: false });
+        return;
+      }
       const fetchedUser = await authLogin(email, password);
       console.log("fetchedUser: ", fetchedUser);
       dispatch({
@@ -64,6 +75,10 @@ export default function AuthenticationProvider({
       if (err instanceof Error) {
         console.log(err.message);
         dispatch({ type: "LOADING", payload: false });
+        toast({
+          title: "Error",
+          description: "An error has occurred while logging in",
+        });
       }
     }
   }
@@ -102,7 +117,13 @@ export default function AuthenticationProvider({
       const res = await authLogout();
       if (res) {
         dispatch({ type: "LOGOUT" });
+        // clear cookie
+        document.cookie = "jwt=; Max-Age=0; path=/;";
         navigate("login");
+        toast({
+          title: "Scheduled: Catch up",
+          description: "Logged out successfully",
+        });
       }
     } catch (err) {
       if (err instanceof Error) {
