@@ -4,7 +4,7 @@ interface Props {
 
 function WordList({ words }: Props) {
   return (
-    <div className="flex gap-2 flex-wrap justify-between">
+    <div className="flex gap-2 flex-wrap ">
       {words.map((w) => (
         <span
           key={w}

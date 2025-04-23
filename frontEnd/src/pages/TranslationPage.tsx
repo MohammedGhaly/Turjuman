@@ -83,14 +83,16 @@ function TranslationPage() {
         ></textarea>
       </div>
       {/* word page button */}
-      <div className="w-full flex justify-center">
-        <button
-          onClick={() => navigate("/app/word")}
-          className="w-fit flex gap-1 font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl text-center px-4 hover:shadow-md transition-all duration-300"
-        >
-          word page <ArrowRight />
-        </button>
-      </div>
+      {text.trim().split(" ").length === 1 && (
+        <div className="w-full flex justify-center">
+          <button
+            onClick={() => navigate("/app/word")}
+            className="w-fit flex gap-1 font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl text-center px-4 hover:shadow-md transition-all duration-300"
+          >
+            word page <ArrowRight />
+          </button>
+        </div>
+      )}
       {/* text input options div */}
       <div className="w-full">
         <div className="flex gap-6 items-center justify-center md:gap-20">
