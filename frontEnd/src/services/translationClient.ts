@@ -18,7 +18,7 @@ export async function translateWord(
       "Content-Type": "application/json",
     },
   });
-  if (response.data.status !== "success") {
+  if (!response.data.success) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
   const data = response.data.data;
