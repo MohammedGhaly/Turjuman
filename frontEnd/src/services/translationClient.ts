@@ -10,7 +10,7 @@ export async function translateWord(
   targetLang: string,
   signal: AbortSignal
 ) {
-  const body = { word, paragraph, srcLang, targetLang, isFavorite: false };
+  const body = { word, paragraph, srcLang, targetLang, isFavorite: true };
   const response = await api_client.post(translationEndpoint, body, {
     withCredentials: true,
     signal: signal,
