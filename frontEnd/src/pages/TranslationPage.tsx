@@ -9,12 +9,12 @@ import { useNavigate } from "react-router";
 
 function TranslationPage() {
   const {
-    toLang,
-    fromLang,
+    targetLang,
+    srcLang,
     text,
     setText,
-    setFromLang,
-    setToLang,
+    setSrcLang,
+    setTargetLang,
     swapLangs,
     translation,
   } = useTranslationPage();
@@ -29,9 +29,9 @@ function TranslationPage() {
         <select
           name="fromLang"
           id="fromLang"
-          value={fromLang}
+          value={srcLang}
           onChange={(e) => {
-            setFromLang?.(e.target.value as SupportedLanguageEnum);
+            setSrcLang?.(e.target.value as SupportedLanguageEnum);
           }}
           className="appearance-none font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl flex-1 flex items-center text-center gap-2 md:flex-grow-0 md:px-4 cursor-pointer hover:shadow-md transition-all duration-200"
         >
@@ -50,9 +50,9 @@ function TranslationPage() {
         <select
           name="toLang"
           id="toLang"
-          value={toLang}
+          value={targetLang}
           onChange={(e) => {
-            setToLang?.(e.target.value as SupportedLanguageEnum);
+            setTargetLang?.(e.target.value as SupportedLanguageEnum);
           }}
           className="appearance-none font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl flex-1 flex items-center text-center gap-2 md:flex-grow-0 md:px-4 cursor-pointer hover:shadow-md transition-all duration-200"
         >

@@ -56,7 +56,7 @@ function WordPage() {
   const {
     translation: {
       translation,
-      word,
+      original,
       definition,
       examples,
       synonymsSource,
@@ -69,7 +69,7 @@ function WordPage() {
       <div className="flex flex-col gap-4 flex-1">
         {/* word div */}
         <div className="rounded-xl px-6 py-5 font-bold text-3xl flex justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
-          <div>{capitalize(word)}</div>
+          <div>{capitalize(original)}</div>
           <div className="flex justify-between gap-3 w-fit ">
             <button>
               <Volume1 strokeWidth="1.5px" />
