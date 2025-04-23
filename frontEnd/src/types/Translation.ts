@@ -1,5 +1,5 @@
 export interface TranslationResponse {
-  word: string;
+  original: string;
   translation: string;
   synonymsTarget?: string[];
   synonymsSource?: string[];
