@@ -1,6 +1,7 @@
 import { useTheme } from "@/contexts/ThemeProvider";
 import AuthView from "../components/Auth/AuthView";
 import HomeLogo from "../components/HomeLogo";
+import { Toaster } from "@/components/ui/toaster";
 
 function SignupPage() {
   const { theme } = useTheme();
@@ -14,6 +15,7 @@ function SignupPage() {
       <div className="flex items-center justify-center flex-1">
         <AuthView isLogin={false} />
       </div>
+      <Toaster />
     </div>
   );
 }

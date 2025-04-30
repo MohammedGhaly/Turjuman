@@ -49,6 +49,7 @@
   --user-img-bg: #c8ced8;
   --destructive-toast: #ec4141fa;
   --auth-spinner: #ffffff;
+  --success-toast: #0faf0f;
 }
 
 .dark {
@@ -81,6 +82,7 @@
   --shaded-text: #bdbdbd;
   --user-img-bg: #27262b;
   --destructive-toast: #962d2dfa;
+  --success-toast: #208120;
   --auth-spinner: #000000;
 }
 

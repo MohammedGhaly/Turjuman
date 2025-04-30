@@ -57,6 +57,7 @@ export default function AuthenticationProvider({
             variant: "destructive",
           });
         }
+        return;
       } else if (err instanceof Error) {
         console.log("err.message=>  ", err.message);
         dispatch({ type: "LOADING", payload: false });
@@ -161,6 +162,7 @@ export default function AuthenticationProvider({
         navigate("login");
         toast({
           title: "Logged out successfully",
+          variant: "success",
         });
       }
     } catch (err) {
