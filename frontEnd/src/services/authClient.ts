@@ -16,7 +16,8 @@ export async function authLogin(email: string, password: string) {
     },
   });
   if (response.data.status !== "success") {
-    throw new Error(`HTTP error! Status: ${response.status}`);
+    if (response.data.err.statusCode === 401) throw new Error("Unauthorized");
+    else throw new Error(response.data.message);
   }
   return response.data.data.user as User;
 }

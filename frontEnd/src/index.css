@@ -21,6 +21,7 @@
   --sds-size-depth-1200: 48px;
 
   --background: white;
+  --background2: white;
   --foreground: black;
 
   --input-border: #cbd5e1;
@@ -46,11 +47,13 @@
   --outer-boxes-bg: #f1f5f9;
   --shaded-text: #7f7f7f;
   --user-img-bg: #c8ced8;
-  --destructive-toast: #ff000020;
+  --destructive-toast: #ec4141fa;
+  --auth-spinner: #ffffff;
 }
 
 .dark {
   --background: #0f0f0f;
+  --background2: #080808;
   --foreground: white;
 
   --nav-bg: #000000;
@@ -62,11 +65,11 @@
   --forgot-pw: #64748b;
   --input-background: #27262b;
   --searchbar-background: #080808;
-  --login-button-background: #0f172a;
-  --login-button-background-hover: #162036;
-  --login-button-foreground: white;
-  --auth-options-facebook-bg: #e0e7ff;
-  --auth-options-google-bg: #fff4f4;
+  --login-button-background: #c9cfdf;
+  --login-button-background-hover: #aab4ca;
+  --login-button-foreground: black;
+  --auth-options-facebook-bg: #1d38913d;
+  --auth-options-google-bg: #a05e122d;
   --switch-on: #3596dd;
   --switch-off: #000;
   --switch-thumb-on: white;
@@ -77,6 +80,8 @@
   --outer-boxes-bg: #080808;
   --shaded-text: #bdbdbd;
   --user-img-bg: #27262b;
+  --destructive-toast: #962d2dfa;
+  --auth-spinner: #000000;
 }
 
 .auth-view-shadow {

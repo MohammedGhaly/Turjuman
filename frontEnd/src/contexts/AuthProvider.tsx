@@ -24,32 +24,6 @@ export default function AuthenticationProvider({
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // useEffect(function () {
-  //   async function handleTokenLogin() {
-  //     dispatch({ type: "START_FETCHING_TOKEN" });
-  //     const token =
-  //       localStorage.getItem("token") ||
-  //       document.cookie
-  //         .split("; ")
-  //         .find((row) => row.startsWith("token="))
-  //         ?.split("=")[1];
-
-  //     if (token && !isTokenExpired(token)) {
-  //       const { id } = jwtDecode(token) as JwtPayload;
-  //       const fetchedUser: User = await fetchUser(id);
-  //       dispatch({
-  //         type: "LOAD_USER",
-  //         payload: { user: fetchedUser, token },
-  //       });
-  //     } else {
-  //       localStorage.removeItem("token");
-  //     }
-
-  //     dispatch({ type: "DONE_FETCHING_TOKEN" });
-  //   }
-  //   handleTokenLogin();
-  // }, []);
-
   async function login(email: string, password: string) {
     dispatch({ type: "LOADING", payload: true });
     try {
@@ -63,7 +37,6 @@ export default function AuthenticationProvider({
         return;
       }
       const fetchedUser = await authLogin(email, password);
-      console.log("fetchedUser: ", fetchedUser);
       dispatch({
         type: "LOGIN",
         payload: {
@@ -73,12 +46,27 @@ export default function AuthenticationProvider({
       navigate(homepageRoute);
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err.message);
         dispatch({ type: "LOADING", payload: false });
-        toast({
-          title: "Error",
-          description: "An error has occurred while logging in",
-        });
+        if (err.message === "Network Error") {
+          toast({
+            title: "Error",
+            description:
+              "An error has occurred while logging in, check your network connection",
+            variant: "destructive",
+          });
+        } else if (err.message === "Unauthorized") {
+          toast({
+            title: "Error",
+            description: "Invalid email or password",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: "An unexpected error has occurred",
+            variant: "destructive",
+          });
+        }
       }
     }
   }
@@ -121,8 +109,7 @@ export default function AuthenticationProvider({
         document.cookie = "jwt=; Max-Age=0; path=/;";
         navigate("login");
         toast({
-          title: "Scheduled: Catch up",
-          description: "Logged out successfully",
+          title: "Logged out successfully",
         });
       }
     } catch (err) {
@@ -154,7 +141,6 @@ export default function AuthenticationProvider({
     }
   }
 
-  // async function fetchUser(id: string) {}
   async function updateUser() {}
 
   return (

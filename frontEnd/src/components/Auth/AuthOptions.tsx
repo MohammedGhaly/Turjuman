@@ -4,8 +4,8 @@ function AuthOptions() {
   const { facebookLogin, googleLogin } = useAuth();
 
   return (
-    <div className="flex flex-col justify-center items-center w-full gap-2">
-      <h4 className="text-xl lg:text-lg font-semibold">or login with</h4>
+    <div className="flex flex-col justify-center items-center w-full gap-2 text-[var(--foreground)]">
+      <h4 className="text-xl lg:text-lg font-semibold">or continue with</h4>
       <div className="flex justify-center w-full gap-12">
         {/* face book button */}
         <button

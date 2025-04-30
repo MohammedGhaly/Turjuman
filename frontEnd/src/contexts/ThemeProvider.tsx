@@ -17,7 +17,9 @@ const initialState: ThemeContextType = {
 const ThemeContext = createContext(initialState);
 
 function ThemeProvider({ children }: Props) {
-  const [theme, setTheme] = useState("light");
+  const storedTheme = localStorage.getItem("turjuman-theme");
+  console.log(storedTheme);
+  const [theme, setTheme] = useState(storedTheme || "light");
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}

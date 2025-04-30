@@ -1,16 +1,21 @@
 import { useTheme } from "../../contexts/ThemeProvider";
 
-function LogoSvg() {
+interface Props {
+  className: string;
+}
+
+function LogoSvg({ className }: Props) {
   const { theme } = useTheme();
   return (
     <svg
       style={{ transition: "all", transitionDuration: "800ms" }}
       width="71"
-      height="66"
-      viewBox="0 0 71 66"
+      height={71}
+      viewBox={`0 0 71 71`}
       fill={theme === "light" ? "black" : "white"}
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[60px] md:w-24 lg:w-[40px]"
+      // className="w-[60px] md:w-24 lg:w-[40px]"
+      className={className}
     >
       <path
         fillRule="evenodd"

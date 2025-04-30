@@ -80,8 +80,13 @@ function ProfilePage() {
               <Switch
                 checked={theme === "dark"}
                 onCheckedChange={() => {
-                  if (theme === "dark") setTheme("light");
-                  else setTheme("dark");
+                  if (theme === "dark") {
+                    localStorage.setItem("turjuman-theme", "light");
+                    setTheme("light");
+                  } else {
+                    localStorage.setItem("turjuman-theme", "dark");
+                    setTheme("dark");
+                  }
                 }}
               />
             </div>
