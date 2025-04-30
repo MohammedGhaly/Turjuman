@@ -11,6 +11,7 @@ import {
 import { homepageRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { AxiosError } from "axios";
 
 interface AuthProviderProps {
   children: React.JSX.Element;
@@ -45,7 +46,18 @@ export default function AuthenticationProvider({
       });
       navigate(homepageRoute);
     } catch (err) {
-      if (err instanceof Error) {
+      if (err instanceof AxiosError) {
+        console.log("err.response=>  ", err.response);
+
+        dispatch({ type: "LOADING", payload: false });
+        if (err.response?.data.message === "Invalid email or password") {
+          toast({
+            title: "Error",
+            description: "Invalid email or password",
+            variant: "destructive",
+          });
+        }
+      } else if (err instanceof Error) {
         console.log("err.message=>  ", err.message);
         dispatch({ type: "LOADING", payload: false });
         if (err.message === "Network Error") {
@@ -55,7 +67,7 @@ export default function AuthenticationProvider({
               "An error has occurred while logging in, check your network connection",
             variant: "destructive",
           });
-        } else if (err.message === "Unauthorized") {
+        } else if (err.message === "Request failed with status code 401") {
           toast({
             title: "Error",
             description: "Invalid email or password",
@@ -78,6 +90,15 @@ export default function AuthenticationProvider({
     passwordConfirm: string
   ) {
     dispatch({ type: "LOADING", payload: true });
+    if (password !== passwordConfirm) {
+      toast({
+        title: "Error",
+        description: "passwords don't match",
+        variant: "destructive",
+      });
+      dispatch({ type: "LOADING", payload: false });
+      return;
+    }
     try {
       const fetchedUser = await authRegister(
         name,
@@ -94,6 +115,35 @@ export default function AuthenticationProvider({
       });
       navigate(homepageRoute);
     } catch (err) {
+      if (err instanceof AxiosError) {
+        dispatch({ type: "LOADING", payload: false });
+        console.log("err=>  ", err);
+        if (
+          err.response?.data.message.startsWith(
+            "E11000 duplicate key error collection: Turjuman.users index: name"
+          )
+        ) {
+          toast({
+            title: "Error",
+            description: "this username is already used",
+            variant: "destructive",
+          });
+          dispatch({ type: "LOADING", payload: false });
+          return;
+        } else if (
+          err.response?.data.message.startsWith(
+            "E11000 duplicate key error collection: Turjuman.users index: email"
+          )
+        ) {
+          toast({
+            title: "Error",
+            description: "this email is already used",
+            variant: "destructive",
+          });
+          dispatch({ type: "LOADING", payload: false });
+          return;
+        }
+      }
       if (err instanceof Error) {
         console.log(err.message);
         dispatch({ type: "LOADING", payload: false });
