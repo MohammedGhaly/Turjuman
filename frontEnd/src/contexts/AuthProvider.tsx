@@ -46,6 +46,7 @@ export default function AuthenticationProvider({
       navigate(homepageRoute);
     } catch (err) {
       if (err instanceof Error) {
+        console.log("err.message=>  ", err.message);
         dispatch({ type: "LOADING", payload: false });
         if (err.message === "Network Error") {
           toast({
