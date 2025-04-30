@@ -18,7 +18,7 @@ function Navbar({ children }: Props) {
           src={theme === "light" ? logo : logoWhite}
           alt="turjuman logo"
         /> */}
-        <LogoSvg />
+        <LogoSvg className="" />
         <AppName fontSize="sm" />
       </div>
       {/* nav items div*/}

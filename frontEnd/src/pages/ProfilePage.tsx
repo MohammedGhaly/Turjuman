@@ -99,7 +99,11 @@ function ProfilePage() {
             onClick={logout}
             className="bg-red-600 bg-opacity-25 mt-2 rounded-lg w-full text-foreground flex justify-center hover:bg-opacity-30 duration-200 transition-colors text-lg p-2 font-semibold"
           >
-            {isLoading ? <Spinner size={7} /> : "Logout"}
+            {isLoading ? (
+              <Spinner size={7} color="var(--background)" />
+            ) : (
+              "Logout"
+            )}
           </button>
         </div>
       </div>
