@@ -48,6 +48,10 @@ type FROM_LANG_CHANGED = {
   type: "FROM_LANG_CHANGED";
   payload: SupportedLanguageEnum;
 };
+type LOADING = {
+  type: "LOADING";
+  payload: boolean;
+};
 type TO_LANG_CHANGED = {
   type: "TO_LANG_CHANGED";
   payload: SupportedLanguageEnum;
@@ -66,6 +70,7 @@ type ReducerAction =
   | FROM_LANG_CHANGED
   | TO_LANG_CHANGED
   | CLEAR_TRANSLATION
+  | LOADING
   | SET_TRANSLATION;
 
 const TranslationPageContext =
@@ -103,7 +108,9 @@ function reducer(
     case "CLEAR_TRANSLATION":
       return { ...state, translation: translationInitialState };
     case "SET_TRANSLATION":
-      return { ...state, translation: action.payload };
+      return { ...state, translation: action.payload, isLoading: false };
+    case "LOADING":
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }
@@ -126,16 +133,7 @@ function TranslationPageProvider({ children }: Props) {
 
     const delayDebounce = setTimeout(async () => {
       try {
-        // const response = await fetch(`${BASE_URL}`, {
-        //   method: "POST",
-        //   signal,
-        // });
-
-        // if (!response.ok) throw new Error("Failed to fetch translation");
-
-        // const data = await response.json();
-        // console.log("data=> ", data);
-        // if (data.success) {
+        dispatch({ type: "LOADING", payload: true });
         const data: TranslationResponse = await translateWord(
           text,
           text,
@@ -147,8 +145,8 @@ function TranslationPageProvider({ children }: Props) {
           type: "SET_TRANSLATION",
           payload: data,
         });
-        // }
       } catch (error: unknown) {
+        dispatch({ type: "LOADING", payload: false });
         if (error instanceof Error && error.name === "AbortError") {
           console.log("Request aborted due to new input");
         } else {
