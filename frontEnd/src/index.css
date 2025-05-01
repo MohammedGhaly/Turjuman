@@ -49,7 +49,8 @@
   --user-img-bg: #c8ced8;
   --destructive-toast: #ec4141fa;
   --auth-spinner: #ffffff;
-  --success-toast: #0faf0f;
+  --success-toast: #24c024;
+  --success-toast-text: white;
 }
 
 .dark {
@@ -82,7 +83,8 @@
   --shaded-text: #bdbdbd;
   --user-img-bg: #27262b;
   --destructive-toast: #962d2dfa;
-  --success-toast: #208120;
+  --success-toast: #2c9c2c;
+  --success-toast-text: black;
   --auth-spinner: #000000;
 }
 
@@ -161,5 +163,22 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.gradient-border {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+
+  position: relative;
+  background: linear-gradient(60deg, #5f86f2, #d55ff2, #f25f97, #fd4e4e);
+  animation: moveGradient 2s alternate infinite;
+  background-size: 300% 300%;
+  background-position: 0 50%;
+}
+
+@keyframes moveGradient {
+  50% {
+    background-position: 100% 50%;
   }
 }

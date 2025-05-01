@@ -1,9 +1,9 @@
 interface Props {
-  fontSize: string;
+  cn: string;
 }
 
-function AppName({ fontSize }: Props) {
-  return <span className={`${fontSize} font-aboreto`}>Turjuman</span>;
+function AppName({ cn }: Props) {
+  return <span className={`${cn} font-aboreto`}>Turjuman</span>;
 }
 
 export default AppName;

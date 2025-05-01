@@ -30,8 +30,7 @@ export default function AuthenticationProvider({
     try {
       if (!email || !password) {
         toast({
-          title: "Error",
-          description: "please fill in all fields",
+          title: "please fill all fields in",
           variant: "destructive",
         });
         dispatch({ type: "LOADING", payload: false });
@@ -52,8 +51,7 @@ export default function AuthenticationProvider({
         dispatch({ type: "LOADING", payload: false });
         if (err.response?.data.message === "Invalid email or password") {
           toast({
-            title: "Error",
-            description: "Invalid email or password",
+            title: "Invalid email or password",
             variant: "destructive",
           });
         }
@@ -63,21 +61,18 @@ export default function AuthenticationProvider({
         dispatch({ type: "LOADING", payload: false });
         if (err.message === "Network Error") {
           toast({
-            title: "Error",
-            description:
+            title:
               "An error has occurred while logging in, check your network connection",
             variant: "destructive",
           });
         } else if (err.message === "Request failed with status code 401") {
           toast({
-            title: "Error",
-            description: "Invalid email or password",
+            title: "Invalid email or password",
             variant: "destructive",
           });
         } else {
           toast({
-            title: "Error",
-            description: "An unexpected error has occurred",
+            title: "An unexpected error has occurred",
             variant: "destructive",
           });
         }
@@ -93,8 +88,7 @@ export default function AuthenticationProvider({
     dispatch({ type: "LOADING", payload: true });
     if (password !== passwordConfirm) {
       toast({
-        title: "Error",
-        description: "passwords don't match",
+        title: "Passwords don't match",
         variant: "destructive",
       });
       dispatch({ type: "LOADING", payload: false });
@@ -125,8 +119,7 @@ export default function AuthenticationProvider({
           )
         ) {
           toast({
-            title: "Error",
-            description: "this username is already used",
+            title: "This username is already used, choose another",
             variant: "destructive",
           });
           dispatch({ type: "LOADING", payload: false });
@@ -137,8 +130,7 @@ export default function AuthenticationProvider({
           )
         ) {
           toast({
-            title: "Error",
-            description: "this email is already used",
+            description: "This email has already signed up before",
             variant: "destructive",
           });
           dispatch({ type: "LOADING", payload: false });

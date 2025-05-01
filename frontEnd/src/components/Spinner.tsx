@@ -1,5 +1,5 @@
 interface Props {
-  size: number;
+  size: string;
   color: string;
 }
 
@@ -7,7 +7,7 @@ function Spinner({ size, color }: Props) {
   return (
     <div
       style={{ borderColor: color, borderTopColor: "transparent" }}
-      className={`w-${size} h-${size} border-4 border-t-transparent rounded-full animate-spin`}
+      className={`w-${size} h-${size} border-4 rounded-full animate-spin`}
     ></div>
   );
 }

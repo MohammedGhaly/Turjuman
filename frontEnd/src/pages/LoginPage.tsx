@@ -7,7 +7,9 @@ function LoginPage() {
   const { theme } = useTheme();
   return (
     <>
-      <div className="p-4 lg:px-4 lg:py-0 hidden lg:inline-block md:absolute md:left-2">
+      <div
+        className={`p-4 lg:px-4 lg:py-0 hidden lg:inline-block md:absolute md:left-2 ${theme}`}
+      >
         <HomeLogo />
       </div>
       <div

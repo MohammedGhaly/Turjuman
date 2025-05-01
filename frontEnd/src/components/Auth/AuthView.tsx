@@ -19,10 +19,7 @@ function AuthView({ isLogin }: Props) {
           className={"w-[60px] md:w-24 lg:w-[60px]"}
         />
         <div className="md:hidden">
-          <AppName
-            key={2}
-            fontSize="text-xl md: text-2xl text-[var(--foreground)]"
-          />
+          <AppName key={2} cn="text-xl md: text-2xl text-[var(--foreground)]" />
         </div>
       </div>
       <div className="w-full text-[var(--foreground)]">

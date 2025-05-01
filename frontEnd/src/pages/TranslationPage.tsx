@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowRightLeft, File, Image, Mic } from "lucide-react";
+
 import {
   SupportedLanguageEnum,
   supportedLanguages,
@@ -6,6 +7,8 @@ import {
 import getLangEmoji from "../utils/getLangEmoji";
 import { useTranslationPage } from "../contexts/TranslationProvider";
 import { useNavigate } from "react-router";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 function TranslationPage() {
   const {
@@ -17,13 +20,25 @@ function TranslationPage() {
     setTargetLang,
     swapLangs,
     translation,
+    isLoading,
   } = useTranslationPage();
   const navigate = useNavigate();
-  // const { translation } = useTranslationPage();
-  // const [isWordView, setIsWordView] = useState<boolean>(false);
+  const { toast } = useToast();
+
+  const copyToClipboard = async () => {
+    if (translation) {
+      try {
+        await navigator.clipboard.writeText(translation.translation);
+        toast({ title: "copied successfully", variant: "success" });
+      } catch {
+        toast({ title: "Failed to copy", variant: "destructive" });
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col border-t border-t-[var(--box-border)] px-1 py-8 gap-6 md:gap-10 overflow-y-auto">
+      <Toaster />
       {/* language selection div */}
       <div className="flex flex-row justify-between items-center gap-4">
         <select
@@ -33,7 +48,7 @@ function TranslationPage() {
           onChange={(e) => {
             setSrcLang?.(e.target.value as SupportedLanguageEnum);
           }}
-          className="appearance-none font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl flex-1 flex items-center text-center gap-2 md:flex-grow-0 md:px-4 cursor-pointer hover:shadow-md transition-all duration-200"
+          className="appearance-none font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl flex-1 flex  text-center gap-2 md:flex-grow-0 md:px-4 cursor-pointer hover:shadow-md transition-all duration-200"
         >
           {supportedLanguages.map((l) => (
             <option key={l + " from"} value={l}>
@@ -65,25 +80,40 @@ function TranslationPage() {
       </div>
       {/* text areas div */}
       <div className="flex flex-col gap-8 md:flex-row ">
-        <textarea
-          name="text"
-          id="text"
-          className="resize-none w-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 min-h-[20vh] md:min-h-[25vh]"
-          placeholder="type here..."
-          value={text}
-          onChange={(e) => setText?.(e.target.value)}
-        ></textarea>
-        <textarea
-          name="translation"
-          id="translation"
-          value={translation?.translation || ""}
-          readOnly
-          className="resize-none w-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 min-h-[20vh] md:min-h-[25vh]"
-          placeholder="translation goes here..."
-        ></textarea>
+        <div className="w-full flex-1 min-h-[20vh] md:min-h-[25vh]">
+          <textarea
+            name="text"
+            id="text"
+            className="resize-none w-full h-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 min-h-[20vh] md:min-h-[25vh]"
+            placeholder="type here..."
+            value={text}
+            onChange={(e) => setText?.(e.target.value)}
+          ></textarea>
+        </div>
+        <div
+          className={`min-h-[20vh] md:min-h-[25vh] w-full flex-1 rounded-lg p-[2px]  ${
+            isLoading ? "gradient-border" : ""
+          }`}
+        >
+          <textarea
+            name="translation"
+            id="translation"
+            value={
+              isLoading && translation.translation
+                ? translation.translation + "..."
+                : isLoading && !translation.translation
+                ? "..."
+                : translation?.translation || ""
+            }
+            readOnly
+            className={`resize-none w-full bg-[var(--input-background)] font-semibold p-3 h-full border border-[var(--box-border)] rounded-lg outline-none cursor-pointer`}
+            placeholder="translation goes here..."
+            onDoubleClick={copyToClipboard}
+          ></textarea>
+        </div>
       </div>
       {/* word page button */}
-      {text.trim().split(" ").length === 1 && (
+      {text.trim() && text.trim().split(" ").length === 1 && (
         <div className="w-full flex justify-center">
           <button
             onClick={() => navigate("/app/word")}
