@@ -1,13 +1,13 @@
 interface Props {
-  size: string;
+  cn: string;
   color: string;
 }
 
-function Spinner({ size, color }: Props) {
+function Spinner({ cn, color }: Props) {
   return (
     <div
       style={{ borderColor: color, borderTopColor: "transparent" }}
-      className={`w-${size} h-${size} border-4 rounded-full animate-spin`}
+      className={cn}
     ></div>
   );
 }

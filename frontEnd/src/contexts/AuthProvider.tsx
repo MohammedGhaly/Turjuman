@@ -46,12 +46,16 @@ export default function AuthenticationProvider({
       navigate(homepageRoute);
     } catch (err) {
       if (err instanceof AxiosError) {
-        console.log("err.response=>  ", err.response);
-
         dispatch({ type: "LOADING", payload: false });
         if (err.response?.data.message === "Invalid email or password") {
           toast({
             title: "Invalid email or password",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title:
+              "An error has occurred while logging in, check your network connection",
             variant: "destructive",
           });
         }
@@ -86,6 +90,14 @@ export default function AuthenticationProvider({
     passwordConfirm: string
   ) {
     dispatch({ type: "LOADING", payload: true });
+    if (!password || !passwordConfirm || !name || !email) {
+      toast({
+        title: "Please fill all fields in",
+        variant: "destructive",
+      });
+      dispatch({ type: "LOADING", payload: false });
+      return;
+    }
     if (password !== passwordConfirm) {
       toast({
         title: "Passwords don't match",
@@ -130,7 +142,7 @@ export default function AuthenticationProvider({
           )
         ) {
           toast({
-            description: "This email has already signed up before",
+            title: "This email has already signed up before",
             variant: "destructive",
           });
           dispatch({ type: "LOADING", payload: false });
@@ -139,6 +151,10 @@ export default function AuthenticationProvider({
       }
       if (err instanceof Error) {
         console.log(err.message);
+        toast({
+          title: "An unexpected error has occurred",
+          variant: "destructive",
+        });
         dispatch({ type: "LOADING", payload: false });
       }
     }
