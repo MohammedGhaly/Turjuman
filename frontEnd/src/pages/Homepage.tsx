@@ -12,6 +12,7 @@ function Homepage() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["homeTranslations"],
     queryFn: getHomeTranslations,
+    staleTime: 15000,
   });
   console.log("react query error=> ", error);
 
