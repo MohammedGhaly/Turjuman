@@ -1,8 +1,8 @@
-import { Bookmark, Volume2, Youtube } from "lucide-react";
-import WordList from "./WordList";
-import { useTheme } from "../../contexts/ThemeProvider";
+import { useTranslationPage } from "@/contexts/TranslationProvider";
+import capitalize from "../../utils/capitalize";
+import WordList from "../../components/Wordlist";
 
-const aiIcon = (
+const aiicon = (
   <svg
     width="27"
     height="28"
@@ -51,41 +51,27 @@ const aiIcon = (
   </svg>
 );
 
-interface Props {
-  original: string;
-  translation: string;
-  synonymsTarget?: string[];
-}
-
-function WordTranslationItem({ original, translation, synonymsTarget }: Props) {
-  const { theme } = useTheme();
+function TranslationCard() {
+  const {
+    translation: { translation, synonymsSource, synonymsTarget },
+  } = useTranslationPage();
   return (
-    <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] border border-[--box-border] rounded-xl">
-      <div className="flex items-center justify-between">
-        {/* left */}
-        <div className="flex gap-4 items-center">
-          <span className="text-4xl font-semibold capitalize">{original}</span>
-          <Volume2 />
-          <div className="text-white bg-[var(--word-tile)] h-6 w-10 rounded-full border border-[var(--box-border)]">
-            <Youtube
-              className="mx-auto"
-              color={theme === "light" ? "black" : "white"}
-              size={22}
-            />
-          </div>
+    <div className="rounded-xl px-4 pt-5 pb-3 font-bold text-xl md:text-3xl flex flex-col gap-2 justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
+      <div className="flex justify-between w-full mb-1 md:mb-4">
+        <div>Translation</div>
+        <div className=" flex gap-2 items-center justify-between">
+          <span>{capitalize(translation)}</span>
+          <span>{aiicon}</span>
         </div>
-        {/* right */}
-        <Bookmark />
       </div>
-      <div className="flex justify-end gap-4 items-center text-2xl">
-        <span className="font-bold">{translation}</span>
-        <span>{aiIcon}</span>
-      </div>
-      <div className="my-2">
-        <WordList words={synonymsTarget} />
-      </div>
+
+      <WordList words={synonymsTarget || []} />
+      <span className="text-sm text-[var(--shaded-text)] md:text-base">
+        synonyms
+      </span>
+      <WordList words={synonymsSource || []} />
     </div>
   );
 }
 
-export default WordTranslationItem;
+export default TranslationCard;

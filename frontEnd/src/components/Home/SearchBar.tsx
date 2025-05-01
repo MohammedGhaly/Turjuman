@@ -9,7 +9,7 @@ function SearchBar() {
         className="bg-[var(--searchbar-background)] rounded-md w-full p-[6px] px-3 border border-[var(--input-border)]"
       ></input>
       <div className="absolute inline-block right-2 top-[50%] translate-y-[-50%]">
-        <Search color="black" />
+        <Search color="var(--foreground)" />
       </div>
     </div>
   );

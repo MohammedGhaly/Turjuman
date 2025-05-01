@@ -1,5 +1,5 @@
 import SearchBar from "../components/Home/SearchBar";
-import WordTranslationItem from "../components/Home/WordTranslationItem";
+// import WordTranslationItem from "../components/Home/WordTranslationItem";
 
 function SavedPage() {
   return (
@@ -7,12 +7,11 @@ function SavedPage() {
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
       </div>
-      {/* <hr className="mx-3" /> */}
       <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4 my-4 px-4">
+        {/* <WordTranslationItem />
         <WordTranslationItem />
         <WordTranslationItem />
-        <WordTranslationItem />
-        <WordTranslationItem />
+        <WordTranslationItem /> */}
       </div>
     </div>
   );

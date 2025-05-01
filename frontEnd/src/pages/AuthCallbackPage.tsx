@@ -10,13 +10,9 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     console.log(token);
     if (token) {
-      // Save the token manually to a
       document.cookie = `jwt=${token}; path=/; secure; samesite=None`;
-
-      //   Optional: call backend with this token to verify/store it
       navigate("/app/homepage");
     } else {
-      // handle failure
       navigate("/login");
     }
   }, [navigate, token]);

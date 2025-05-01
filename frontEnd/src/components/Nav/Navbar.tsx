@@ -6,7 +6,6 @@ interface Props {
   children: React.ReactNode;
 }
 function Navbar({ children }: Props) {
-  // const { theme } = useTheme();
   return (
     <nav className="border border-[var(--box-border)] navbar bg-[var(--nav-bg)] lg:w-1/4">
       <div className="px-12 py-[0.3rem] lg:flex gap-2 items-center hidden border-b border-[var(--box-border)]">

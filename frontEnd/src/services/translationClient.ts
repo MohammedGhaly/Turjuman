@@ -1,7 +1,11 @@
-import { TranslationResponse } from "@/types/Translation";
+import {
+  AllTransBackResponse,
+  TranslationResponse,
+} from "@/types/TranslationResponse";
 import api_client from "./api_client";
 
 const translationEndpoint = "api/v1/translate";
+const homeTranslationsEndpoint = "api/v1/translates";
 
 export async function translateWord(
   word: string,
@@ -10,7 +14,7 @@ export async function translateWord(
   targetLang: string,
   signal: AbortSignal
 ) {
-  const body = { word, paragraph, srcLang, targetLang, isFavorite: true };
+  const body = { word, paragraph, srcLang, targetLang, isFavorite: false };
   const response = await api_client.post(translationEndpoint, body, {
     withCredentials: true,
     signal: signal,
@@ -23,6 +27,7 @@ export async function translateWord(
   }
   const data = response.data.data;
   const res: TranslationResponse = {
+    id: data.savedTranslation._id,
     original: data.original,
     translation: data.translation,
     definition: data.definition,
@@ -30,5 +35,31 @@ export async function translateWord(
     synonymsSource: data.synonyms_src,
     synonymsTarget: data.synonyms_target,
   };
+  return res;
+}
+
+export async function getHomeTranslations() {
+  const response = await api_client.get(homeTranslationsEndpoint, {
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.status !== 200) throw Error("request failed");
+
+  const data = response.data.data;
+  const res: Array<TranslationResponse> = data.map(
+    (item: AllTransBackResponse) => ({
+      id: item.id,
+      original: data.original,
+      translation: data.translation,
+      definition: data.definition,
+      examples: data.examples,
+      synonymsSource: data.synonyms_src,
+      synonymsTarget: data.synonyms_target,
+    })
+  );
+
   return res;
 }

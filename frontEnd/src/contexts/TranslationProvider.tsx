@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { SupportedLanguageEnum } from "../types/SupportedLanguages";
-import { TranslationResponse } from "../types/Translation";
+import { TranslationResponse } from "../types/TranslationResponse";
 import { translateWord } from "@/services/translationClient";
 
-// const URL = "http://localhost:9000/";
 interface Props {
   children: React.JSX.Element;
 }
@@ -22,6 +21,7 @@ interface TranslationPageState {
 }
 
 const translationInitialState = {
+  id: "",
   translation: "",
   original: "",
   definition: "",
@@ -124,7 +124,7 @@ function TranslationPageProvider({ children }: Props) {
 
   useEffect(() => {
     if (!text.trim()) {
-      dispatch({ type: "CLEAR_TRANSLATION" }); // Reset translation if input is empty
+      dispatch({ type: "CLEAR_TRANSLATION" });
       return;
     }
 
