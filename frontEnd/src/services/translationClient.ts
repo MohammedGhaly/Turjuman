@@ -26,7 +26,7 @@ export async function translateWord(
   }
   const data = response.data.data;
   const res: TranslationResponse = {
-    id: data.savedTranslation._id,
+    id: data.id,
     original: data.original,
     translation: data.translation,
     definition: data.definition,
