@@ -49,17 +49,19 @@ export async function getHomeTranslations() {
   if (response.status !== 200) throw Error("request failed");
 
   const data = response.data.data;
+  console.log("data=> ", data);
   const res: Array<TranslationResponse> = data.map(
     (item: AllTransBackResponse) => ({
       id: item.id,
-      original: data.original,
-      translation: data.translation,
-      definition: data.definition,
-      examples: data.examples,
-      synonymsSource: data.synonyms_src,
-      synonymsTarget: data.synonyms_target,
+      original: item.original,
+      translation: item.translation,
+      definition: item.definition,
+      examples: undefined,
+      synonymsSource: item.synonyms_src,
+      synonymsTarget: item.synonyms_target,
     })
   );
+  console.log("res=> ", res);
 
   return res;
 }
