@@ -45,7 +45,7 @@ type UPDATE_USER = {
   payload: { user: User };
 };
 type LOAD_USER = { type: "LOAD_USER"; payload: { user: User } };
-type REGISTER = { type: "REGISTER"; payload: { user: User } };
+type REGISTER = { type: "REGISTER" };
 type LOGIN = { type: "LOGIN"; payload: { user: User } };
 type LOGOUT = { type: "LOGOUT" };
 type START_FETCHING_TOKEN = { type: "START_FETCHING_TOKEN" };
@@ -83,9 +83,6 @@ export function reducer(state: Auth, action: ReducerAction): Auth {
     case "REGISTER":
       return {
         ...state,
-        isAuthenticated: true,
-        user: { ...action.payload.user },
-        error: "",
         isLoading: false,
       };
     case "LOGIN":

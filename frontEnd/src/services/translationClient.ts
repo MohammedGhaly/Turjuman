@@ -16,7 +16,6 @@ export async function translateWord(
 ) {
   const body = { word, paragraph, srcLang, targetLang, isFavorite: false };
   const response = await api_client.post(translationEndpoint, body, {
-    withCredentials: true,
     signal: signal,
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +39,6 @@ export async function translateWord(
 
 export async function getHomeTranslations() {
   const response = await api_client.get(homeTranslationsEndpoint, {
-    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },

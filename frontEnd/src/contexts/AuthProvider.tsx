@@ -8,7 +8,7 @@ import {
   authLogout,
   authRegister,
 } from "../services/authClient";
-import { homepageRoute } from "../utils/routes";
+import { homepageRoute, verifyYourEmailRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { AxiosError } from "axios";
@@ -107,20 +107,11 @@ export default function AuthenticationProvider({
       return;
     }
     try {
-      const fetchedUser = await authRegister(
-        name,
-        email,
-        password,
-        passwordConfirm
-      );
-      console.log("fetchedUser: ", fetchedUser);
+      await authRegister(name, email, password, passwordConfirm);
       dispatch({
         type: "REGISTER",
-        payload: {
-          user: fetchedUser,
-        },
       });
-      navigate(homepageRoute);
+      navigate(verifyYourEmailRoute);
     } catch (err) {
       if (err instanceof AxiosError) {
         dispatch({ type: "LOADING", payload: false });

@@ -10,7 +10,6 @@ const facebookLoginEndpoint = "auth/facebook";
 export async function authLogin(email: string, password: string) {
   const body = { email, password };
   const response = await api_client.post(loginEndpoint, body, {
-    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },
@@ -19,6 +18,8 @@ export async function authLogin(email: string, password: string) {
     if (response.data.err.statusCode === 401) throw new Error("Unauthorized");
     else throw new Error(response.data.message);
   }
+  const token: string = response.data.token;
+  localStorage.setItem("jwt", token);
   return response.data.data.user as User;
 }
 
@@ -38,12 +39,10 @@ export async function authRegister(
   if (response.data.status !== "success") {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
-  return response.data.data.user as User;
+  return;
 }
-
 export async function authLogout() {
   await api_client.get(logoutEndpoint, {
-    withCredentials: true,
     validateStatus: () => true, // prevent axios from throwing on 3xx
   });
   return true;

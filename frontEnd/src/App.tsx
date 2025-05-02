@@ -20,6 +20,8 @@ import WordPage from "./pages/WordPage/WordPage";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import AuthenticationProvider from "./contexts/AuthProvider";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
+import VerifyUrEmail from "./pages/VerifyUrEmail";
+import EmailVerified from "./pages/EmailVerified";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <ThemeProvider>
           <TranslationPageProvider>
             <Routes>
+              <Route path="emailVerified" element={<EmailVerified />} />
+              <Route path="verifyYourEmail" element={<VerifyUrEmail />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
               <Route path="auth/callback" element={<AuthCallbackPage />} />
