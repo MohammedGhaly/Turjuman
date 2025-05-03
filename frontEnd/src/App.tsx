@@ -6,13 +6,13 @@ import {
   Routes,
 } from "react-router";
 import "./App.css";
-import Homepage from "./pages/Homepage";
+import Homepage from "./pages/Home&SavedPage/Homepage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AppLayout from "./pages/AppLayout";
 import TranslationPage from "./pages/TranslationPage/TranslationPage";
 import GamesAreaPage from "./pages/GamesAreaPage";
-import SavedPage from "./pages/SavedPage";
+import SavedPage from "./pages/Home&SavedPage/SavedPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "./App.css";
 import { TranslationPageProvider } from "./contexts/TranslationProvider";

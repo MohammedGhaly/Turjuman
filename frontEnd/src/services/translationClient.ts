@@ -7,6 +7,8 @@ import api_client from "./api_client";
 const translationEndpoint = "api/v1/translate";
 const homeTranslationsEndpoint = "api/v1/translates";
 const savedTranslationsEndpoint = "api/v1/favorites/translates";
+const saveTranslationsEndpoint = "api/v1/favorite/";
+const unsaveTranslationsEndpoint = "api/v1/favorite-remove/";
 
 export async function translateWord(
   word: string,
@@ -82,6 +84,7 @@ export async function getHomeTranslations() {
       translation: item.translation,
       definition: item.definition,
       examples: undefined,
+      isFavorite: item.isFavorite || false,
       synonymsSource: item.synonyms_src,
       synonymsTarget: item.synonyms_target,
     })
@@ -89,4 +92,23 @@ export async function getHomeTranslations() {
   console.log("res=> ", res);
 
   return res;
+}
+
+export async function saveTranslation(id: string): Promise<string> {
+  const response = await api_client.get(saveTranslationsEndpoint + id, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status !== 200) throw Error("request failed");
+  return response.data.data._id;
+}
+export async function unsaveTranslation(id: string): Promise<string> {
+  const response = await api_client.get(unsaveTranslationsEndpoint + id, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status !== 200) throw Error("request failed");
+  return response.data.data._id;
 }

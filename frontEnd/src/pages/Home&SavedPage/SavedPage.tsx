@@ -1,12 +1,12 @@
-import WordTranslationItem from "@/components/Home/WordTranslationItem";
-import SearchBar from "../components/Home/SearchBar";
+import WordTranslationItem from "@/pages/Home&SavedPage/WordTranslationItem";
+import SearchBar from "./SearchBar";
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import { getSavedTranslations } from "@/services/translationClient";
 import { useQuery } from "@tanstack/react-query";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
-import EmptySavedpage from "@/components/Home/EmptySavedpage";
+import EmptySavedpage from "@/pages/Home&SavedPage/EmptySavedpage";
 // import WordTranslationItem from "../components/Home/WordTranslationItem";
 
 function SavedPage() {
@@ -47,6 +47,7 @@ function SavedPage() {
           data.map((trans) => (
             <WordTranslationItem
               key={trans.id}
+              id={trans.id}
               original={trans.original}
               translation={trans.translation}
               synonymsTarget={trans.synonymsTarget}
@@ -58,6 +59,8 @@ function SavedPage() {
         )}
 
         {/* <WordTranslationItem
+          isFavorite={false}
+          id={"10"}
           original="eat"
           key={10}
           translation="yakol"
@@ -72,12 +75,16 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          isFavorite={true}
+          id={"20"}
           original="eat"
           key={10}
           translation="yakol"
           synonymsTarget={["eat", "eats", "swallow"]}
         />
         <WordTranslationItem
+          isFavorite={false}
+          id={"30"}
           original="eat"
           key={10}
           translation="yakol"
@@ -92,6 +99,8 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          isFavorite={false}
+          id={"40"}
           original="eat"
           key={10}
           translation="yakol"
@@ -106,6 +115,8 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          isFavorite={false}
+          id={"50"}
           original="eat"
           key={10}
           translation="yakol"
@@ -120,6 +131,8 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          isFavorite={false}
+          id={"60"}
           original="eat"
           key={10}
           translation="yakol"
@@ -134,6 +147,8 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          isFavorite={false}
+          id={"70"}
           original="eat"
           key={10}
           translation="yakol"
@@ -148,6 +163,8 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          isFavorite={false}
+          id={"80"}
           original="eat"
           key={10}
           translation="yakol"

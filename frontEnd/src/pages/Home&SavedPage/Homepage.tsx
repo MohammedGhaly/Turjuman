@@ -1,9 +1,9 @@
-import SearchBar from "../components/Home/SearchBar";
-import WordTranslationItem from "../components/Home/WordTranslationItem";
+import SearchBar from "./SearchBar";
+import WordTranslationItem from "./WordTranslationItem";
 import { useQuery } from "@tanstack/react-query";
 import { getHomeTranslations } from "@/services/translationClient";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
-import EmptyHomepage from "@/components/Home/EmptyHomepage";
+import EmptyHomepage from "@/pages/Home&SavedPage/EmptyHomepage";
 import { useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
@@ -46,6 +46,7 @@ function Homepage() {
           data.map((trans) => (
             <WordTranslationItem
               key={trans.id}
+              id={trans.id}
               original={trans.original}
               translation={trans.translation}
               synonymsTarget={trans.synonymsTarget}

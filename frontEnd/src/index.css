@@ -172,6 +172,10 @@
   }
 }
 
+.gradient {
+  color: linear-gradient(60deg, #5f86f2, #d55ff2, #f25f97, #fd4e4e);
+}
+
 .gradient-border {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 100;

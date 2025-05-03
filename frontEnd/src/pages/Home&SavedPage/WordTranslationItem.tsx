@@ -1,6 +1,11 @@
 import { Bookmark, Volume2, Youtube } from "lucide-react";
 import WordList from "./WordList";
-import { useTheme } from "../../contexts/ThemeProvider";
+import {
+  saveTranslation,
+  unsaveTranslation,
+} from "@/services/translationClient";
+import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const aiIcon = (
   <svg
@@ -56,6 +61,7 @@ interface Props {
   translation: string;
   synonymsTarget?: string[];
   isFavorite: boolean | undefined;
+  id: string;
 }
 
 function WordTranslationItem({
@@ -63,8 +69,34 @@ function WordTranslationItem({
   translation,
   synonymsTarget,
   isFavorite,
+  id,
 }: Props) {
-  const { theme } = useTheme();
+  const [isLoadingSave, setIsLoadingSave] = useState(false);
+
+  async function handleSaveTrans() {
+    setIsLoadingSave(true);
+    try {
+      await saveTranslation(id);
+    } catch {
+      toast({ title: "Error saving the translation", variant: "destructive" });
+    } finally {
+      setIsLoadingSave(false);
+    }
+  }
+  async function handleUnsaveTrans() {
+    setIsLoadingSave(true);
+    try {
+      await unsaveTranslation(id);
+    } catch {
+      toast({
+        title: "Error removing the translation",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingSave(false);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl">
       <div className="flex items-center justify-between">
@@ -73,15 +105,21 @@ function WordTranslationItem({
           <span className="text-4xl font-semibold capitalize">{original}</span>
           <Volume2 />
           <div className="text-white bg-[var(--word-tile)] h-6 w-10 rounded-full border border-[var(--box-border)]">
-            <Youtube
-              className="mx-auto"
-              color={theme === "light" ? "black" : "white"}
-              size={22}
-            />
+            <Youtube className="mx-auto" color="var(--foreground)" size={22} />
           </div>
         </div>
         {/* right */}
-        {isFavorite ? <Bookmark fill="var(--bookmark-fill)" /> : <Bookmark />}
+        <BookmarkStrokeGradient
+          isLoading={isLoadingSave}
+          isFavorite={isFavorite || false}
+          handleOnClick={
+            isLoadingSave
+              ? () => {}
+              : isFavorite
+              ? handleUnsaveTrans
+              : handleSaveTrans
+          }
+        />
       </div>
       <div className="flex justify-end gap-4 items-center text-2xl">
         <span className="font-bold">{translation}</span>
@@ -91,6 +129,59 @@ function WordTranslationItem({
         <WordList words={synonymsTarget} />
       </div>
     </div>
+  );
+}
+
+interface BookmarkProps {
+  isLoading: boolean;
+  isFavorite: boolean;
+  handleOnClick: () => void;
+}
+
+function BookmarkStrokeGradient({
+  isFavorite,
+  isLoading,
+  handleOnClick,
+}: BookmarkProps) {
+  let fill = "";
+  let stroke = "";
+
+  if (isLoading) {
+    if (isFavorite) {
+      fill = "url(#gradient-stroke)";
+    } else {
+      fill = "";
+    }
+    stroke = "url(#gradient-stroke)";
+  } else {
+    if (isFavorite) fill = "var(--foreground)";
+    else fill = "";
+    stroke = "var(--foreground)";
+  }
+
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      onClick={handleOnClick}
+    >
+      <defs>
+        <linearGradient
+          id="gradient-stroke"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="0%" stopColor="#8135ad" />
+          <stop offset="50%" stopColor="#ff006a" />
+          <stop offset="100%" stopColor="#ffc400" />
+        </linearGradient>
+      </defs>
+      <Bookmark stroke={stroke} fill={fill} />
+    </svg>
   );
 }
 
