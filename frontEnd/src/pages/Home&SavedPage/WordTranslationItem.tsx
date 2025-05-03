@@ -136,9 +136,9 @@ function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
   const { mutate: saveMutate, isPending: isPendingSave } = useMutation({
     mutationFn: () => saveTranslation(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["savedTranslations", ["homeTranslations"]],
-      });
+      ["homeTranslations", "savedTranslations"].forEach((key) =>
+        queryClient.invalidateQueries({ queryKey: [key] })
+      );
       toast({ title: "translation saved", variant: "success" });
     },
     onError: () => {
@@ -149,9 +149,10 @@ function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
   const { mutate: unSaveMutate, isPending: isPendingUnSave } = useMutation({
     mutationFn: () => unsaveTranslation(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["savedTranslations", ["homeTranslations"]],
-      });
+      ["savedTranslations", "homeTranslations"].forEach((key) =>
+        queryClient.invalidateQueries({ queryKey: [key] })
+      );
+
       toast({ title: "translation removed", variant: "success" });
     },
     onError: () => {
