@@ -4,8 +4,8 @@ import {
   saveTranslation,
   unsaveTranslation,
 } from "@/services/translationClient";
-import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const aiIcon = (
   <svg
@@ -71,31 +71,31 @@ function WordTranslationItem({
   isFavorite,
   id,
 }: Props) {
-  const [isLoadingSave, setIsLoadingSave] = useState(false);
+  // const [isLoadingSave, setIsLoadingSave] = useState(false);
 
-  async function handleSaveTrans() {
-    setIsLoadingSave(true);
-    try {
-      await saveTranslation(id);
-    } catch {
-      toast({ title: "Error saving the translation", variant: "destructive" });
-    } finally {
-      setIsLoadingSave(false);
-    }
-  }
-  async function handleUnsaveTrans() {
-    setIsLoadingSave(true);
-    try {
-      await unsaveTranslation(id);
-    } catch {
-      toast({
-        title: "Error removing the translation",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoadingSave(false);
-    }
-  }
+  // async function handleSaveTrans() {
+  //   setIsLoadingSave(true);
+  //   try {
+  //     await saveTranslation(id);
+  //   } catch {
+  //     toast({ title: "Error saving the translation", variant: "destructive" });
+  //   } finally {
+  //     setIsLoadingSave(false);
+  //   }
+  // }
+  // async function handleUnsaveTrans() {
+  //   setIsLoadingSave(true);
+  //   try {
+  //     await unsaveTranslation(id);
+  //   } catch {
+  //     toast({
+  //       title: "Error removing the translation",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setIsLoadingSave(false);
+  //   }
+  // }
 
   return (
     <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl">
@@ -110,15 +110,9 @@ function WordTranslationItem({
         </div>
         {/* right */}
         <BookmarkStrokeGradient
-          isLoading={isLoadingSave}
+          // isLoading={isLoadingSave}
           isFavorite={isFavorite || false}
-          handleOnClick={
-            isLoadingSave
-              ? () => {}
-              : isFavorite
-              ? handleUnsaveTrans
-              : handleSaveTrans
-          }
+          id={id}
         />
       </div>
       <div className="flex justify-end gap-4 items-center text-2xl">
@@ -133,30 +127,55 @@ function WordTranslationItem({
 }
 
 interface BookmarkProps {
-  isLoading: boolean;
   isFavorite: boolean;
-  handleOnClick: () => void;
+  id: string;
 }
 
-function BookmarkStrokeGradient({
-  isFavorite,
-  isLoading,
-  handleOnClick,
-}: BookmarkProps) {
+function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
+  const queryClient = useQueryClient();
+  const { mutate: saveMutate, isPending: isPendingSave } = useMutation({
+    mutationFn: () => saveTranslation(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["savedTranslations", ["homeTranslations"]],
+      });
+      toast({ title: "translation saved", variant: "success" });
+    },
+    onError: () => {
+      toast({ title: "Error saving the translation", variant: "destructive" });
+    },
+  });
+
+  const { mutate: unSaveMutate, isPending: isPendingUnSave } = useMutation({
+    mutationFn: () => unsaveTranslation(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["savedTranslations", ["homeTranslations"]],
+      });
+      toast({ title: "translation removed", variant: "success" });
+    },
+    onError: () => {
+      toast({
+        title: "Error removing the translation",
+        variant: "destructive",
+      });
+    },
+  });
+
   let fill = "";
   let stroke = "";
-
-  if (isLoading) {
-    if (isFavorite) {
-      fill = "url(#gradient-stroke)";
-    } else {
-      fill = "";
-    }
+  if (isPendingSave || isPendingUnSave) {
+    fill = "url(#gradient-stroke)";
     stroke = "url(#gradient-stroke)";
   } else {
     if (isFavorite) fill = "var(--foreground)";
     else fill = "";
     stroke = "var(--foreground)";
+  }
+
+  function handleOnClick() {
+    if (!isFavorite) saveMutate();
+    else unSaveMutate();
   }
 
   return (

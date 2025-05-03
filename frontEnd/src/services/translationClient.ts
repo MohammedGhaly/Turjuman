@@ -8,7 +8,7 @@ const translationEndpoint = "api/v1/translate";
 const homeTranslationsEndpoint = "api/v1/translates";
 const savedTranslationsEndpoint = "api/v1/favorites/translates";
 const saveTranslationsEndpoint = "api/v1/favorite/";
-const unsaveTranslationsEndpoint = "api/v1/favorite-remove/";
+const unsaveTranslationsEndpoint = "api/v1/unfavorite/";
 
 export async function translateWord(
   word: string,
@@ -103,12 +103,12 @@ export async function saveTranslation(id: string): Promise<string> {
   if (response.status !== 200) throw Error("request failed");
   return response.data.data._id;
 }
-export async function unsaveTranslation(id: string): Promise<string> {
-  const response = await api_client.get(unsaveTranslationsEndpoint + id, {
+export async function unsaveTranslation(id: string) {
+  const response = await api_client.patch(unsaveTranslationsEndpoint + id, {
     headers: {
       "Content-Type": "application/json",
     },
   });
   if (response.status !== 200) throw Error("request failed");
-  return response.data.data._id;
+  return;
 }
