@@ -6,6 +6,7 @@ import {
 } from "@/services/translationClient";
 import { toast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 const aiIcon = (
   <svg
@@ -133,6 +134,8 @@ interface BookmarkProps {
 
 function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
   const queryClient = useQueryClient();
+  const [tempBookmark, setTempBookmark] = useState<null | boolean>(null);
+
   const { mutate: saveMutate, isPending: isPendingSave } = useMutation({
     mutationFn: () => saveTranslation(id),
     onSuccess: () => {
@@ -140,6 +143,10 @@ function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
         queryClient.invalidateQueries({ queryKey: [key] })
       );
       toast({ title: "translation saved", variant: "success" });
+      setTempBookmark(true);
+      setTimeout(() => {
+        setTempBookmark(null);
+      }, 3000);
     },
     onError: () => {
       toast({ title: "Error saving the translation", variant: "destructive" });
@@ -154,6 +161,10 @@ function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
       );
 
       toast({ title: "translation removed", variant: "success" });
+      setTempBookmark(false);
+      setTimeout(() => {
+        setTempBookmark(null);
+      }, 3000);
     },
     onError: () => {
       toast({
@@ -169,9 +180,17 @@ function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
     fill = "url(#gradient-stroke)";
     stroke = "url(#gradient-stroke)";
   } else {
-    if (isFavorite) fill = "var(--foreground)";
-    else fill = "";
+    if (tempBookmark === true) {
+      fill = "var(--foreground)";
+    } else if (tempBookmark === false) {
+      fill = "";
+    } else {
+      if (isFavorite) fill = "var(--foreground)";
+      else fill = "";
+    }
     stroke = "var(--foreground)";
+    // if (isFavorite || tempBookmark) fill = "var(--foreground)";
+    // else fill = "";
   }
 
   function handleOnClick() {
