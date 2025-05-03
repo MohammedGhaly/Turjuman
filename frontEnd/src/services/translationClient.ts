@@ -6,6 +6,7 @@ import api_client from "./api_client";
 
 const translationEndpoint = "api/v1/translate";
 const homeTranslationsEndpoint = "api/v1/translates";
+const savedTranslationsEndpoint = "api/v1/favorites/translates";
 
 export async function translateWord(
   word: string,
@@ -37,6 +38,32 @@ export async function translateWord(
   return res;
 }
 
+export async function getSavedTranslations() {
+  const response = await api_client.get(savedTranslationsEndpoint, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.status !== 200) throw Error("request failed");
+
+  const data = response.data.data;
+  console.log("data=> ", data);
+  const res: Array<TranslationResponse> = data.map(
+    (item: AllTransBackResponse) => ({
+      id: item.id,
+      isFavorite: item.isFavorite,
+      original: item.original,
+      translation: item.translation,
+      definition: item.definition,
+      examples: undefined,
+      synonymsSource: item.synonyms_src,
+      synonymsTarget: item.synonyms_target,
+    })
+  );
+
+  return res;
+}
 export async function getHomeTranslations() {
   const response = await api_client.get(homeTranslationsEndpoint, {
     headers: {

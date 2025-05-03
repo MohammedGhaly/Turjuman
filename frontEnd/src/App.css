@@ -1,0 +1,15 @@
+.turjuman-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.turjuman-scrollable::-webkit-scrollbar-track {
+  border-radius: 9px;
+  background: var(--secondary); /* color of the tracking area */
+}
+.turjuman-scrollable::-webkit-scrollbar-thumb {
+  border-radius: 9px;
+  background: var(--scroll-bar-thumb); /* color of the tracking area */
+}
+.turjuman-scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-bar-thumb-hover); /* color of the tracking area */
+}

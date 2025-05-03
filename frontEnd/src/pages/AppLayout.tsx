@@ -21,7 +21,7 @@ function AppLayout() {
         <NavItem location={title} title="games area" />
         <NavItem location={title} title="profile" />
       </Navbar>
-      <div className="flex flex-col flex-1 gap-2 px-6 overflow-auto">
+      <div className="flex flex-col flex-1 gap-2 px-6 overflow-auto max-h-screen">
         <HeaderBar title={title}></HeaderBar>
         <Outlet />
       </div>

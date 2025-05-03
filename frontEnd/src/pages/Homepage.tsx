@@ -14,7 +14,6 @@ function Homepage() {
     queryFn: getHomeTranslations,
     staleTime: 15000,
   });
-  console.log("react query error=> ", error);
 
   useEffect(
     function () {
@@ -28,14 +27,16 @@ function Homepage() {
   );
 
   return (
-    <div className="flex-1 border-t border-t-[var(--box-border)]">
+    <div className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]">
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
         <Toaster />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4 my-4 px-4">
+      <div className="turjuman-scrollable overflow-y-auto overflow-x-hidden grid grid-cols-1 md:grid-cols-2 w-full gap-4 my-4 px-4">
         {isLoading ? (
           <>
+            <TranslationCardSkeleton />
+            <TranslationCardSkeleton />
             <TranslationCardSkeleton />
             <TranslationCardSkeleton />
             <TranslationCardSkeleton />
@@ -48,6 +49,7 @@ function Homepage() {
               original={trans.original}
               translation={trans.translation}
               synonymsTarget={trans.synonymsTarget}
+              isFavorite={trans.isFavorite}
             />
           ))
         ) : (

@@ -51,6 +51,9 @@
   --auth-spinner: #ffffff;
   --success-toast: #24c024;
   --success-toast-text: white;
+  --scroll-bar-thumb: #b7cad6bb;
+  --scroll-bar-thumb-hover: #beced8;
+  --bookmark-fill: black;
 }
 
 .dark {
@@ -86,6 +89,9 @@
   --success-toast: #2c9c2c;
   --success-toast-text: black;
   --auth-spinner: #000000;
+  --scroll-bar-thumb: #777777bb;
+  --scroll-bar-thumb-hover: #777777;
+  --bookmark-fill: white;
 }
 
 .auth-view-shadow {

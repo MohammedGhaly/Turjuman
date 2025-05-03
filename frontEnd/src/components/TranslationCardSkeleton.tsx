@@ -2,7 +2,7 @@ import { Skeleton } from "./ui/skeleton";
 
 function TranslationCardSkeleton() {
   return (
-    <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] border border-[--box-border] rounded-xl">
+    <div className="flex flex-col h-fit gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] border border-[--box-border] rounded-xl">
       <div className="flex items-center justify-between">
         {/* left */}
         <div className="flex gap-4 items-center">

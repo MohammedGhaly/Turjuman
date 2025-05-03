@@ -6,10 +6,12 @@ export interface TranslationResponse {
   synonymsSource?: string[];
   definition?: string;
   examples?: string[];
+  isFavorite?: boolean;
 }
 
 export interface AllTransBackResponse {
   id: string;
+  isFavorite?: boolean;
   original: string;
   translation: string;
   srcLang: string;

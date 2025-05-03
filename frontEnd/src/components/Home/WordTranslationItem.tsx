@@ -55,12 +55,18 @@ interface Props {
   original: string;
   translation: string;
   synonymsTarget?: string[];
+  isFavorite: boolean | undefined;
 }
 
-function WordTranslationItem({ original, translation, synonymsTarget }: Props) {
+function WordTranslationItem({
+  original,
+  translation,
+  synonymsTarget,
+  isFavorite,
+}: Props) {
   const { theme } = useTheme();
   return (
-    <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] border border-[--box-border] rounded-xl">
+    <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl">
       <div className="flex items-center justify-between">
         {/* left */}
         <div className="flex gap-4 items-center">
@@ -75,7 +81,7 @@ function WordTranslationItem({ original, translation, synonymsTarget }: Props) {
           </div>
         </div>
         {/* right */}
-        <Bookmark />
+        {isFavorite ? <Bookmark fill="var(--bookmark-fill)" /> : <Bookmark />}
       </div>
       <div className="flex justify-end gap-4 items-center text-2xl">
         <span className="font-bold">{translation}</span>
