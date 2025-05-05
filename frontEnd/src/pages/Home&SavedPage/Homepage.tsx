@@ -35,8 +35,8 @@ function Homepage() {
       <div className="turjuman-scrollable overflow-y-auto overflow-x-hidden grid grid-cols-1 md:grid-cols-2 w-full gap-4 my-4 px-4">
         {isLoading ? (
           <>
-            {[1, 2, 3, 4, 5, 6].map(() => (
-              <TranslationCardSkeleton />
+            {[101, 202, 303, 404, 505, 606].map((k) => (
+              <TranslationCardSkeleton key={k} />
             ))}
           </>
         ) : data && data.length ? (

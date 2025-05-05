@@ -74,7 +74,7 @@ function WordTranslationItem({
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`word/${id}`);
+    navigate(`/app/word/${id}`);
   }
 
   return (

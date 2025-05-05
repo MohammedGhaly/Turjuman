@@ -16,11 +16,11 @@ export async function translateWord(
   paragraph: string,
   srcLang: string,
   targetLang: string,
-  signal: AbortSignal
+  signal?: AbortSignal
 ) {
   const body = { word, paragraph, srcLang, targetLang, isFavorite: false };
   const response = await api_client.post(translationEndpoint, body, {
-    signal: signal,
+    signal: signal || undefined,
     headers: {
       "Content-Type": "application/json",
     },
@@ -30,7 +30,7 @@ export async function translateWord(
   }
   const data = response.data.data;
   const res: TranslationResponse = {
-    id: data.savedTranslation.id,
+    id: data.savedTranslation?._id || data.id,
     original: data.original,
     translation: data.translation,
     definition: data.definition,
@@ -53,7 +53,6 @@ export async function getSavedTranslations() {
   if (response.status !== 200) throw Error("request failed");
 
   const data = response.data.data;
-  console.log("data=> ", data);
   const res: Array<TranslationResponse> = data.map(
     (item: AllTransBackResponse) => ({
       id: item.id,
@@ -79,7 +78,6 @@ export async function getHomeTranslations() {
   if (response.status !== 200) throw Error("request failed");
 
   const data = response.data.data;
-  console.log("data=> ", data);
   const res: Array<TranslationResponse> = data.map(
     (item: AllTransBackResponse) => ({
       id: item.id,
@@ -92,8 +90,6 @@ export async function getHomeTranslations() {
       synonymsTarget: item.synonyms_target,
     })
   );
-  console.log("res=> ", res);
-
   return res;
 }
 export async function saveTranslation(id: string): Promise<string> {
@@ -136,5 +132,12 @@ export async function fetchTranslation(
     synonymsSource: data.synonyms_src,
     synonymsTarget: data.synonyms_target,
   };
+  const { examples } = await translateWord(
+    res.original,
+    res.original,
+    res.srcLang,
+    res.targetLang
+  );
+  res.examples = examples;
   return res;
 }

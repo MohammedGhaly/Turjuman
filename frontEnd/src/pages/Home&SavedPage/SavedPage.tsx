@@ -77,7 +77,7 @@ function SavedPage() {
           isFavorite={true}
           id={"20"}
           original="Champion"
-          key={10}
+          key={20}
           translation="yakol"
           synonymsTarget={["eat", "eats", "swallow"]}
         />
@@ -86,7 +86,7 @@ function SavedPage() {
           isFavorite={false}
           id={"30"}
           original="Eat"
-          key={10}
+          key={30}
           translation="yakol"
           synonymsTarget={[
             "eat",
@@ -103,7 +103,7 @@ function SavedPage() {
           isFavorite={false}
           id={"40"}
           original="World"
-          key={10}
+          key={40}
           translation="yakol"
           synonymsTarget={[
             "eat",
@@ -120,7 +120,7 @@ function SavedPage() {
           isFavorite={false}
           id={"50"}
           original="Carbondioxide"
-          key={10}
+          key={50}
           translation="yakol"
           synonymsTarget={[
             "eat",
@@ -137,7 +137,7 @@ function SavedPage() {
           isFavorite={false}
           id={"60"}
           original="eat"
-          key={10}
+          key={60}
           translation="yakol"
           synonymsTarget={[
             "eat",
@@ -154,7 +154,7 @@ function SavedPage() {
           isFavorite={false}
           id={"70"}
           original="eat"
-          key={10}
+          key={70}
           translation="yakol"
           synonymsTarget={[
             "eat",
@@ -171,7 +171,7 @@ function SavedPage() {
           isFavorite={false}
           id={"80"}
           original="eat"
-          key={10}
+          key={80}
           translation="yakol"
           synonymsTarget={[
             "eat",
