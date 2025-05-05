@@ -37,8 +37,8 @@ export async function translateWord(
     examples: data.examples,
     synonymsSource: data.synonyms_src,
     synonymsTarget: data.synonyms_target,
-    srcLang: data.srcLang,
-    targetLang: data.targetLang,
+    srcLang: data.savedTranslation.srcLang,
+    targetLang: data.savedTranslation.targetLang,
     isFavorite: data.isFavorite,
   };
   return res;
