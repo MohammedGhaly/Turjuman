@@ -2,14 +2,16 @@
 import { Volume1, Youtube } from "lucide-react";
 import capitalize from "../../utils/capitalize";
 import GradientBookmark from "@/components/GradientBookmark";
+import openYouglish from "@/utils/youglish";
 
 interface Props {
   original: string;
   id: string;
   isFavorite: boolean;
+  srcLang: string;
 }
 
-function WordCard({ original, id, isFavorite }: Props) {
+function WordCard({ original, id, isFavorite, srcLang }: Props) {
   return (
     <div className="rounded-xl px-6 py-5 font-bold text-3xl flex justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
       <div>{original ? capitalize(original) : ""}</div>
@@ -18,7 +20,13 @@ function WordCard({ original, id, isFavorite }: Props) {
           <Volume1 strokeWidth="1.5px" />
         </button>
         <button>
-          <Youtube strokeWidth="1.5px" />
+          <Youtube
+            strokeWidth="1.5px"
+            onClick={(e) => {
+              e.stopPropagation();
+              openYouglish(original, srcLang);
+            }}
+          />
         </button>
         <button>
           <GradientBookmark id={id} isFavorite={isFavorite} />

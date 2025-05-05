@@ -55,6 +55,7 @@ function WordPage() {
       {/* left */}
       <div className="flex flex-col gap-4 flex-1">
         <WordCard
+          srcLang={translation?.srcLang || "English"}
           id={translation ? translation.id : ""}
           isFavorite={translation ? translation.isFavorite || false : false}
           original={translation ? translation?.original : ""}

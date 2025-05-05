@@ -98,8 +98,8 @@ function WordTranslationItem({
               className="mx-auto"
               color="var(--foreground)"
               onClick={(e) => {
-                openYouglish(original, srcLang);
                 e.stopPropagation();
+                openYouglish(original, srcLang);
               }}
               size={22}
             />

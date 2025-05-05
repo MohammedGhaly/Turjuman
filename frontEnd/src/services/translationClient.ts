@@ -63,6 +63,8 @@ export async function getSavedTranslations() {
       examples: undefined,
       synonymsSource: item.synonyms_src,
       synonymsTarget: item.synonyms_target,
+      srcLang: item.srcLang,
+      targetLang: item.targetLang,
     })
   );
 
@@ -88,6 +90,8 @@ export async function getHomeTranslations() {
       isFavorite: item.isFavorite || false,
       synonymsSource: item.synonyms_src,
       synonymsTarget: item.synonyms_target,
+      srcLang: item.srcLang,
+      targetLang: item.targetLang,
     })
   );
   return res;
