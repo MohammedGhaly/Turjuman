@@ -119,7 +119,7 @@ export async function fetchTranslation(
     },
   });
   if (response.status !== 200) throw Error("request failed");
-  const data = response.data.data;
+  const data = response.data.data.SingleTrans;
   const res: TranslationResponse = {
     id: data._id,
     original: data.word,
@@ -128,9 +128,9 @@ export async function fetchTranslation(
     targetLang: data.targetLang,
     isFavorite: data.isFavorite,
     definition: data.definition,
-    examples: data.examples || null,
     synonymsSource: data.synonyms_src,
     synonymsTarget: data.synonyms_target,
+    examples: data.examples || null,
   };
   const { examples } = await translateWord(
     res.original,
