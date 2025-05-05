@@ -79,7 +79,7 @@ function WordTranslationItem({
 
   return (
     <div
-      className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl cursor-pointer box-hover transition-all duration-300"
+      className="break-inside-avoid flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl cursor-pointer box-hover transition-all duration-300"
       onClick={handleClick}
     >
       <div className="flex items-center justify-between">

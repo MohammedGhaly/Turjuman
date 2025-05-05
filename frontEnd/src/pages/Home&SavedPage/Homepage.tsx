@@ -32,7 +32,11 @@ function Homepage() {
         <SearchBar />
         <Toaster />
       </div>
-      <div className="turjuman-scrollable overflow-y-auto overflow-x-hidden grid grid-cols-1 md:grid-cols-2 w-full gap-4 my-4 px-4">
+      <div
+        className={`turjuman-scrollable overflow-y-auto overflow-x-hidden columns-1 md:columns-2 ${
+          !isLoading && !(data && data.length) && "md:columns-1"
+        } gap-4 space-y-4 w-full px-4 my-4 overflow-scroll`}
+      >
         {isLoading ? (
           <>
             {[101, 202, 303, 404, 505, 606].map((k) => (

@@ -6,7 +6,7 @@ function WordpageSkeletons() {
       {/* left */}
       <div className="flex flex-col gap-4 flex-1">
         {/* <WordCard /> */}
-        <div className="gradient-border rounded-xl p-[2px]">
+        <div className="gradient-border rounded-xl p-[1px]">
           <div className="rounded-xl px-6 py-5 font-bold text-3xl flex justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
             <Skeleton className="w-32 h-10 rounded-lg" />
             <div className="flex justify-between gap-3 w-fit ">
@@ -23,7 +23,7 @@ function WordpageSkeletons() {
           </div>
         </div>
         {/* <TranslationCard /> */}
-        <div className="gradient-border rounded-xl p-[2px]">
+        <div className="gradient-border rounded-xl p-[1px]">
           <div className="rounded-xl px-4 pt-5 pb-3 font-bold text-xl md:text-3xl flex flex-col gap-2 justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
             <div className="flex justify-between w-full mb-1 md:mb-4">
               <Skeleton className="w-32 h-10" />
@@ -40,14 +40,14 @@ function WordpageSkeletons() {
       {/* right boxes */}
       <div className="flex flex-col gap-4 flex-1">
         {/* <DifinitionCard  /> */}
-        <div className="gradient-border rounded-xl p-[2px]">
+        <div className="gradient-border rounded-xl p-[1px]">
           <div className="rounded-xl px-4 pt-5 pb-3 font-bold text-xl md:text-3xl flex flex-col gap-2 justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
             <Skeleton className="mb-1 md:mb-4 h-10 w-32" />
             <Skeleton className="text-base md:text-xl font-base px-4 py-4 rounded-lg h-20 w-full"></Skeleton>
           </div>
         </div>
         {/* <ExamplesCard /> */}
-        <div className="gradient-border rounded-xl p-[2px]">
+        <div className="gradient-border rounded-xl p-[1px]">
           <div className="rounded-xl px-4 pt-5 pb-3 font-bold text-xl md:text-3xl flex flex-col gap-2 justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
             <Skeleton className="mb-1 md:mb-4 h-10 w-32" />
             <div className="flex flex-col gap-3">
