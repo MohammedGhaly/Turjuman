@@ -9,6 +9,7 @@ const homeTranslationsEndpoint = "api/v1/translates";
 const savedTranslationsEndpoint = "api/v1/favorites/translates";
 const saveTranslationsEndpoint = "api/v1/favorite/";
 const unsaveTranslationsEndpoint = "api/v1/unfavorite/";
+const fetchTranslationsEndpoint = "api/v1/singleTranslation/";
 
 export async function translateWord(
   word: string,
@@ -29,17 +30,19 @@ export async function translateWord(
   }
   const data = response.data.data;
   const res: TranslationResponse = {
-    id: data.id,
+    id: data.savedTranslation.id,
     original: data.original,
     translation: data.translation,
     definition: data.definition,
     examples: data.examples,
     synonymsSource: data.synonyms_src,
     synonymsTarget: data.synonyms_target,
+    srcLang: data.srcLang,
+    targetLang: data.targetLang,
+    isFavorite: data.isFavorite,
   };
   return res;
 }
-
 export async function getSavedTranslations() {
   const response = await api_client.get(savedTranslationsEndpoint, {
     headers: {
@@ -93,7 +96,6 @@ export async function getHomeTranslations() {
 
   return res;
 }
-
 export async function saveTranslation(id: string): Promise<string> {
   const response = await api_client.get(saveTranslationsEndpoint + id, {
     headers: {
@@ -111,4 +113,28 @@ export async function unsaveTranslation(id: string) {
   });
   if (response.status !== 200) throw Error("request failed");
   return;
+}
+export async function fetchTranslation(
+  id: string
+): Promise<TranslationResponse> {
+  const response = await api_client.get(fetchTranslationsEndpoint + id, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status !== 200) throw Error("request failed");
+  const data = response.data.data;
+  const res: TranslationResponse = {
+    id: data._id,
+    original: data.word,
+    translation: data.translation,
+    srcLang: data.srcLang,
+    targetLang: data.targetLang,
+    isFavorite: data.isFavorite,
+    definition: data.definition,
+    examples: data.examples || null,
+    synonymsSource: data.synonyms_src,
+    synonymsTarget: data.synonyms_target,
+  };
+  return res;
 }

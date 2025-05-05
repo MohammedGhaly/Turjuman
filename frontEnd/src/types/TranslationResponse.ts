@@ -7,6 +7,8 @@ export interface TranslationResponse {
   definition?: string;
   examples?: string[];
   isFavorite?: boolean;
+  srcLang: string;
+  targetLang: string;
 }
 
 export interface AllTransBackResponse {

@@ -7,7 +7,7 @@ function SignupPage() {
   const { theme } = useTheme();
   return (
     <div
-      className={`flex flex-col gap-2 h-screen overflow-hidden bg-[var(--background)]  ${theme}`}
+      className={`flex flex-col gap-2 h-[100dvh] overflow-hidden bg-[var(--background)]  ${theme}`}
     >
       <div className="px-4 py-0 lg:pb-0 hidden lg:inline-block lg:absolute lg:left-2">
         <HomeLogo />

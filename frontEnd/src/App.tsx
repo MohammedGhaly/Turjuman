@@ -43,7 +43,7 @@ function App() {
                 <Route path="homepage" element={<Homepage />} />
                 <Route path="saved" element={<SavedPage />} />
                 <Route path="translation" element={<TranslationPage />} />
-                <Route path="word" element={<WordPage />} />
+                <Route path="word/:id" element={<WordPage />} />
                 <Route path="gamesArea" element={<GamesAreaPage />} />
                 <Route path="profile" element={<ProfilePage />} />
               </Route>

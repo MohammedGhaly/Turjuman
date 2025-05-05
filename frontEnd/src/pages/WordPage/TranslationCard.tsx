@@ -1,4 +1,4 @@
-import { useTranslationPage } from "@/contexts/TranslationProvider";
+// import { useTranslationPage } from "@/contexts/TranslationProvider";
 import capitalize from "../../utils/capitalize";
 import WordList from "../../components/Wordlist";
 
@@ -51,16 +51,19 @@ const aiicon = (
   </svg>
 );
 
-function TranslationCard() {
-  const {
-    translation: { translation, synonymsSource, synonymsTarget },
-  } = useTranslationPage();
+interface Props {
+  original: string;
+  synonymsTarget: string[];
+  synonymsSource: string[];
+}
+
+function TranslationCard({ original, synonymsSource, synonymsTarget }: Props) {
   return (
     <div className="rounded-xl px-4 pt-5 pb-3 font-bold text-xl md:text-3xl flex flex-col gap-2 justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
       <div className="flex justify-between w-full mb-1 md:mb-4">
         <div>Translation</div>
         <div className=" flex gap-2 items-center justify-between">
-          <span>{capitalize(translation)}</span>
+          <span>{original ? capitalize(original) : ""}</span>
           <span>{aiicon}</span>
         </div>
       </div>

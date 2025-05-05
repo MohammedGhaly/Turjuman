@@ -1,16 +1,15 @@
-import { useTranslationPage } from "@/contexts/TranslationProvider";
 import { Volume1 } from "lucide-react";
 
-function ExamplesCard() {
-  const {
-    translation: { examples },
-  } = useTranslationPage();
+interface Props {
+  examples: string[];
+}
 
+function ExamplesCard({ examples }: Props) {
   return (
     <div className="rounded-xl px-4 pt-5 pb-3 font-bold text-xl md:text-3xl flex flex-col gap-2 justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
       <h2 className="mb-1 md:mb-4">Examples</h2>
       <div className="flex flex-col gap-3">
-        {examples?.map((ex) => (
+        {examples.map((ex) => (
           <Example text={ex} key={ex} />
         ))}
       </div>

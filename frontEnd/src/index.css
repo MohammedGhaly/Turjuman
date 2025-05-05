@@ -55,6 +55,7 @@
   --scroll-bar-thumb: #b7cad6bb;
   --scroll-bar-thumb-hover: #beced8;
   --bookmark-fill: black;
+  --box-hover-bg: #e7ebef;
 }
 
 .dark {
@@ -93,6 +94,7 @@
   --scroll-bar-thumb: #777777bb;
   --scroll-bar-thumb-hover: #777777;
   --bookmark-fill: white;
+  --box-hover-bg: #0f0f0f;
 }
 
 .auth-view-shadow {
@@ -106,6 +108,12 @@
   transition: all;
   transition-duration: 0.2s;
   filter: brightness(0.9);
+}
+
+.box-hover:hover {
+  transition: all;
+  transition-duration: 0.3s;
+  background-color: var(--box-hover-bg);
 }
 
 @layer base {

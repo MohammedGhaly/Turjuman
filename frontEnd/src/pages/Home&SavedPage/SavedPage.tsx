@@ -7,7 +7,6 @@ import { getSavedTranslations } from "@/services/translationClient";
 import { useQuery } from "@tanstack/react-query";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptySavedpage from "@/pages/Home&SavedPage/EmptySavedpage";
-// import WordTranslationItem from "../components/Home/WordTranslationItem";
 
 function SavedPage() {
   const { data, isLoading, error } = useQuery({
@@ -36,16 +35,14 @@ function SavedPage() {
       <div className="turjuman-scrollable overflow-y-auto overflow-x-hidden grid grid-cols-1 md:grid-cols-2 w-full  gap-4 my-4 px-4 overflow-scroll">
         {isLoading ? (
           <>
-            <TranslationCardSkeleton />
-            <TranslationCardSkeleton />
-            <TranslationCardSkeleton />
-            <TranslationCardSkeleton />
-            <TranslationCardSkeleton />
-            <TranslationCardSkeleton />
+            {[1, 2, 3, 4, 5, 6].map(() => (
+              <TranslationCardSkeleton />
+            ))}
           </>
         ) : data && data.length ? (
           data.map((trans) => (
             <WordTranslationItem
+              srcLang={trans.srcLang}
               key={trans.id}
               id={trans.id}
               original={trans.original}
@@ -59,9 +56,10 @@ function SavedPage() {
         )}
 
         {/* <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"10"}
-          original="eat"
+          original="Entschuldigung"
           key={10}
           translation="yakol"
           synonymsTarget={[
@@ -75,17 +73,19 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={true}
           id={"20"}
-          original="eat"
+          original="Champion"
           key={10}
           translation="yakol"
           synonymsTarget={["eat", "eats", "swallow"]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"30"}
-          original="eat"
+          original="Eat"
           key={10}
           translation="yakol"
           synonymsTarget={[
@@ -99,9 +99,10 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"40"}
-          original="eat"
+          original="World"
           key={10}
           translation="yakol"
           synonymsTarget={[
@@ -115,9 +116,10 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"50"}
-          original="eat"
+          original="Carbondioxide"
           key={10}
           translation="yakol"
           synonymsTarget={[
@@ -131,6 +133,7 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"60"}
           original="eat"
@@ -147,6 +150,7 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"70"}
           original="eat"
@@ -163,6 +167,7 @@ function SavedPage() {
           ]}
         />
         <WordTranslationItem
+          srcLang="English"
           isFavorite={false}
           id={"80"}
           original="eat"

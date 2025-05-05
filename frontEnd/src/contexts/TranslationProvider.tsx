@@ -20,7 +20,7 @@ interface TranslationPageState {
   setSrcLang: null | ((fromLang: SupportedLanguageEnum) => void);
 }
 
-const translationInitialState = {
+const translationInitialState: TranslationResponse = {
   id: "",
   translation: "",
   original: "",
@@ -28,6 +28,8 @@ const translationInitialState = {
   examples: [],
   synonymsSource: [],
   synonymsTarget: [],
+  srcLang: "",
+  targetLang: "",
 };
 
 const initialState: TranslationPageState = {

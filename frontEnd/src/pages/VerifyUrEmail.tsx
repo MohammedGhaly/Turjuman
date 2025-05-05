@@ -4,7 +4,7 @@ import { useTheme } from "@/contexts/ThemeProvider";
 function VerifyUrEmail() {
   const { theme } = useTheme();
   return (
-    <div className={`${theme} bg-[var(--background)] h-screen`}>
+    <div className={`${theme} bg-[var(--background)] h-[100dvh]`}>
       <div
         className={`flex justify-center items-center text-2xl font-semibold h-[70vh]`}
       >

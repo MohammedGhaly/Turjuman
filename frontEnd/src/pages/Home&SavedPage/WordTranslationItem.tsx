@@ -1,12 +1,9 @@
-import { Bookmark, Volume2, Youtube } from "lucide-react";
+import { Volume2, Youtube } from "lucide-react";
 import WordList from "./WordList";
-import {
-  saveTranslation,
-  unsaveTranslation,
-} from "@/services/translationClient";
-import { toast } from "@/hooks/use-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import getWordTransItemFontSize from "@/utils/getWordTransItemFont";
+import { useNavigate } from "react-router";
+import GradientBookmark from "@/components/GradientBookmark";
+import openYouglish from "@/utils/youglish";
 
 const aiIcon = (
   <svg
@@ -63,6 +60,7 @@ interface Props {
   synonymsTarget?: string[];
   isFavorite: boolean | undefined;
   id: string;
+  srcLang: string;
 }
 
 function WordTranslationItem({
@@ -71,46 +69,44 @@ function WordTranslationItem({
   synonymsTarget,
   isFavorite,
   id,
+  srcLang,
 }: Props) {
-  // const [isLoadingSave, setIsLoadingSave] = useState(false);
+  const navigate = useNavigate();
 
-  // async function handleSaveTrans() {
-  //   setIsLoadingSave(true);
-  //   try {
-  //     await saveTranslation(id);
-  //   } catch {
-  //     toast({ title: "Error saving the translation", variant: "destructive" });
-  //   } finally {
-  //     setIsLoadingSave(false);
-  //   }
-  // }
-  // async function handleUnsaveTrans() {
-  //   setIsLoadingSave(true);
-  //   try {
-  //     await unsaveTranslation(id);
-  //   } catch {
-  //     toast({
-  //       title: "Error removing the translation",
-  //       variant: "destructive",
-  //     });
-  //   } finally {
-  //     setIsLoadingSave(false);
-  //   }
-  // }
+  function handleClick() {
+    navigate(`word/${id}`);
+  }
 
   return (
-    <div className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl">
+    <div
+      className="flex flex-col gap-4 px-5 py-[10px] bg-[var(--outer-boxes-bg)] h-fit border border-[--box-border] rounded-xl cursor-pointer box-hover transition-all duration-300"
+      onClick={handleClick}
+    >
       <div className="flex items-center justify-between">
         {/* left */}
         <div className="flex gap-4 items-center">
-          <span className="text-4xl font-semibold capitalize">{original}</span>
+          <span
+            className={`${getWordTransItemFontSize(
+              original.length
+            )} font-semibold capitalize`}
+          >
+            {original}
+          </span>
           <Volume2 />
           <div className="text-white bg-[var(--word-tile)] h-6 w-10 rounded-full border border-[var(--box-border)]">
-            <Youtube className="mx-auto" color="var(--foreground)" size={22} />
+            <Youtube
+              className="mx-auto"
+              color="var(--foreground)"
+              onClick={(e) => {
+                openYouglish(original, srcLang);
+                e.stopPropagation();
+              }}
+              size={22}
+            />
           </div>
         </div>
         {/* right */}
-        <BookmarkStrokeGradient
+        <GradientBookmark
           // isLoading={isLoadingSave}
           isFavorite={isFavorite || false}
           id={id}
@@ -124,103 +120,6 @@ function WordTranslationItem({
         <WordList words={synonymsTarget} />
       </div>
     </div>
-  );
-}
-
-interface BookmarkProps {
-  isFavorite: boolean;
-  id: string;
-}
-
-function BookmarkStrokeGradient({ isFavorite, id }: BookmarkProps) {
-  const queryClient = useQueryClient();
-  const [tempBookmark, setTempBookmark] = useState<null | boolean>(null);
-
-  const { mutate: saveMutate, isPending: isPendingSave } = useMutation({
-    mutationFn: () => saveTranslation(id),
-    onSuccess: () => {
-      ["homeTranslations", "savedTranslations"].forEach((key) =>
-        queryClient.invalidateQueries({ queryKey: [key] })
-      );
-      toast({ title: "translation saved", variant: "success" });
-      setTempBookmark(true);
-      setTimeout(() => {
-        setTempBookmark(null);
-      }, 3000);
-    },
-    onError: () => {
-      toast({ title: "Error saving the translation", variant: "destructive" });
-    },
-  });
-
-  const { mutate: unSaveMutate, isPending: isPendingUnSave } = useMutation({
-    mutationFn: () => unsaveTranslation(id),
-    onSuccess: () => {
-      ["savedTranslations", "homeTranslations"].forEach((key) =>
-        queryClient.invalidateQueries({ queryKey: [key] })
-      );
-
-      toast({ title: "translation removed", variant: "success" });
-      setTempBookmark(false);
-      setTimeout(() => {
-        setTempBookmark(null);
-      }, 3000);
-    },
-    onError: () => {
-      toast({
-        title: "Error removing the translation",
-        variant: "destructive",
-      });
-    },
-  });
-
-  let fill = "";
-  let stroke = "";
-  if (isPendingSave || isPendingUnSave) {
-    fill = "url(#gradient-stroke)";
-    stroke = "url(#gradient-stroke)";
-  } else {
-    if (tempBookmark === true) {
-      fill = "var(--foreground)";
-    } else if (tempBookmark === false) {
-      fill = "";
-    } else {
-      if (isFavorite) fill = "var(--foreground)";
-      else fill = "";
-    }
-    stroke = "var(--foreground)";
-    // if (isFavorite || tempBookmark) fill = "var(--foreground)";
-    // else fill = "";
-  }
-
-  function handleOnClick() {
-    if (!isFavorite) saveMutate();
-    else unSaveMutate();
-  }
-
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      onClick={handleOnClick}
-    >
-      <defs>
-        <linearGradient
-          id="gradient-stroke"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="100%"
-        >
-          <stop offset="0%" stopColor="#8135ad" />
-          <stop offset="50%" stopColor="#ff006a" />
-          <stop offset="100%" stopColor="#ffc400" />
-        </linearGradient>
-      </defs>
-      <Bookmark stroke={stroke} fill={fill} />
-    </svg>
   );
 }
 

@@ -12,7 +12,7 @@ function AppLayout() {
   const { theme } = useTheme();
   return (
     <div
-      className={`flex flex-col-reverse gap-2 h-screen lg:flex-row ${theme} text-[var(--foreground)] bg-[var(--background)]`}
+      className={`flex flex-col-reverse gap-2 h-[100dvh] lg:flex-row ${theme} text-[var(--foreground)] bg-[var(--background)]`}
     >
       <Navbar title={title}>
         <NavItem location={title} title="home" />

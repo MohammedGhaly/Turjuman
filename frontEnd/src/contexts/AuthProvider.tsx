@@ -156,8 +156,7 @@ export default function AuthenticationProvider({
       const res = await authLogout();
       if (res) {
         dispatch({ type: "LOGOUT" });
-        // clear cookie
-        document.cookie = "jwt=; Max-Age=0; path=/;";
+        // document.cookie = "jwt=; Max-Age=0; path=/;";
         navigate("login");
         toast({
           title: "Logged out successfully",

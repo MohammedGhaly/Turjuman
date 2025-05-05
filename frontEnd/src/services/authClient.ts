@@ -45,6 +45,8 @@ export async function authLogout() {
   await api_client.get(logoutEndpoint, {
     validateStatus: () => true, // prevent axios from throwing on 3xx
   });
+  // clear jwt
+  localStorage.removeItem("jwt");
   return true;
 }
 export async function authGoogleLogin() {
