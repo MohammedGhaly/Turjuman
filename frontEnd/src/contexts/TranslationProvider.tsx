@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { SupportedLanguageEnum } from "../types/SupportedLanguages";
 import { TranslationResponse } from "../types/TranslationResponse";
 import { translateWord } from "@/services/translationClient";
+import { toast } from "@/hooks/use-toast";
+import { AxiosError } from "axios";
 
 interface Props {
   children: React.JSX.Element;
@@ -18,6 +20,9 @@ interface TranslationPageState {
   setText: null | ((text: string) => void);
   setTargetLang: null | ((toLang: SupportedLanguageEnum) => void);
   setSrcLang: null | ((fromLang: SupportedLanguageEnum) => void);
+  setImgTranslationResult:
+    | null
+    | ((originalText: string, translatedText: string) => void);
 }
 
 const translationInitialState: TranslationResponse = {
@@ -43,6 +48,7 @@ const initialState: TranslationPageState = {
   setText: null,
   setTargetLang: null,
   setSrcLang: null,
+  setImgTranslationResult: null,
 };
 
 type TEXT_CHANGED = { type: "TEXT_CHANGED"; payload: string };
@@ -65,6 +71,10 @@ type SET_TRANSLATION = {
   type: "SET_TRANSLATION";
   payload: TranslationResponse;
 };
+type SET_IMG_TRANSLATION_RESULT = {
+  type: "SET_IMG_TRANSLATION_RESULT";
+  payload: { originalText: string; translatedText: string };
+};
 
 type ReducerAction =
   | TEXT_CHANGED
@@ -73,7 +83,8 @@ type ReducerAction =
   | TO_LANG_CHANGED
   | CLEAR_TRANSLATION
   | LOADING
-  | SET_TRANSLATION;
+  | SET_TRANSLATION
+  | SET_IMG_TRANSLATION_RESULT;
 
 const TranslationPageContext =
   createContext<TranslationPageState>(initialState);
@@ -113,6 +124,24 @@ function reducer(
       return { ...state, translation: action.payload, isLoading: false };
     case "LOADING":
       return { ...state, isLoading: action.payload };
+    case "SET_IMG_TRANSLATION_RESULT":
+      return {
+        ...state,
+        isLoading: false,
+        text: action.payload.originalText,
+        translation: {
+          id: "",
+          original: action.payload.originalText,
+          translation: action.payload.translatedText,
+          srcLang: state.srcLang,
+          targetLang: state.targetLang,
+          definition: "",
+          examples: [],
+          isFavorite: false,
+          synonymsSource: [],
+          synonymsTarget: [],
+        },
+      };
     default:
       return state;
   }
@@ -152,7 +181,10 @@ function TranslationPageProvider({ children }: Props) {
         if (error instanceof Error && error.name === "AbortError") {
           console.log("Request aborted due to new input");
         } else {
-          console.error(error);
+          if (error instanceof Error || error instanceof AxiosError) {
+            console.error(error);
+            toast({ title: error.message, variant: "destructive" });
+          }
         }
       }
     }, 1500);
@@ -176,6 +208,15 @@ function TranslationPageProvider({ children }: Props) {
   function setSrcLang(srcLang: SupportedLanguageEnum) {
     dispatch({ type: "FROM_LANG_CHANGED", payload: srcLang });
   }
+  function setImgTranslationResult(
+    originalText: string,
+    translatedText: string
+  ) {
+    dispatch({
+      type: "SET_IMG_TRANSLATION_RESULT",
+      payload: { originalText, translatedText },
+    });
+  }
   // #endregion state funs
   return (
     <TranslationPageContext.Provider
@@ -190,6 +231,7 @@ function TranslationPageProvider({ children }: Props) {
         swapLangs,
         setTargetLang,
         setSrcLang,
+        setImgTranslationResult,
       }}
     >
       {children}

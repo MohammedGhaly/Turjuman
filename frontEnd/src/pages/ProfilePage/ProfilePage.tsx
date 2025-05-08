@@ -5,7 +5,7 @@ import ProfilePic from "./ProfilePic";
 
 function ProfilePage() {
   return (
-    <div className="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto border-t border-t-[var(--box-border)] pt-6">
+    <div className="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto border-t border-t-[var(--box-border)] py-6 turjuman-scrollable">
       <ProfilePic />
       <div className="flex flex-col md:flex-row w-full mt-12 md:gap-6">
         <div className="w-full">

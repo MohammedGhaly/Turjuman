@@ -9,7 +9,7 @@ function TranslationPage() {
   const { text } = useTranslationPage();
 
   return (
-    <div className="flex flex-col border-t border-t-[var(--box-border)] px-1 py-8 gap-6 md:gap-10 overflow-y-auto">
+    <div className="flex flex-col border-t border-t-[var(--box-border)] px-1 pb-6 md:py-8 gap-6 md:gap-10 overflow-y-auto turjuman-scrollable">
       <Toaster />
       <LanguageSelectors />
       <TranslationArea />

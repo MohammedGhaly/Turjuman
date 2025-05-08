@@ -10,6 +10,7 @@ const savedTranslationsEndpoint = "api/v1/favorites/translates";
 const saveTranslationsEndpoint = "api/v1/favorite/";
 const unsaveTranslationsEndpoint = "api/v1/unfavorite/";
 const fetchTranslationsEndpoint = "api/v1/singleTranslation/";
+const translateImageEndpoint = "api/v1/translate-image";
 
 export async function translateWord(
   word: string,
@@ -18,7 +19,14 @@ export async function translateWord(
   targetLang: string,
   signal?: AbortSignal
 ) {
-  const body = { word, paragraph, srcLang, targetLang, isFavorite: false };
+  const save = localStorage.getItem("turjuman-auto-save");
+  const body = {
+    word,
+    paragraph,
+    srcLang,
+    targetLang,
+    isFavorite: save === "true",
+  };
   const response = await api_client.post(translationEndpoint, body, {
     signal: signal || undefined,
     headers: {
@@ -26,7 +34,7 @@ export async function translateWord(
     },
   });
   if (!response.data.success) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
+    throw new Error(response.data.error);
   }
   const data = response.data.data;
   const res: TranslationResponse = {
@@ -37,8 +45,8 @@ export async function translateWord(
     examples: data.examples,
     synonymsSource: data.synonyms_src,
     synonymsTarget: data.synonyms_target,
-    srcLang: data.savedTranslation.srcLang,
-    targetLang: data.savedTranslation.targetLang,
+    srcLang: data.savedTranslation?.srcLang || "",
+    targetLang: data.savedTranslation?.targetLang || "",
     isFavorite: data.isFavorite,
   };
   return res;
@@ -136,6 +144,7 @@ export async function fetchTranslation(
     synonymsTarget: data.synonyms_target,
     examples: data.examples || null,
   };
+  console.log("parsed res=> ", res);
   const { examples } = await translateWord(
     res.original,
     res.original,
@@ -143,5 +152,32 @@ export async function fetchTranslation(
     res.targetLang
   );
   res.examples = examples;
+  console.log("parsed res with examples => ", res);
   return res;
+}
+export async function translateImage(
+  imageFile: File,
+  srcLang: string,
+  targetLang: string
+) {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  formData.append("srcLang", srcLang);
+  formData.append("targetLang", targetLang);
+
+  try {
+    const response = await api_client.post(translateImageEndpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data.data as {
+      original_text: string;
+      translated_text: string;
+    };
+  } catch (error) {
+    console.error("Image translation failed:", error);
+    throw error;
+  }
 }
