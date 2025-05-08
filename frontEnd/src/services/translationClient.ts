@@ -11,6 +11,7 @@ const saveTranslationsEndpoint = "api/v1/favorite/";
 const unsaveTranslationsEndpoint = "api/v1/unfavorite/";
 const fetchTranslationsEndpoint = "api/v1/singleTranslation/";
 const translateImageEndpoint = "api/v1/translate-image";
+const translateFileEndpoint = "api/v1/translate-file";
 
 export async function translateWord(
   word: string,
@@ -155,13 +156,44 @@ export async function fetchTranslation(
   console.log("parsed res with examples => ", res);
   return res;
 }
-export async function translateImage(
-  imageFile: File,
+export async function translateFile(
+  file: File,
   srcLang: string,
   targetLang: string
 ) {
   const formData = new FormData();
-  formData.append("image", imageFile);
+  formData.append("file", file);
+  formData.append("srcLang", srcLang);
+  formData.append("targetLang", targetLang);
+
+  try {
+    const response = await api_client.post(translateFileEndpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const res = response.data.data as {
+      translation: string;
+      original: string;
+    };
+    const data = {
+      original_text: res.original,
+      translated_text: res.translation,
+    };
+    return data;
+  } catch (error) {
+    console.error("file translation failed:", error);
+    throw error;
+  }
+}
+export async function translateImage(
+  file: File,
+  srcLang: string,
+  targetLang: string
+) {
+  const formData = new FormData();
+  formData.append("image", file);
   formData.append("srcLang", srcLang);
   formData.append("targetLang", targetLang);
 

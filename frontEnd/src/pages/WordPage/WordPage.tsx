@@ -37,7 +37,7 @@ function WordPage() {
             variant: "destructive",
             title: "An error ocurred while fetching translation",
           });
-          // navigate("/app/homepage");
+          navigate("/app/homepage");
         } finally {
           setIsLoading(false);
         }

@@ -22,7 +22,7 @@ function TranslationArea() {
         <textarea
           name="text"
           id="text"
-          className="resize-none w-full h-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 min-h-[20vh] md:min-h-[25vh]"
+          className="turjuman-scrollable resize-none w-full h-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 min-h-[20vh] md:min-h-[25vh]"
           placeholder="type here..."
           value={text}
           onChange={(e) => setText?.(e.target.value)}
@@ -44,7 +44,7 @@ function TranslationArea() {
               : translation?.translation || ""
           }
           readOnly
-          className={`resize-none w-full bg-[var(--input-background)] font-semibold p-3 h-full border border-[var(--box-border)] rounded-lg outline-none cursor-pointer`}
+          className={`turjuman-scrollable resize-none w-full bg-[var(--input-background)] font-semibold p-3 h-full border border-[var(--box-border)] rounded-lg outline-none cursor-pointer`}
           placeholder="translation goes here..."
           onDoubleClick={copyToClipboard}
         ></textarea>

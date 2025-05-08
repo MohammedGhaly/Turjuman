@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { SupportedLanguageEnum } from "../types/SupportedLanguages";
 import { TranslationResponse } from "../types/TranslationResponse";
-import { translateWord } from "@/services/translationClient";
+import {
+  translateFile,
+  translateImage,
+  translateWord,
+} from "@/services/translationClient";
 import { toast } from "@/hooks/use-toast";
 import { AxiosError } from "axios";
 
@@ -16,13 +20,15 @@ interface TranslationPageState {
   error: string;
   text: string;
   translation: TranslationResponse;
+  autoTranslation: boolean;
   swapLangs: null | (() => void);
   setText: null | ((text: string) => void);
   setTargetLang: null | ((toLang: SupportedLanguageEnum) => void);
   setSrcLang: null | ((fromLang: SupportedLanguageEnum) => void);
-  setImgTranslationResult:
+  setOptionsTranslationResult:
     | null
     | ((originalText: string, translatedText: string) => void);
+  optionTranslate: null | ((file: File) => void);
 }
 
 const translationInitialState: TranslationResponse = {
@@ -48,7 +54,9 @@ const initialState: TranslationPageState = {
   setText: null,
   setTargetLang: null,
   setSrcLang: null,
-  setImgTranslationResult: null,
+  setOptionsTranslationResult: null,
+  autoTranslation: true,
+  optionTranslate: null,
 };
 
 type TEXT_CHANGED = { type: "TEXT_CHANGED"; payload: string };
@@ -65,14 +73,14 @@ type TO_LANG_CHANGED = {
   payload: SupportedLanguageEnum;
 };
 type SWAP_LANGS = { type: "SWAP_LANGS" };
-
+type ENABLE_AUTO_TRANSLATION = { type: "ENABLE_AUTO_TRANSLATION" };
 type CLEAR_TRANSLATION = { type: "CLEAR_TRANSLATION" };
 type SET_TRANSLATION = {
   type: "SET_TRANSLATION";
   payload: TranslationResponse;
 };
-type SET_IMG_TRANSLATION_RESULT = {
-  type: "SET_IMG_TRANSLATION_RESULT";
+type SET_OPTIONS_TRANSLATION_RESULT = {
+  type: "SET_OPTIONS_TRANSLATION_RESULT";
   payload: { originalText: string; translatedText: string };
 };
 
@@ -84,7 +92,8 @@ type ReducerAction =
   | CLEAR_TRANSLATION
   | LOADING
   | SET_TRANSLATION
-  | SET_IMG_TRANSLATION_RESULT;
+  | SET_OPTIONS_TRANSLATION_RESULT
+  | ENABLE_AUTO_TRANSLATION;
 
 const TranslationPageContext =
   createContext<TranslationPageState>(initialState);
@@ -124,11 +133,12 @@ function reducer(
       return { ...state, translation: action.payload, isLoading: false };
     case "LOADING":
       return { ...state, isLoading: action.payload };
-    case "SET_IMG_TRANSLATION_RESULT":
+    case "SET_OPTIONS_TRANSLATION_RESULT":
       return {
         ...state,
         isLoading: false,
         text: action.payload.originalText,
+        autoTranslation: false,
         translation: {
           id: "",
           original: action.payload.originalText,
@@ -142,6 +152,8 @@ function reducer(
           synonymsTarget: [],
         },
       };
+    case "ENABLE_AUTO_TRANSLATION":
+      return { ...state, autoTranslation: true };
     default:
       return state;
   }
@@ -149,11 +161,20 @@ function reducer(
 
 function TranslationPageProvider({ children }: Props) {
   const [
-    { srcLang, targetLang, isLoading, error, text, translation },
+    {
+      srcLang,
+      targetLang,
+      isLoading,
+      error,
+      text,
+      translation,
+      autoTranslation,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    if (!autoTranslation) return;
     if (!text.trim()) {
       dispatch({ type: "CLEAR_TRANSLATION" });
       return;
@@ -195,6 +216,14 @@ function TranslationPageProvider({ children }: Props) {
     };
   }, [text, srcLang, targetLang]);
 
+  useEffect(() => {
+    if (!autoTranslation) {
+      setTimeout(() => {
+        dispatch({ type: "ENABLE_AUTO_TRANSLATION" });
+      }, 200);
+    }
+  }, [autoTranslation]);
+
   // #region state funs
   function setText(text: string) {
     dispatch({ type: "TEXT_CHANGED", payload: text });
@@ -208,14 +237,44 @@ function TranslationPageProvider({ children }: Props) {
   function setSrcLang(srcLang: SupportedLanguageEnum) {
     dispatch({ type: "FROM_LANG_CHANGED", payload: srcLang });
   }
-  function setImgTranslationResult(
+  function setOptionsTranslationResult(
     originalText: string,
     translatedText: string
   ) {
     dispatch({
-      type: "SET_IMG_TRANSLATION_RESULT",
+      type: "SET_OPTIONS_TRANSLATION_RESULT",
       payload: { originalText, translatedText },
     });
+  }
+  async function optionTranslate(file: File) {
+    const transOption = getTranslationOption(file.name);
+    try {
+      dispatch({ type: "LOADING", payload: true });
+      const { original_text, translated_text } = await transOption(
+        file,
+        srcLang,
+        targetLang
+      );
+      if (original_text && translated_text) {
+        setOptionsTranslationResult?.(original_text, translated_text);
+      } else {
+        toast({
+          title: "an error occurred while translating your file",
+          variant: "destructive",
+        });
+      }
+    } catch (err) {
+      if (err instanceof AxiosError || err instanceof Error) {
+        toast({ title: err.message, variant: "destructive" });
+      }
+    } finally {
+      dispatch({ type: "LOADING", payload: false });
+    }
+  }
+  function getTranslationOption(fileName: string) {
+    if (fileName.endsWith(".docx") || fileName.endsWith(".txt"))
+      return translateFile;
+    else return translateImage;
   }
   // #endregion state funs
   return (
@@ -227,11 +286,13 @@ function TranslationPageProvider({ children }: Props) {
         translation,
         isLoading,
         error,
+        autoTranslation,
         setText,
         swapLangs,
         setTargetLang,
         setSrcLang,
-        setImgTranslationResult,
+        setOptionsTranslationResult,
+        optionTranslate,
       }}
     >
       {children}

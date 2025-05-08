@@ -3,10 +3,12 @@
 }
 
 .turjuman-scrollable::-webkit-scrollbar-track {
+  cursor: default;
   border-radius: 9px;
   background: var(--secondary); /* color of the tracking area */
 }
 .turjuman-scrollable::-webkit-scrollbar-thumb {
+  cursor: default;
   border-radius: 9px;
   background: var(--scroll-bar-thumb); /* color of the tracking area */
 }
