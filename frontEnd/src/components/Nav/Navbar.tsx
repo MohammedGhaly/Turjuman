@@ -12,7 +12,7 @@ function Navbar({ children }: Props) {
         <HomeLogo />
       </div>
       {/* nav items div*/}
-      <div className=" flex justify-around py-5 rounded-t-3xl lg:flex-col lg:justify-start lg:items-start lg:px-8 lg:gap-8">
+      <div className=" flex justify-around py-3 md:py-5 rounded-t-3xl lg:flex-col lg:justify-start lg:items-start lg:px-8 lg:gap-8">
         {children}
       </div>
     </nav>

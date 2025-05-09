@@ -1,13 +1,10 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { SupportedLanguageEnum } from "../types/SupportedLanguages";
 import { TranslationResponse } from "../types/TranslationResponse";
-import {
-  translateFile,
-  translateImage,
-  translateWord,
-} from "@/services/translationClient";
+import { translateWord } from "@/services/translationClient";
 import { toast } from "@/hooks/use-toast";
 import { AxiosError } from "axios";
+import getTranslationOption from "@/utils/getTranslationOption";
 
 interface Props {
   children: React.JSX.Element;
@@ -28,7 +25,7 @@ interface TranslationPageState {
   setOptionsTranslationResult:
     | null
     | ((originalText: string, translatedText: string) => void);
-  optionTranslate: null | ((file: File) => void);
+  optionTranslate: null | ((file: File, isAudio: boolean) => void);
 }
 
 const translationInitialState: TranslationResponse = {
@@ -246,10 +243,8 @@ function TranslationPageProvider({ children }: Props) {
       payload: { originalText, translatedText },
     });
   }
-  async function optionTranslate(file: File) {
-    console.log(file.name);
-    const transOption = getTranslationOption(file.name);
-    console.log(transOption);
+  async function optionTranslate(file: File, isAudio: boolean) {
+    const transOption = getTranslationOption(file.name, isAudio);
     try {
       dispatch({ type: "LOADING", payload: true });
       const { original_text, translated_text } = await transOption(
@@ -269,15 +264,12 @@ function TranslationPageProvider({ children }: Props) {
     } catch (err) {
       if (err instanceof AxiosError || err instanceof Error) {
         toast({ title: err.message, variant: "destructive" });
+        console.log("err.message=> ", err.message);
+        console.log("err=> ", err);
       }
     } finally {
       dispatch({ type: "LOADING", payload: false });
     }
-  }
-  function getTranslationOption(fileName: string) {
-    if (fileName.endsWith(".docx") || fileName.endsWith(".txt"))
-      return translateFile;
-    else return translateImage;
   }
   // #endregion state funs
   return (

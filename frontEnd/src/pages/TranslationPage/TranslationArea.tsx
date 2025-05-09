@@ -17,19 +17,19 @@ function TranslationArea() {
   };
 
   return (
-    <div className="flex flex-col gap-8 md:flex-row ">
-      <div className="w-full flex-1 min-h-[20vh] md:min-h-[25vh]">
+    <div className="flex flex-col gap-4 md:gap-8 md:flex-row ">
+      <div className="w-full min-h-[17vh] md:min-h-[25vh]">
         <textarea
           name="text"
           id="text"
-          className="turjuman-scrollable resize-none w-full h-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 min-h-[20vh] md:min-h-[25vh]"
+          className="turjuman-scrollable resize-none w-full h-full bg-[var(--input-background)] font-semibold border border-[var(--box-border)] rounded-lg p-3 md:min-h-[25vh]"
           placeholder="type here..."
           value={text}
           onChange={(e) => setText?.(e.target.value)}
         ></textarea>
       </div>
       <div
-        className={`min-h-[20vh] md:min-h-[25vh] w-full flex-1 rounded-lg p-[2px]  ${
+        className={`min-h-[17vh] md:min-h-[25vh] w-full  rounded-lg p-[2px]  ${
           isLoading ? "gradient-border" : ""
         }`}
       >

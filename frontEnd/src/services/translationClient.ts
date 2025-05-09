@@ -12,6 +12,7 @@ const unsaveTranslationsEndpoint = "api/v1/unfavorite/";
 const fetchTranslationsEndpoint = "api/v1/singleTranslation/";
 const translateImageEndpoint = "api/v1/translate-image";
 const translateFileEndpoint = "api/v1/translate-file";
+const translateAudioEndpoint = "api/v1/transcribe-audio";
 
 export async function translateWord(
   word: string,
@@ -207,6 +208,36 @@ export async function translateImage(
     return response.data.data as {
       original_text: string;
       translated_text: string;
+    };
+  } catch (error) {
+    console.error("Image translation failed:", error);
+    throw error;
+  }
+}
+export async function getAudioTranslation(
+  file: File,
+  srcLang: string,
+  targetLang: string
+) {
+  const formData = new FormData();
+  formData.append("audio", file);
+  formData.append("srcLang", srcLang);
+  formData.append("targetLang", targetLang);
+
+  try {
+    const response = await api_client.post(translateAudioEndpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const res = response.data as {
+      transcript: string;
+      translation: string;
+    };
+    return {
+      original_text: res.transcript,
+      translated_text: res.translation,
     };
   } catch (error) {
     console.error("Image translation failed:", error);
