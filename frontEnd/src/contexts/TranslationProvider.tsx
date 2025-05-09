@@ -247,7 +247,9 @@ function TranslationPageProvider({ children }: Props) {
     });
   }
   async function optionTranslate(file: File) {
+    console.log(file.name);
     const transOption = getTranslationOption(file.name);
+    console.log(transOption);
     try {
       dispatch({ type: "LOADING", payload: true });
       const { original_text, translated_text } = await transOption(
@@ -258,6 +260,7 @@ function TranslationPageProvider({ children }: Props) {
       if (original_text && translated_text) {
         setOptionsTranslationResult?.(original_text, translated_text);
       } else {
+        console.log("else block");
         toast({
           title: "an error occurred while translating your file",
           variant: "destructive",

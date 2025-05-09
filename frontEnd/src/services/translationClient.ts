@@ -173,9 +173,9 @@ export async function translateFile(
       },
     });
 
-    const res = response.data.data as {
-      translation: string;
+    const res = response.data.data[0] as {
       original: string;
+      translation: string;
     };
     const data = {
       original_text: res.original,
