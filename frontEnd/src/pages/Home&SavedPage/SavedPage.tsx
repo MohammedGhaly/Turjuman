@@ -7,6 +7,7 @@ import { getSavedTranslations } from "@/services/translationClient";
 import { useQuery } from "@tanstack/react-query";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptySavedpage from "@/pages/Home&SavedPage/EmptySavedpage";
+import { motion } from "framer-motion";
 
 function SavedPage() {
   const { data, isLoading, error } = useQuery({
@@ -27,7 +28,15 @@ function SavedPage() {
   );
 
   return (
-    <div className="h-full border-t border-t-[var(--box-border)] flex flex-col flex-1 overflow-hidden">
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.1 }}
+      className="border-t border-t-[var(--box-border)] flex flex-col flex-1 overflow-hidden"
+    >
+      {/* <div className="border-t border-t-[var(--box-border)] flex flex-col flex-1 overflow-hidden"> */}
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
         <Toaster />
@@ -188,7 +197,8 @@ function SavedPage() {
           ]}
         /> */}
       </div>
-    </div>
+      {/* </div> */}
+    </motion.div>
   );
 }
 

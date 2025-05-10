@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "../components/Nav/Navbar";
 import HeaderBar from "../components/HeaderBar";
 import { routeToTitle } from "../utils/routesAndTitles";
@@ -21,10 +22,12 @@ function AppLayout() {
         <NavItem location={title} title="games area" />
         <NavItem location={title} title="profile" />
       </Navbar>
-      <div className="flex flex-col flex-1 gap-2 px-6 overflow-auto max-h-screen">
-        <HeaderBar title={title}></HeaderBar>
-        <Outlet />
-      </div>
+      <AnimatePresence mode="wait">
+        <div className="flex flex-col flex-1 gap-2 px-6 overflow-auto max-h-screen">
+          <HeaderBar title={title}></HeaderBar>
+          <Outlet />
+        </div>
+      </AnimatePresence>
     </div>
   );
 }

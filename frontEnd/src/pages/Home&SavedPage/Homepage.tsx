@@ -7,6 +7,7 @@ import EmptyHomepage from "@/pages/Home&SavedPage/EmptyHomepage";
 import { useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { motion } from "framer-motion";
 
 function Homepage() {
   const { data, isLoading, error } = useQuery({
@@ -27,7 +28,15 @@ function Homepage() {
   );
 
   return (
-    <div className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]">
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 1.95 }}
+      transition={{ duration: 0.1 }}
+      className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]"
+    >
+      {/* <div className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]"> */}
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
         <Toaster />
@@ -59,7 +68,8 @@ function Homepage() {
           <EmptyHomepage />
         )}
       </div>
-    </div>
+      {/* </div> */}
+    </motion.div>
   );
 }
 

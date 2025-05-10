@@ -1,7 +1,7 @@
 import { User } from "lucide-react";
 import { titleToIcon } from "../utils/routesAndTitles";
 import { useAuth } from "@/hooks/useAuth";
-
+import { motion } from "framer-motion";
 const hasImage = false;
 
 interface Props {
@@ -12,10 +12,20 @@ function HeaderBar({ title }: Props) {
   return (
     <div className="w-full flex justify-between py-4 px-2 md:px-6 shrink-0">
       {/*home */}
-      <div className="flex items-center gap-2">
+
+      <motion.div
+        key={"header-" + location.pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex items-center gap-2"
+      >
+        {/* <div className="flex items-center gap-2"> */}
         {titleToIcon(title, 30)}
         <span className="font-bold capitalize">{title}</span>
-      </div>
+        {/* </div> */}
+      </motion.div>
       {/*user */}
       {user && (
         <div className="flex gap-3 items-center">

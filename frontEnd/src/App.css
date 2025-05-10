@@ -15,3 +15,68 @@
 .turjuman-scrollable::-webkit-scrollbar-thumb:hover {
   background: var(--scroll-bar-thumb-hover); /* color of the tracking area */
 }
+
+.gradient {
+  color: linear-gradient(60deg, #5f86f2, #d55ff2, #f25f97, #fd4e4e);
+}
+
+.gradient-border {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+
+  position: relative;
+  background: linear-gradient(60deg, #5f86f2, #d55ff2, #f25f97, #fd4e4e);
+  animation: moveGradient 2s alternate infinite;
+  background-size: 300% 300%;
+  background-position: 0 50%;
+}
+.gradient-border-sm {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+
+  position: relative;
+  background: linear-gradient(
+    60deg,
+    #11ff6c,
+    #11ffff,
+    #11b4ff,
+    #1180ff,
+    #3750bd,
+    #5437bd,
+    #7637bd,
+    #b436d3,
+    #e4417f,
+    #ff3131,
+    #ff631a,
+    #ffdd1a,
+    #ffdd1a
+  );
+  animation: moveGradient 5s alternate infinite;
+  background-size: 300% 300%;
+  background-position: 0 50%;
+}
+
+@keyframes moveGradient {
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.auth-view-shadow {
+  box-shadow: 0px 4px var(--sds-size-depth-1200) 0px rgba(0, 0, 0, 0.25);
+}
+.auth-options-shadow {
+  box-shadow: 0px 4px var(20px) 0px rgba(0, 0, 0, 0.25);
+}
+
+.darker-hover:hover {
+  transition: all;
+  transition-duration: 0.2s;
+  filter: brightness(0.9);
+}
+
+.box-hover:hover {
+  transition: all;
+  transition-duration: 0.3s;
+  background-color: var(--box-hover-bg);
+}

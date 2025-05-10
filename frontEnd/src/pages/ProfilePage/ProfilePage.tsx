@@ -2,10 +2,19 @@ import LogoutButton from "@/pages/ProfilePage/LogoutButton";
 import SettingsOptions from "./SettingsOptions";
 import SettingsInputs from "./SettingsInputs";
 import ProfilePic from "./ProfilePic";
+import { motion } from "framer-motion";
 
 function ProfilePage() {
   return (
-    <div className="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto border-t border-t-[var(--box-border)] py-6 turjuman-scrollable">
+    <motion.div
+      key={"profilePageMotion"}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.1 }}
+      className="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto border-t border-t-[var(--box-border)] py-6 turjuman-scrollable"
+    >
+      {/* <div className="flex flex-col gap-4 items-center w-full px-3 overflow-y-auto border-t border-t-[var(--box-border)] py-6 turjuman-scrollable"> */}
       <ProfilePic />
       <div className="flex flex-col md:flex-row w-full mt-12 md:gap-6">
         <div className="w-full">
@@ -16,7 +25,8 @@ function ProfilePage() {
           <LogoutButton />
         </div>
       </div>
-    </div>
+      {/* </div> */}
+    </motion.div>
   );
 }
 
