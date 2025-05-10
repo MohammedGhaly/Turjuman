@@ -112,7 +112,9 @@ function TranslationPageProvider({ children }: Props) {
         targetLang
       );
       if (original_text && translated_text) {
-        setOptionsTranslationResult?.(original_text, translated_text);
+        if (original_text.split(" ").length === 1) {
+          setText(original_text);
+        } else setOptionsTranslationResult?.(original_text, translated_text);
       } else {
         console.log("else block");
         toast({
