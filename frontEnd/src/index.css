@@ -56,6 +56,7 @@
   --scroll-bar-thumb-hover: #beced8;
   --bookmark-fill: black;
   --box-hover-bg: #e7ebef;
+  --inner-glow: #03030309;
 }
 
 .dark {
@@ -95,6 +96,7 @@
   --scroll-bar-thumb-hover: #777777;
   --bookmark-fill: white;
   --box-hover-bg: #0f0f0f;
+  --inner-glow: #ffffff0a;
 }
 
 .auth-view-shadow {
@@ -204,11 +206,16 @@
     60deg,
     #11ff6c,
     #11ffff,
-    #3771bd,
+    #11b4ff,
+    #1180ff,
+    #3750bd,
     #5437bd,
-    #d55ff2,
-    #f25f97,
-    #ff6131,
+    #7637bd,
+    #b436d3,
+    #e4417f,
+    #ff3131,
+    #ff631a,
+    #ffdd1a,
     #ffdd1a
   );
   animation: moveGradient 5s alternate infinite;

@@ -137,7 +137,7 @@ function AudioRecorder() {
           onClick={isRecording ? stopRecording : startRecording}
           className={`border ${
             isRecording ? "border-transparent" : "border-gray-300"
-          } rounded-full p-2 hover:shadow-lg transition-all duration-200 bg-[var(--background)]`}
+          } rounded-full p-2 hover:shadow-lg hover:bg-[var(--inner-glow)] transition-all duration-200 bg-[var(--background)]`}
         >
           <Mic className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />
         </button>

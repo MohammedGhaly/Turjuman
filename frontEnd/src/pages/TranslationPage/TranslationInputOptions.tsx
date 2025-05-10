@@ -35,14 +35,14 @@ function TranslationInputOptions() {
       <div className="flex gap-6 items-center justify-around md:justify-center md:gap-28 md:mt-10">
         <button
           onClick={handleDocClick}
-          className="border border-gray-300 rounded-full p-2 hover:shadow-lg transition-all duration-200"
+          className="border border-gray-300 rounded-full p-2 hover:shadow-lg hover:bg-[var(--inner-glow)] transition-all duration-200"
         >
           <File className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />
         </button>
         <AudioRecorder />
         <button
           onClick={handleImgClick}
-          className="border border-gray-300 rounded-full p-2 hover:shadow-lg transition-all duration-200"
+          className="border border-gray-300 rounded-full p-2 hover:shadow-lg hover:bg-[var(--inner-glow)] transition-all duration-200"
         >
           <Image className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />
         </button>
