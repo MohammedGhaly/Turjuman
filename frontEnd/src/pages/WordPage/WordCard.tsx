@@ -1,4 +1,3 @@
-// import { useTranslationPage } from "@/contexts/TranslationProvider";
 import { Volume1, Youtube } from "lucide-react";
 import capitalize from "../../utils/capitalize";
 import GradientBookmark from "@/components/GradientBookmark";

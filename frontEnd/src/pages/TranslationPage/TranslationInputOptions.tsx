@@ -1,7 +1,7 @@
-import { useTranslationPage } from "@/contexts/TranslationProvider";
 import { File, Image } from "lucide-react";
 import { useRef } from "react";
 import AudioRecorder from "./AudioRecorder";
+import useTranslationPage from "@/hooks/useTranslationPage";
 
 function TranslationInputOptions() {
   const imgRef = useRef<HTMLInputElement>(null);

@@ -1,5 +1,5 @@
-import { useTranslationPage } from "@/contexts/TranslationProvider";
 import { useToast } from "@/hooks/use-toast";
+import useTranslationPage from "@/hooks/useTranslationPage";
 
 function TranslationArea() {
   const { text, setText, translation, isLoading } = useTranslationPage();

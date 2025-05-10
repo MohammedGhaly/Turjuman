@@ -1,4 +1,4 @@
-import { useTranslationPage } from "@/contexts/TranslationProvider";
+import useTranslationPage from "@/hooks/useTranslationPage";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router";
 

@@ -15,7 +15,7 @@ import GamesAreaPage from "./pages/GamesAreaPage";
 import SavedPage from "./pages/Home&SavedPage/SavedPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "./App.css";
-import { TranslationPageProvider } from "./contexts/TranslationProvider";
+import { TranslationPageProvider } from "./contexts/TranslationPageProvider";
 import WordPage from "./pages/WordPage/WordPage";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import AuthenticationProvider from "./contexts/AuthProvider";

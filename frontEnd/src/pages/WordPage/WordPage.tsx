@@ -8,8 +8,8 @@ import { fetchTranslation } from "@/services/translationClient";
 import { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
-import { useTranslationPage } from "@/contexts/TranslationProvider";
 import { TranslationResponse } from "@/types/TranslationResponse";
+import useTranslationPage from "@/hooks/useTranslationPage";
 
 function WordPage() {
   const { id } = useParams();

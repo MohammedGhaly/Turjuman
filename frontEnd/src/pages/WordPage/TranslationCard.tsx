@@ -1,4 +1,3 @@
-// import { useTranslationPage } from "@/contexts/TranslationProvider";
 import capitalize from "../../utils/capitalize";
 import WordList from "../../components/Wordlist";
 

@@ -1,4 +1,4 @@
-import { useTranslationPage } from "@/contexts/TranslationProvider";
+import useTranslationPage from "@/hooks/useTranslationPage";
 import { Mic } from "lucide-react";
 import { useRef, useState } from "react";
 
