@@ -195,6 +195,26 @@
   background-size: 300% 300%;
   background-position: 0 50%;
 }
+.gradient-border-sm {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+
+  position: relative;
+  background: linear-gradient(
+    60deg,
+    #11ff6c,
+    #11ffff,
+    #3771bd,
+    #5437bd,
+    #d55ff2,
+    #f25f97,
+    #ff6131,
+    #ffdd1a
+  );
+  animation: moveGradient 5s alternate infinite;
+  background-size: 300% 300%;
+  background-position: 0 50%;
+}
 
 @keyframes moveGradient {
   50% {
