@@ -123,7 +123,7 @@ export function translationPageReducer(
       return {
         ...state,
         translation: action.payload,
-        text: action.payload.translation || state.text,
+        text: action.payload.original || state.text,
         isLoading: false,
         autoTranslation: false,
       };
