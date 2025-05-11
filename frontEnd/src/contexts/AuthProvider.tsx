@@ -26,17 +26,11 @@ export default function AuthenticationProvider({
     useReducer(reducer, authInitialState);
   const navigate = useNavigate();
   const { toast } = useToast();
-  localStorage.setItem(
-    "jwt",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTNjMDkzMDFjYmI3YzBjODhkYzNmNyIsImlhdCI6MTc0NzAwMjE4NCwiZXhwIjoxNzQ3MDI3Mzg0fQ.QEr6OBgLi48tjUbURhwoIfbEGNvoYpwpuupCygy-DYI"
-  );
 
   useEffect(function () {
     async function tokenLogin() {
       dispatch({ type: "START_FETCHING_TOKEN" });
       const token = localStorage.getItem("jwt");
-      // const jwtDecoded = jwtDecode(token || "") as JwtPayload;
-      // console.log(jwtDecoded);
       if (token && !isTokenExpired(token)) {
         const user = await getMe();
         dispatch({
@@ -192,7 +186,6 @@ export default function AuthenticationProvider({
       const res = await authLogout();
       if (res) {
         dispatch({ type: "LOGOUT" });
-        // document.cookie = "jwt=; Max-Age=0; path=/;";
         navigate("login");
         toast({
           title: "Logged out successfully",
