@@ -5,18 +5,23 @@ import {
 } from "@/components/ui/pagination";
 import createSublistAroundIndex from "@/utils/subListAroundIndex";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ITEMS_PER_PAGE } from "./Homepage";
 
 interface Props {
   count: number;
   currentPage: number;
   isLoading: boolean;
   switchPage: (n: number) => void;
+  itemsPerPage: number;
 }
 
-function PageSelector({ count, currentPage, switchPage, isLoading }: Props) {
-  const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
-  // if (count % ITEMS_PER_PAGE) totalPages += 1;
+function PageSelector({
+  count,
+  currentPage,
+  switchPage,
+  isLoading,
+  itemsPerPage,
+}: Props) {
+  const totalPages = Math.ceil(count / itemsPerPage);
 
   function renderPageButtons() {
     if (isLoading) {

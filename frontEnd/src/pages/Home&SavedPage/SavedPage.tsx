@@ -1,20 +1,22 @@
 import WordTranslationItem from "@/pages/Home&SavedPage/WordTranslationItem";
 import SearchBar from "./SearchBar";
 import { Toaster } from "@/components/ui/toaster";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { getSavedTranslations } from "@/services/translationClient";
 import { useQuery } from "@tanstack/react-query";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptySavedpage from "@/pages/Home&SavedPage/EmptySavedpage";
 import { motion } from "framer-motion";
-// import PageSelector from "./PageSelector";
+import PageSelector from "./PageSelector";
+
+export const SAVED_ITEMS_PER_PAGE = 12;
 
 function SavedPage() {
-  // const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error } = useQuery({
     queryKey: ["savedTranslations"],
-    queryFn: getSavedTranslations,
+    queryFn: () => getSavedTranslations(currentPage),
     staleTime: 15000,
   });
 
@@ -29,10 +31,10 @@ function SavedPage() {
     [error]
   );
 
-  // function handleSwitchPage(clickedPage: number) {
-  //   setCurrentPage(clickedPage);
-  //   console.log(clickedPage);
-  // }
+  function handleSwitchPage(clickedPage: number) {
+    setCurrentPage(clickedPage);
+    console.log(clickedPage);
+  }
 
   return (
     <motion.div
@@ -45,13 +47,17 @@ function SavedPage() {
     >
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
-        {/* <div className="w-full flex items-center justify-center">
-          <PageSelector
-            count={data?.count || 0}
-            currentPage={currentPage}
-            switchPage={handleSwitchPage}
-          />
-        </div> */}
+        <div className="w-full flex items-center justify-center mt-4">
+          {data?.count && (
+            <PageSelector
+              isLoading={isLoading}
+              count={data.count}
+              switchPage={handleSwitchPage}
+              currentPage={currentPage}
+              itemsPerPage={SAVED_ITEMS_PER_PAGE}
+            />
+          )}
+        </div>
         <Toaster />
       </div>
       <div

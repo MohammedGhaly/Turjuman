@@ -15,14 +15,11 @@ function TranslationPage() {
       transition={{ duration: 0.1 }}
       className="flex flex-col flex-1 border-t border-t-[var(--box-border)] px-1 pb-6 md:py-8 gap-6 md:gap-10 overflow-y-auto turjuman-scrollable"
     >
-      {/* <div className="flex flex-col flex-1 border-t border-t-[var(--box-border)] px-1 pb-6 md:py-8 gap-6 md:gap-10 overflow-y-auto turjuman-scrollable"> */}
       <Toaster />
       <LanguageSelectors />
       <TranslationArea />
-      {/* {text.trim() && text.trim().split(" ").length === 1 && <WordPageButton />} */}
       <WordPageButton />
       <TranslationInputOptions />
-      {/* </div> */}
     </motion.div>
   );
 }

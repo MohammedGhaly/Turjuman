@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { motion } from "framer-motion";
 import PageSelector from "./PageSelector";
 
-export const ITEMS_PER_PAGE = 12;
+export const HOME_ITEMS_PER_PAGE = 12;
 
 function Homepage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,6 +54,7 @@ function Homepage() {
               count={data.count}
               switchPage={handleSwitchPage}
               currentPage={currentPage}
+              itemsPerPage={HOME_ITEMS_PER_PAGE}
             />
           )}
         </div>
