@@ -8,8 +8,10 @@ import { useQuery } from "@tanstack/react-query";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptySavedpage from "@/pages/Home&SavedPage/EmptySavedpage";
 import { motion } from "framer-motion";
+// import PageSelector from "./PageSelector";
 
 function SavedPage() {
+  // const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error } = useQuery({
     queryKey: ["savedTranslations"],
     queryFn: getSavedTranslations,
@@ -27,6 +29,11 @@ function SavedPage() {
     [error]
   );
 
+  // function handleSwitchPage(clickedPage: number) {
+  //   setCurrentPage(clickedPage);
+  //   console.log(clickedPage);
+  // }
+
   return (
     <motion.div
       key={location.pathname}
@@ -36,14 +43,22 @@ function SavedPage() {
       transition={{ duration: 0.1 }}
       className="border-t border-t-[var(--box-border)] flex flex-col flex-1 overflow-hidden"
     >
-      {/* <div className="border-t border-t-[var(--box-border)] flex flex-col flex-1 overflow-hidden"> */}
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
+        {/* <div className="w-full flex items-center justify-center">
+          <PageSelector
+            count={data?.count || 0}
+            currentPage={currentPage}
+            switchPage={handleSwitchPage}
+          />
+        </div> */}
         <Toaster />
       </div>
       <div
         className={`turjuman-scrollable overflow-y-auto overflow-x-hidden columns-1 ${
-          !isLoading && !(data && data.length) ? "md:columns-1" : "md:columns-2"
+          !isLoading && !(data?.res && data.res.length)
+            ? "md:columns-1"
+            : "md:columns-2"
         } gap-4 space-y-4 w-full px-4 my-4 overflow-scroll`}
       >
         {isLoading ? (
@@ -52,8 +67,8 @@ function SavedPage() {
               <TranslationCardSkeleton />
             ))}
           </>
-        ) : data && data.length ? (
-          data.map((trans) => (
+        ) : data?.res && data.res.length ? (
+          data.res.map((trans) => (
             <WordTranslationItem
               srcLang={trans.srcLang}
               key={trans.id}
@@ -197,7 +212,6 @@ function SavedPage() {
           ]}
         /> */}
       </div>
-      {/* </div> */}
     </motion.div>
   );
 }

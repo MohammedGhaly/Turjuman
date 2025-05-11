@@ -22,7 +22,7 @@ function EmailVerified() {
         className={`flex justify-center items-center text-2xl font-semibold h-[70vh]`}
       >
         <div className="flex flex-col justify-center items-center gap-10 rounded-xl bg-[var(--outer-boxes-bg)] w-fit p-12 md:p-16">
-          <LogoSvg key={"homeLogoSVG"} className={"w-40 md:w-64 lg:w-80"} />
+          <LogoSvg key={"homeLogoSVG"} />
           <p className="text-center w-64 md:w-fit text-[var(--foreground)]">
             your email has been verified <br />
             <br />

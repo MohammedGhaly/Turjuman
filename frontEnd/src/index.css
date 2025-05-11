@@ -57,6 +57,9 @@
   --bookmark-fill: black;
   --box-hover-bg: #e7ebef;
   --inner-glow: #03030309;
+  --pagination-glow: #4751da0c;
+  --pagination-active-btn: black;
+  --pagination-inactive-btn: #8f8f8f;
 }
 
 .dark {
@@ -97,6 +100,9 @@
   --bookmark-fill: white;
   --box-hover-bg: #0f0f0f;
   --inner-glow: #ffffff0a;
+  --pagination-glow: #ffffff0e;
+  --pagination-active-btn: #ffffff;
+  --pagination-inactive-btn: #8f8f8f;
 }
 
 @layer base {

@@ -38,33 +38,7 @@ function TranslationPageProvider({ children }: Props) {
 
     const controller = new AbortController();
     const signal = controller.signal;
-
-    const delayDebounce = setTimeout(async () => {
-      try {
-        dispatch({ type: "LOADING", payload: true });
-        const data: TranslationResponse = await translateWord(
-          text,
-          text,
-          srcLang,
-          targetLang,
-          signal
-        );
-        dispatch({
-          type: "SET_TRANSLATION",
-          payload: data,
-        });
-      } catch (error: unknown) {
-        dispatch({ type: "LOADING", payload: false });
-        if (error instanceof Error && error.name === "AbortError") {
-          console.log("Request aborted due to new input");
-        } else {
-          if (error instanceof Error || error instanceof AxiosError) {
-            console.error(error);
-            toast({ title: error.message, variant: "destructive" });
-          }
-        }
-      }
-    }, 1500);
+    const delayDebounce = setTimeout(() => getTranslation(text, signal), 1500);
 
     return () => {
       clearTimeout(delayDebounce);
@@ -79,6 +53,36 @@ function TranslationPageProvider({ children }: Props) {
       }, 200);
     }
   }, [autoTranslation]);
+
+  const getTranslation = async (
+    word: string,
+    signal: AbortSignal | undefined = undefined
+  ) => {
+    try {
+      dispatch({ type: "LOADING", payload: true });
+      const data: TranslationResponse = await translateWord(
+        word,
+        word,
+        srcLang,
+        targetLang,
+        signal
+      );
+      dispatch({
+        type: "SET_TRANSLATION",
+        payload: data,
+      });
+    } catch (error: unknown) {
+      dispatch({ type: "LOADING", payload: false });
+      if (error instanceof Error && error.name === "AbortError") {
+        console.log("Request aborted due to new input");
+      } else {
+        if (error instanceof Error || error instanceof AxiosError) {
+          console.error(error);
+          toast({ title: error.message, variant: "destructive" });
+        }
+      }
+    }
+  };
 
   // #region state funs
   function setText(text: string) {
@@ -114,8 +118,8 @@ function TranslationPageProvider({ children }: Props) {
       if (original_text && translated_text) {
         if (original_text.split(" ").length === 1) {
           if (original_text.endsWith("."))
-            setText(original_text.slice(0, original_text.length - 1));
-          else setText(original_text);
+            getTranslation(original_text.slice(0, original_text.length - 1));
+          else getTranslation(original_text);
         } else setOptionsTranslationResult?.(original_text, translated_text);
       } else {
         console.log("else block");

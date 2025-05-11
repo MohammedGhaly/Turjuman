@@ -14,10 +14,7 @@ function AuthView({ isLogin }: Props) {
   return (
     <div className="w-full mx-8 md:max-w-[50%] lg:max-w-[33%] bg-[var(--background2)] py-12 flex flex-col justify-center items-center px-10 gap-3 rounded-[53px] lg:pt-6 lg:pb-6 md:mb-0 auth-view-shadow">
       <div className="mb-6 flex flex-col items-center gap-4 lg:mb-0">
-        <LogoSvg
-          key={"HomeLogoSVG2"}
-          className={"w-[60px] md:w-24 lg:w-[60px]"}
-        />
+        <LogoSvg key={"HomeLogoSVG2"} />
         <div className="md:hidden">
           <AppName key={2} cn="text-xl md: text-2xl text-[var(--foreground)]" />
         </div>

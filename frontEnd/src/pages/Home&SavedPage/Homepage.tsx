@@ -4,15 +4,19 @@ import { useQuery } from "@tanstack/react-query";
 import { getHomeTranslations } from "@/services/translationClient";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptyHomepage from "@/pages/Home&SavedPage/EmptyHomepage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { motion } from "framer-motion";
+import PageSelector from "./PageSelector";
+
+export const ITEMS_PER_PAGE = 12;
 
 function Homepage() {
+  const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error } = useQuery({
     queryKey: ["homeTranslations"],
-    queryFn: getHomeTranslations,
+    queryFn: () => getHomeTranslations(currentPage),
     staleTime: 15000,
   });
 
@@ -27,6 +31,11 @@ function Homepage() {
     [error]
   );
 
+  function handleSwitchPage(clickedPage: number) {
+    setCurrentPage(clickedPage);
+    console.log(clickedPage);
+  }
+
   return (
     <motion.div
       key={location.pathname}
@@ -36,14 +45,25 @@ function Homepage() {
       transition={{ duration: 0.1 }}
       className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]"
     >
-      {/* <div className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]"> */}
-      <div className="mt-4 mb-4 px-4">
+      <div className="mt-4 mb-1 px-4">
         <SearchBar />
+        <div className="w-full flex items-center justify-center mt-4">
+          {data?.count && (
+            <PageSelector
+              isLoading={isLoading}
+              count={data.count}
+              switchPage={handleSwitchPage}
+              currentPage={currentPage}
+            />
+          )}
+        </div>
         <Toaster />
       </div>
       <div
         className={`turjuman-scrollable overflow-y-auto overflow-x-hidden columns-1 ${
-          !isLoading && !(data && data.length) ? "md:columns-1" : "md:columns-2"
+          !isLoading && !(data?.res && data.res.length)
+            ? "md:columns-1"
+            : "md:columns-2"
         } gap-4 space-y-4 w-full px-4 my-4 overflow-scroll`}
       >
         {isLoading ? (
@@ -52,8 +72,8 @@ function Homepage() {
               <TranslationCardSkeleton key={k} />
             ))}
           </>
-        ) : data && data.length ? (
-          data.map((trans) => (
+        ) : data?.res && data.res.length ? (
+          data.res.map((trans) => (
             <WordTranslationItem
               srcLang={trans.srcLang}
               key={trans.id}
@@ -68,7 +88,6 @@ function Homepage() {
           <EmptyHomepage />
         )}
       </div>
-      {/* </div> */}
     </motion.div>
   );
 }

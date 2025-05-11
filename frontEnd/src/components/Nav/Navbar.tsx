@@ -8,7 +8,7 @@ interface Props {
 function Navbar({ children }: Props) {
   return (
     <nav className="border-t md:border-0 lg:border-r  border-[var(--box-border)] navbar bg-[var(--nav-bg)] lg:w-1/4">
-      <div className="px-12 py-[0.3rem] lg:flex gap-2 items-center hidden border-b border-[var(--box-border)]">
+      <div className="px-12 py-3 lg:flex gap-2 items-center hidden border-b border-[var(--box-border)]">
         <HomeLogo />
       </div>
       {/* nav items div*/}

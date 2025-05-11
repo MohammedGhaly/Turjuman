@@ -3,6 +3,7 @@ import {
   TranslationResponse,
 } from "@/types/TranslationResponse";
 import api_client from "./api_client";
+import { ITEMS_PER_PAGE } from "@/pages/Home&SavedPage/Homepage";
 
 const translationEndpoint = "api/v1/translate";
 const homeTranslationsEndpoint = "api/v1/translates";
@@ -63,6 +64,7 @@ export async function getSavedTranslations() {
   if (response.status !== 200) throw Error("request failed");
 
   const data = response.data.data;
+  const count: number = response.data.count;
   const res: Array<TranslationResponse> = data.map(
     (item: AllTransBackResponse) => ({
       id: item.id,
@@ -78,18 +80,23 @@ export async function getSavedTranslations() {
     })
   );
 
-  return res;
+  const result: { res: TranslationResponse[]; count: number } = { res, count };
+
+  return result;
 }
-export async function getHomeTranslations() {
+
+export async function getHomeTranslations(page: number) {
   const response = await api_client.get(homeTranslationsEndpoint, {
     headers: {
       "Content-Type": "application/json",
     },
+    params: { page, limit: ITEMS_PER_PAGE, sort: "createdAt" },
   });
 
   if (response.status !== 200) throw Error("request failed");
 
   const data = response.data.data;
+  const count = response.data.count;
   const res: Array<TranslationResponse> = data.map(
     (item: AllTransBackResponse) => ({
       id: item.id,
@@ -104,7 +111,9 @@ export async function getHomeTranslations() {
       targetLang: item.targetLang,
     })
   );
-  return res;
+  const result: { res: TranslationResponse[]; count: number } = { res, count };
+
+  return result;
 }
 export async function saveTranslation(id: string): Promise<string> {
   const response = await api_client.get(saveTranslationsEndpoint + id, {
