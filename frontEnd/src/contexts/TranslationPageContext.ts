@@ -120,7 +120,13 @@ export function translationPageReducer(
     case "CLEAR_TRANSLATION":
       return { ...state, translation: translationInitialState };
     case "SET_TRANSLATION":
-      return { ...state, translation: action.payload, isLoading: false };
+      return {
+        ...state,
+        translation: action.payload,
+        text: action.payload.translation || state.text,
+        isLoading: false,
+        autoTranslation: false,
+      };
     case "LOADING":
       return { ...state, isLoading: action.payload };
     case "SET_OPTIONS_TRANSLATION_RESULT":
@@ -144,6 +150,7 @@ export function translationPageReducer(
       };
     case "ENABLE_AUTO_TRANSLATION":
       return { ...state, autoTranslation: true };
+
     default:
       return state;
   }

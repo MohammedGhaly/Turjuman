@@ -59,7 +59,7 @@ function SavedPage() {
           !isLoading && !(data?.res && data.res.length)
             ? "md:columns-1"
             : "md:columns-2"
-        } gap-4 space-y-4 w-full px-4 my-4 overflow-scroll`}
+        } gap-4 space-y-4 w-full px-4 my-0 overflow-scroll`}
       >
         {isLoading ? (
           <>

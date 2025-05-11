@@ -90,7 +90,7 @@ export async function getHomeTranslations(page: number) {
     headers: {
       "Content-Type": "application/json",
     },
-    params: { page, limit: ITEMS_PER_PAGE, sort: "createdAt" },
+    params: { page, limit: ITEMS_PER_PAGE, sort: "-createdAt" },
   });
 
   if (response.status !== 200) throw Error("request failed");
