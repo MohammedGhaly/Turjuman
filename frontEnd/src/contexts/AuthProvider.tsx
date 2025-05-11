@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 import { useNavigate } from "react-router";
 import {
@@ -7,11 +7,13 @@ import {
   authLogin,
   authLogout,
   authRegister,
+  getMe,
 } from "../services/authClient";
 import { homepageRoute, verifyYourEmailRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { AxiosError } from "axios";
+import isTokenExpired from "@/utils/isTokenExpired";
 
 interface AuthProviderProps {
   children: React.JSX.Element;
@@ -24,6 +26,36 @@ export default function AuthenticationProvider({
     useReducer(reducer, authInitialState);
   const navigate = useNavigate();
   const { toast } = useToast();
+  localStorage.setItem(
+    "jwt",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTNjMDkzMDFjYmI3YzBjODhkYzNmNyIsImlhdCI6MTc0NzAwMjE4NCwiZXhwIjoxNzQ3MDI3Mzg0fQ.QEr6OBgLi48tjUbURhwoIfbEGNvoYpwpuupCygy-DYI"
+  );
+
+  useEffect(function () {
+    async function tokenLogin() {
+      dispatch({ type: "START_FETCHING_TOKEN" });
+      const token = localStorage.getItem("jwt");
+      // const jwtDecoded = jwtDecode(token || "") as JwtPayload;
+      // console.log(jwtDecoded);
+      if (token && !isTokenExpired(token)) {
+        const user = await getMe();
+        dispatch({
+          type: "LOAD_USER",
+          payload: { user, token },
+        });
+      } else {
+        console.log("expired");
+        localStorage.removeItem("jwt");
+        navigate("/login");
+        toast({
+          title: "Session expired, please login again",
+          variant: "destructive",
+        });
+      }
+    }
+
+    tokenLogin();
+  }, []);
 
   async function login(email: string, password: string) {
     dispatch({ type: "LOADING", payload: true });
@@ -64,6 +96,10 @@ export default function AuthenticationProvider({
         console.log("err.message=>  ", err.message);
         dispatch({ type: "LOADING", payload: false });
         if (err.message === "Network Error") {
+          // localStorage.setItem(
+          //   "jwt",
+          //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTNjMDkzMDFjYmI3YzBjODhkYzNmNyIsImlhdCI6MTc0Njk3MDY5NiwiZXhwIjoxNzQ2OTk1ODk2fQ.s4FgpvjOCFb8ioQz2Mgrtk9AHpNm1IoZgo_7GX1HhHw"
+          // );
           toast({
             title:
               "An error has occurred while logging in, check your network connection",
@@ -191,7 +227,6 @@ export default function AuthenticationProvider({
       }
     }
   }
-
   async function updateUser() {}
 
   return (

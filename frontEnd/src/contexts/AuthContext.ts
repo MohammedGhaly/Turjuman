@@ -44,12 +44,12 @@ type UPDATE_USER = {
   type: "UPDATE_USER";
   payload: { user: User };
 };
-type LOAD_USER = { type: "LOAD_USER"; payload: { user: User } };
+type LOAD_USER = { type: "LOAD_USER"; payload: { user: User; token: string } };
 type REGISTER = { type: "REGISTER" };
 type LOGIN = { type: "LOGIN"; payload: { user: User } };
 type LOGOUT = { type: "LOGOUT" };
 type START_FETCHING_TOKEN = { type: "START_FETCHING_TOKEN" };
-type DONE_FETCHING_TOKEN = { type: "DONE_FETCHING_TOKEN" };
+// type DONE_FETCHING_TOKEN = { type: "DONE_FETCHING_TOKEN" };
 type LOADING = { type: "LOADING"; payload: boolean };
 
 type ReducerAction =
@@ -60,8 +60,8 @@ type ReducerAction =
   | LOADING
   | LOGIN
   | LOGOUT
-  | START_FETCHING_TOKEN
-  | DONE_FETCHING_TOKEN;
+  | START_FETCHING_TOKEN;
+// | DONE_FETCHING_TOKEN;
 // #endregion reducer types
 
 export function reducer(state: Auth, action: ReducerAction): Auth {
@@ -79,6 +79,7 @@ export function reducer(state: Auth, action: ReducerAction): Auth {
         ...state,
         isAuthenticated: true,
         user: { ...action.payload.user },
+        fetchingToken: false,
       };
     case "REGISTER":
       return {
@@ -97,8 +98,8 @@ export function reducer(state: Auth, action: ReducerAction): Auth {
       return { ...authInitialState, fetchingToken: false, isLoading: false };
     case "START_FETCHING_TOKEN":
       return { ...state, fetchingToken: true };
-    case "DONE_FETCHING_TOKEN":
-      return { ...state, fetchingToken: false };
+    // case "DONE_FETCHING_TOKEN":
+    //   return { ...state, fetchingToken: false };
     case "LOADING":
       return { ...state, isLoading: action.payload };
     default:

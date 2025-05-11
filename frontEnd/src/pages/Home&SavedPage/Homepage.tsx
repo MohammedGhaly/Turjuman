@@ -1,6 +1,6 @@
 import SearchBar from "./SearchBar";
 import WordTranslationItem from "./WordTranslationItem";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHomeTranslations } from "@/services/translationClient";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptyHomepage from "@/pages/Home&SavedPage/EmptyHomepage";
@@ -14,8 +14,9 @@ export const HOME_ITEMS_PER_PAGE = 12;
 
 function Homepage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["homeTranslations"],
+    queryKey: [`homeTranslations${currentPage}`],
     queryFn: () => getHomeTranslations(currentPage),
     staleTime: 15000,
   });
@@ -29,6 +30,15 @@ function Homepage() {
         });
     },
     [error]
+  );
+
+  useEffect(
+    function () {
+      queryClient.invalidateQueries({
+        queryKey: [`homeTranslations${currentPage}`],
+      });
+    },
+    [currentPage, queryClient]
   );
 
   function handleSwitchPage(clickedPage: number) {
@@ -65,7 +75,7 @@ function Homepage() {
           !isLoading && !(data?.res && data.res.length)
             ? "md:columns-1"
             : "md:columns-2"
-        } gap-4 space-y-4 w-full px-4 my-0 overflow-scroll`}
+        } gap-4 space-y-4 w-full px-4 mt-1 pb-4 overflow-scroll`}
       >
         {isLoading ? (
           <>

@@ -3,14 +3,15 @@ export interface User {
     count: number;
     date: string;
   };
-  photo: string;
   _id: string;
   name: string;
   email: string;
   role: "user" | "admin";
   isPremium: false;
   isActive: true;
+  photo: string;
+  loginMethod: string;
+  isEmailVerified: boolean;
   createdAt: string;
   updatedAt: string;
-  __v: 0;
 }

@@ -1,11 +1,12 @@
 import { User } from "../types/User";
 import api_client from "./api_client";
-import { BASE_URL } from "./api_client";
+import apiClient, { BASE_URL } from "./api_client";
 const loginEndpoint = "api/v1/users/login";
 const signupEndpoint = "api/v1/users/signup";
 const logoutEndpoint = "api/v1/users/logout";
 const googleLoginEndpoint = "auth/google";
 const facebookLoginEndpoint = "auth/facebook";
+const getMeEndpoint = "api/v1/users/me";
 
 export async function authLogin(email: string, password: string) {
   const body = { email, password };
@@ -55,5 +56,12 @@ export async function authGoogleLogin() {
 export async function authFacebookLogin() {
   window.location.href = BASE_URL + facebookLoginEndpoint;
 }
-export async function authFetchUser() {}
+export async function getMe() {
+  const response = await apiClient.get(getMeEndpoint, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data.data as User;
+}
 export async function authUpdateUser() {}

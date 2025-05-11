@@ -65,11 +65,11 @@ function SavedPage() {
           !isLoading && !(data?.res && data.res.length)
             ? "md:columns-1"
             : "md:columns-2"
-        } gap-4 space-y-4 w-full px-4 my-0 overflow-scroll`}
+        } gap-4 space-y-4 w-full px-4 mt-1 pb-4 overflow-scroll`}
       >
         {isLoading ? (
           <>
-            {[1, 2, 3, 4, 5, 6].map(() => (
+            {[101, 202, 303, 404, 505, 606].map(() => (
               <TranslationCardSkeleton />
             ))}
           </>
