@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { getSavedTranslations } from "@/services/translationClient";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import TranslationCardSkeleton from "@/components/TranslationCardSkeleton";
 import EmptySavedpage from "@/pages/Home&SavedPage/EmptySavedpage";
 import { motion } from "framer-motion";
@@ -14,8 +14,9 @@ export const SAVED_ITEMS_PER_PAGE = 12;
 
 function SavedPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["savedTranslations"],
+    queryKey: [`savedTranslations${currentPage}`],
     queryFn: () => getSavedTranslations(currentPage),
     staleTime: 15000,
   });
@@ -31,9 +32,17 @@ function SavedPage() {
     [error]
   );
 
+  useEffect(
+    function () {
+      queryClient.invalidateQueries({
+        queryKey: [`savedTranslations${currentPage}`],
+      });
+    },
+    [currentPage, queryClient]
+  );
+
   function handleSwitchPage(clickedPage: number) {
     setCurrentPage(clickedPage);
-    console.log(clickedPage);
   }
 
   return (
@@ -69,8 +78,8 @@ function SavedPage() {
       >
         {isLoading ? (
           <>
-            {[101, 202, 303, 404, 505, 606].map(() => (
-              <TranslationCardSkeleton />
+            {[111, 222, 333, 444, 555, 666].map((k) => (
+              <TranslationCardSkeleton key={k} />
             ))}
           </>
         ) : data?.res && data.res.length ? (
