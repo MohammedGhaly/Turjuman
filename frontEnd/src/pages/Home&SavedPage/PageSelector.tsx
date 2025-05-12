@@ -32,7 +32,6 @@ function PageSelector({
       Array.from({ length: totalPages }, (_, index) => index + 1),
       currentPage
     );
-    console.log(pageButtonsOrders);
     for (const i of pageButtonsOrders) {
       pageButtons.push(
         <PaginationButton

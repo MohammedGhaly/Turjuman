@@ -21,21 +21,23 @@ interface Auth {
         passwordConfirm: string
       ) => void);
   logout: undefined | (() => void);
-  updateUser: undefined | (() => void);
+  loadUser: undefined | ((user: User) => void);
+  setFetchingToken: undefined | ((arg: boolean) => void);
 }
 
 export const authInitialState: Auth = {
   user: null,
   isAuthenticated: false,
   error: "",
-  fetchingToken: true,
+  fetchingToken: false,
   isLoading: false,
   login: undefined,
   logout: undefined,
   register: undefined,
-  updateUser: undefined,
+  loadUser: undefined,
   facebookLogin: undefined,
   googleLogin: undefined,
+  setFetchingToken: undefined,
 };
 
 // #region reducer types
@@ -44,12 +46,11 @@ type UPDATE_USER = {
   type: "UPDATE_USER";
   payload: { user: User };
 };
-type LOAD_USER = { type: "LOAD_USER"; payload: { user: User; token: string } };
+type LOAD_USER = { type: "LOAD_USER"; payload: User };
 type REGISTER = { type: "REGISTER" };
 type LOGIN = { type: "LOGIN"; payload: { user: User } };
 type LOGOUT = { type: "LOGOUT" };
-type START_FETCHING_TOKEN = { type: "START_FETCHING_TOKEN" };
-// type DONE_FETCHING_TOKEN = { type: "DONE_FETCHING_TOKEN" };
+type FETCHING_TOKEN = { type: "FETCHING_TOKEN"; payload: boolean };
 type LOADING = { type: "LOADING"; payload: boolean };
 
 type ReducerAction =
@@ -60,8 +61,7 @@ type ReducerAction =
   | LOADING
   | LOGIN
   | LOGOUT
-  | START_FETCHING_TOKEN;
-// | DONE_FETCHING_TOKEN;
+  | FETCHING_TOKEN;
 // #endregion reducer types
 
 export function reducer(state: Auth, action: ReducerAction): Auth {
@@ -78,7 +78,7 @@ export function reducer(state: Auth, action: ReducerAction): Auth {
       return {
         ...state,
         isAuthenticated: true,
-        user: { ...action.payload.user },
+        user: action.payload,
         fetchingToken: false,
       };
     case "REGISTER":
@@ -93,13 +93,12 @@ export function reducer(state: Auth, action: ReducerAction): Auth {
         user: { ...action.payload.user },
         isLoading: false,
         error: "",
+        fetchingToken: false,
       };
     case "LOGOUT":
       return { ...authInitialState, fetchingToken: false, isLoading: false };
-    case "START_FETCHING_TOKEN":
-      return { ...state, fetchingToken: true };
-    // case "DONE_FETCHING_TOKEN":
-    //   return { ...state, fetchingToken: false };
+    case "FETCHING_TOKEN":
+      return { ...state, fetchingToken: action.payload };
     case "LOADING":
       return { ...state, isLoading: action.payload };
     default:

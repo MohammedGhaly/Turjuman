@@ -2,9 +2,20 @@ import { Toaster } from "@/components/ui/toaster";
 import AuthView from "../components/Auth/AuthView";
 import HomeLogo from "../components/HomeLogo";
 import { useTheme } from "@/contexts/ThemeProvider";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router";
 
 function LoginPage() {
   const { theme } = useTheme();
+  // const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    navigate("/app");
+    return <></>;
+  }
+
   return (
     <>
       <div

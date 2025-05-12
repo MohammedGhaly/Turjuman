@@ -13,6 +13,7 @@ import { homepageRoute, verifyYourEmailRoute } from "../utils/routes";
 import { AuthContext, authInitialState, reducer } from "./AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { AxiosError } from "axios";
+import { User } from "@/types/User";
 import isTokenExpired from "@/utils/isTokenExpired";
 
 interface AuthProviderProps {
@@ -27,29 +28,25 @@ export default function AuthenticationProvider({
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  useEffect(function () {
-    async function tokenLogin() {
-      dispatch({ type: "START_FETCHING_TOKEN" });
-      const token = localStorage.getItem("jwt");
-      if (token && !isTokenExpired(token)) {
-        const user = await getMe();
-        dispatch({
-          type: "LOAD_USER",
-          payload: { user, token },
-        });
-      } else {
-        console.log("expired");
-        localStorage.removeItem("jwt");
-        navigate("/login");
-        toast({
-          title: "Session expired, please login again",
-          variant: "destructive",
-        });
+  useEffect(
+    function () {
+      async function tokenLogin() {
+        setFetchingToken?.(true);
+        const token = localStorage.getItem("jwt");
+        if (token && !isTokenExpired(token)) {
+          const user = await getMe();
+          loadUser?.(user);
+          navigate("/app");
+        } else {
+          localStorage.removeItem("jwt");
+          setFetchingToken?.(false);
+        }
       }
-    }
 
-    tokenLogin();
-  }, []);
+      if (!isAuthenticated) tokenLogin();
+    },
+    [isAuthenticated, navigate, toast]
+  );
 
   async function login(email: string, password: string) {
     dispatch({ type: "LOADING", payload: true });
@@ -220,7 +217,16 @@ export default function AuthenticationProvider({
       }
     }
   }
-  async function updateUser() {}
+  async function loadUser(user: User) {
+    dispatch({
+      type: "LOAD_USER",
+      payload: user,
+    });
+  }
+
+  function setFetchingToken(arg: boolean) {
+    dispatch({ type: "FETCHING_TOKEN", payload: arg });
+  }
 
   return (
     <AuthContext.Provider
@@ -233,9 +239,10 @@ export default function AuthenticationProvider({
         register,
         login,
         logout,
-        updateUser,
+        loadUser,
         facebookLogin,
         googleLogin,
+        setFetchingToken,
       }}
     >
       {children}

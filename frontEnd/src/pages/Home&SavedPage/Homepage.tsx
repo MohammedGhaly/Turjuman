@@ -43,7 +43,6 @@ function Homepage() {
 
   function handleSwitchPage(clickedPage: number) {
     setCurrentPage(clickedPage);
-    console.log(clickedPage);
   }
 
   return (
