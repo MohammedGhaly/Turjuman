@@ -6,7 +6,7 @@ import Popup from "./chrome-extension/popup/Popup";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <div className="bg-white w-full">
-      <Popup onClose={() => {}} word="eat" />
+      <Popup onClose={() => {}} text="Entschuldigung" paragraph="" />
     </div>
   </StrictMode>
 );

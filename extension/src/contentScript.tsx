@@ -1,4 +1,3 @@
-// import { StrictMode, useState } from "react";
 import ReactDOM from "react-dom/client";
 import PopupApp from "./chrome-extension/popup/PopupApp";
 
@@ -12,14 +11,20 @@ function injectReactApp() {
   container.style.top = "0px";
   container.style.left = "0px";
   container.style.display = "none";
-  // container.style.bottom = "0px";
-  // container.style.right = "0px";
 
   // Attaching a Shadow Root to the container
   const shadowRoot = container.attachShadow({ mode: "open" });
   const styles = `
     :host {
       all: initial; /* Reset all styles */
+    }
+      
+    :host, html {
+      font-size: 16px !important;
+    }
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
   `;
   const styleElement = document.createElement("style");

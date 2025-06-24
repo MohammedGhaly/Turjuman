@@ -18,7 +18,11 @@ export default defineConfig({
       ],
     }),
   ],
-
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"), // <- this tells Vite what @ means
+    },
+  },
   // server: {
   //   open: "/extension-local.html",
   // },

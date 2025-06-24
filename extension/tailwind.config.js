@@ -1,57 +1,184 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ["class"],
-    content: ["/extension-local.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class"],
+  content: ["/extension-local.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-  	extend: {
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		}
-  	}
+    // fontSize: {
+    //   xs: ["0.75em", "1em"],
+    //   sm: ["0.875em", "1.25em"],
+    //   base: ["1em", "1.5em"],
+    //   lg: ["1.125em", "1.75em"],
+    //   xl: ["1.25em", "1.75em"],
+    //   "2xl": ["1.5em", "2em"],
+    //   "3xl": ["1.875em", "2.25em"],
+    //   "4xl": ["2.25em", "2.5em"],
+    //   "5xl": ["3em", "1"],
+    //   "6xl": ["3.75em", "1"],
+    //   "7xl": ["4.5em", "1"],
+    //   "8xl": ["6em", "1"],
+    //   "9xl": ["8em", "1"],
+    // },
+    // spacing: {
+    //   px: "1px",
+    //   0: "0em",
+    //   0.5: "0.125em",
+    //   1: "0.25em",
+    //   1.5: "0.375em",
+    //   2: "0.5em",
+    //   2.5: "0.625em",
+    //   3: "0.75em",
+    //   3.5: "0.875em",
+    //   4: "1em",
+    //   5: "1.25em",
+    //   6: "1.5em",
+    //   7: "1.75em",
+    //   8: "2em",
+    //   9: "2.25em",
+    //   10: "2.5em",
+    //   11: "2.75em",
+    //   12: "3em",
+    //   14: "3.5em",
+    //   16: "4em",
+    //   20: "5em",
+    //   24: "6em",
+    //   28: "7em",
+    //   32: "8em",
+    //   36: "9em",
+    //   40: "10em",
+    //   44: "11em",
+    //   48: "12em",
+    //   52: "13em",
+    //   56: "14em",
+    //   60: "15em",
+    //   64: "16em",
+    //   72: "18em",
+    //   80: "20em",
+    //   96: "24em",
+    // },
+
+    extend: {
+      fontSize: {
+        xs: ["0.75em", "1em"],
+        sm: ["0.875em", "1.25em"],
+        base: ["1em", "1.5em"],
+        lg: ["1.125em", "1.75em"],
+        xl: ["1.25em", "1.75em"],
+        "2xl": ["1.5em", "2em"],
+        "3xl": ["1.875em", "2.25em"],
+        "4xl": ["2.25em", "2.5em"],
+        "5xl": ["3em", "1"],
+        "6xl": ["3.75em", "1"],
+        "7xl": ["4.5em", "1"],
+        "8xl": ["6em", "1"],
+        "9xl": ["8em", "1"],
+      },
+      spacing: {
+        px: "1px",
+        0: "0em",
+        0.5: "0.125em",
+        1: "0.25em",
+        1.5: "0.375em",
+        2: "0.5em",
+        2.5: "0.625em",
+        3: "0.75em",
+        3.5: "0.875em",
+        4: "1em",
+        5: "1.25em",
+        6: "1.5em",
+        7: "1.75em",
+        8: "2em",
+        9: "2.25em",
+        10: "2.5em",
+        11: "2.75em",
+        12: "3em",
+        14: "3.5em",
+        16: "4em",
+        20: "5em",
+        24: "6em",
+        28: "7em",
+        32: "8em",
+        36: "9em",
+        40: "10em",
+        44: "11em",
+        48: "12em",
+        52: "13em",
+        56: "14em",
+        60: "15em",
+        64: "16em",
+        72: "18em",
+        80: "20em",
+        96: "24em",
+      },
+
+      fontFamily: {
+        emoji: [
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          "Noto Color Emoji",
+          "Twemoji Mozilla",
+          "sans-serif",
+        ],
+        aboreto: ["Aboreto", "sans-serif"],
+        inter: ["Apple Color Emoji", "Inter", "sans-serif"],
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+        none: "0em",
+        sm: "2px",
+        DEFAULT: "4px",
+        md: "6px",
+        lg: "8px",
+        xl: "12px",
+        "2xl": "16px",
+        "3xl": "24px",
+        full: "9999em",
+      },
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
+        },
+      },
+    },
   },
+  corePlugins: { preflight: false },
   plugins: [require("tailwindcss-animate")],
 };

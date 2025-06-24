@@ -1,24 +1,19 @@
-import { IconPosition } from "./PopupApp";
+import LogoSvg from "./LogoSvg";
 
 interface Props {
-  position: IconPosition;
-  setIsPopupOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPopupOpen: () => void;
+  theme: string;
 }
 
-function PopupIcon({ position, setIsPopupOpen }: Props) {
-  //   const { l, t } = calculatePosition(position);
-  console.log(position);
+function PopupIcon({ setIsPopupOpen, theme }: Props) {
   return (
     <div
       id="turjuman-translate-icon"
       style={{ padding: "6px", borderRadius: "8px" }}
       className={`flex bg-[#343434] justify-center items-center cursor-pointer`}
-      onClick={() => setIsPopupOpen(true)}
+      onClick={setIsPopupOpen}
     >
-      <img
-        className="TurjumanLogoImg w-5 h-5"
-        src={chrome.runtime.getURL("assets/logo.png")}
-      />
+      <LogoSvg theme={theme} size="25" />
     </div>
   );
 }

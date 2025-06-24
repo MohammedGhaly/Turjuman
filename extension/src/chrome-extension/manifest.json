@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension Starter",
+  "name": "Turjuman extension",
   "version": "1.0.0",
   "action": {
     "default_popup": "extension.html"
@@ -28,5 +28,6 @@
       "resources": ["tailwind.css", "assets/*", "global.css"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "permissions": ["storage"]
 }

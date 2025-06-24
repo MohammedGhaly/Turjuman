@@ -1,4 +1,9 @@
-import { Bookmark, Volume2 } from "lucide-react";
+import { SupportedLanguageEnum } from "@/chrome-extension/types/SupportedLanguages";
+import getWordTransItemFontSize from "@/chrome-extension/utils/getWordTransItemFont";
+import { pronounce } from "@/chrome-extension/utils/pronounce";
+import GradientBookmark from "@/components/GradientBookmark";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Volume2 } from "lucide-react";
 
 const aiicon = (
   <svg
@@ -50,22 +55,75 @@ const aiicon = (
 );
 
 interface Props {
+  id: string | undefined;
+  isFavorite: boolean | undefined;
   word: string;
   aiTranslation: string;
+  isLoading: boolean;
+  srcLang: SupportedLanguageEnum;
+  changeTransFavorite: (isFavorite: boolean) => void;
+  error?: string;
 }
 
-function WordBar({ word, aiTranslation }: Props) {
+function WordBar({
+  word,
+  aiTranslation,
+  isLoading,
+  id,
+  isFavorite,
+  changeTransFavorite,
+  srcLang,
+  error,
+}: Props) {
   return (
-    <div className="text-[var(--foreground)] flex justify-between">
+    <div className="text-[var(--foreground)] flex justify-between h-fit">
       <div className="flex justify-between gap-5 items-center">
-        <span className="text-4xl font-semibold capitalize">{word}</span>
-        {/* <Bookmark fill="white" /> */}
-        <Bookmark />
-        <Volume2 />
+        <span
+          style={{ lineHeight: 1 }}
+          className={`${getWordTransItemFontSize(
+            word.length
+          )} font-semibold capitalize`}
+        >
+          {word}
+        </span>
+        <div className="flex gap-0 justify-between">
+          <button className="hover:bg-[var(--icon-hover)] bg-[var(--background)] rounded-full h-10 w-10 flex justify-center border-none items-center transition-colors duration-300">
+            <GradientBookmark
+              isFavorite={isFavorite}
+              id={id}
+              changeTransFavorite={changeTransFavorite}
+            />
+          </button>
+          <button
+            className="hover:bg-[var(--icon-hover)] bg-[var(--background)] rounded-full h-10 w-10 flex justify-center border-none items-center transition-colors duration-300"
+            onClick={() => pronounce(word, srcLang)}
+          >
+            <Volume2 color="var(--foreground)" />
+          </button>
+        </div>
       </div>
-      <div className="text-3xl flex gap-5 items-center justify-between">
-        <span className="font-semibold">{aiTranslation}</span>
-        <span>{aiicon}</span>
+      <div className="flex gap-5 items-center justify-between">
+        {isLoading ? (
+          <>
+            <div className="rounded-sm bg-[var(--primary)]">
+              <Skeleton className="font-semibold capitalize w-24 h-8 bg-[var(--skeleton)]" />
+            </div>
+          </>
+        ) : (
+          !error && (
+            <>
+              <span
+                style={{ lineHeight: 1 }}
+                className={`${getWordTransItemFontSize(
+                  aiTranslation.length
+                )} font-semibold`}
+              >
+                {aiTranslation}
+              </span>
+              <span>{aiicon}</span>
+            </>
+          )
+        )}
       </div>
     </div>
   );

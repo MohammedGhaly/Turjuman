@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Extension } from "./chrome-extension/extension/index";
+import ExtensionApp from "./chrome-extension/extension/ExtensionApp";
 import "./chrome-extension/global.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Extension />
+    <ExtensionApp />
   </StrictMode>
 );

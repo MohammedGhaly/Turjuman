@@ -1,10 +1,11 @@
-import { Cog, XIcon } from "lucide-react";
-import logo from "../public/logo.png";
-
-let logosrc = logo;
-if (import.meta.env.MODE === "production") {
-  logosrc = chrome.runtime.getURL("assets/logo.png");
-}
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Moon, Sun, XIcon } from "lucide-react";
+import { ReactNode } from "react";
+import { Themes } from "./Popup";
 
 const tabs = {
   translate: "translate" as TabS,
@@ -14,66 +15,51 @@ const tabs = {
 export type TabS = "translate" | "definition" | "examples";
 
 interface PopupTopBarProps {
-  activeTab: TabS;
-  setActiveTab: React.Dispatch<React.SetStateAction<TabS>>;
-  theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
-  closePopup: () => void;
+  children: ReactNode;
 }
 
-function PopupTopBar({
-  activeTab,
-  setActiveTab,
-  theme,
-  setTheme,
-  closePopup,
-}: PopupTopBarProps) {
+function PopupTopBar({ children }: PopupTopBarProps) {
   return (
-    <div
-      className="p-[6px] flex justify-between bg-[var(--primary)]"
-      onClick={() => {
-        if (theme === "theme-dark") {
-          setTheme("theme-light");
-        } else {
-          setTheme("theme-dark");
-        }
-      }}
-    >
-      <div
-        className="flex items-center gap-3 ml-1"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <Logo />
-        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-      </div>
-      <Controls closePopup={closePopup} />
+    <div className="p-[6px] gap-2 flex justify-between bg-[var(--primary)]">
+      {children}
     </div>
   );
 }
 
 interface ControlsProps {
+  theme: Themes;
+  setTheme: React.Dispatch<React.SetStateAction<Themes>>;
   closePopup: () => void;
 }
 
-function Controls({ closePopup }: ControlsProps) {
+export function Controls({ closePopup, theme, setTheme }: ControlsProps) {
   return (
-    <div className="flex gap-2 justify-center items-center">
-      <div className="settings">
-        <Cog className="cursor-pointer" />
-      </div>
-      <div className="close">
-        <XIcon onClick={closePopup} className="cursor-pointer" />
-      </div>
-    </div>
-  );
-}
-
-function Logo() {
-  return (
-    <div className="p-">
-      <img src={logosrc} className="w-6 h-6" />
+    <div className="flex gap-[2px] justify-center items-center">
+      <button
+        className="theme-selector hover:bg-[var(--icon-hover)] bg-[var(--background)] border-none rounded-full p-[5px] transition-all duration-200"
+        onClick={() => {
+          if (theme === "theme-dark") {
+            setTheme("theme-light");
+            chrome.storage.sync.set({ theme: "theme-light" });
+          } else {
+            setTheme("theme-dark");
+            chrome.storage.sync.set({ theme: "theme-dark" });
+          }
+        }}
+      >
+        {theme === "theme-light" ? (
+          <Moon className="cursor-pointer" color="var(--foreground)" />
+        ) : (
+          <Sun className="cursor-pointer" color="var(--foreground)" />
+        )}
+      </button>
+      <button className="close bg-[var(--background)] border-none hover:bg-[var(--icon-hover)] rounded-full p-[4px] transition-all duration-200">
+        <XIcon
+          onClick={closePopup}
+          className="cursor-pointer"
+          color="var(--foreground)"
+        />
+      </button>
     </div>
   );
 }
@@ -81,19 +67,36 @@ function Logo() {
 interface TabsProps {
   activeTab: TabS;
   setActiveTab: React.Dispatch<React.SetStateAction<TabS>>;
+  children: ReactNode;
 }
 
-function Tabs({ setActiveTab, activeTab }: TabsProps) {
+export function Tabs({ setActiveTab, activeTab, children }: TabsProps) {
   return (
     <div className="flex gap-2 bg-[var(--secondary)] text-[var(--foreground)] border-[var(--border)] border rounded-md p-1">
-      {Object.values(tabs).map((t) => (
-        <Tab
-          title={t}
-          isActive={activeTab === t}
-          setActiveTab={setActiveTab}
-          key={t}
-        />
-      ))}
+      {Object.values(tabs).map((t) =>
+        t === "translate" ? (
+          <HoverCard>
+            <HoverCardTrigger>
+              <Tab
+                title={t}
+                isActive={activeTab === t}
+                setActiveTab={setActiveTab}
+                key={t}
+              />
+            </HoverCardTrigger>
+            <HoverCardContent className="w-52 p-1 bg-[var(--primary)]">
+              <div className="">{children}</div>
+            </HoverCardContent>
+          </HoverCard>
+        ) : (
+          <Tab
+            title={t}
+            isActive={activeTab === t}
+            setActiveTab={setActiveTab}
+            key={t}
+          />
+        )
+      )}
     </div>
   );
 }
