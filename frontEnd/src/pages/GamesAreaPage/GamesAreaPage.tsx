@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import FlashCardsGame from "./FlashCardsGame";
+import { Toaster } from "@/components/ui/toaster";
 
 function GamesAreaPage() {
   return (
@@ -10,7 +12,8 @@ function GamesAreaPage() {
       transition={{ duration: 0.1 }}
       className="flex-1 border-t border-t-[var(--box-border)] turjuman-scrollable"
     >
-      Flashcards game
+      <Toaster />
+      <FlashCardsGame />
     </motion.div>
   );
 }

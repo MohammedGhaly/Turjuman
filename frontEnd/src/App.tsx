@@ -11,7 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AppLayout from "./pages/AppLayout";
 import TranslationPage from "./pages/TranslationPage/TranslationPage";
-import GamesAreaPage from "./pages/GamesAreaPage";
+import GamesAreaPage from "./pages/GamesAreaPage/GamesAreaPage";
 import SavedPage from "./pages/Home&SavedPage/SavedPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "./App.css";

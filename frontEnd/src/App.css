@@ -80,3 +80,24 @@
   transition-duration: 0.3s;
   background-color: var(--box-hover-bg);
 }
+
+.perspective {
+  perspective: 1000px;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.card-shadow {
+  box-shadow: #00000022 0px -2px 5px;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

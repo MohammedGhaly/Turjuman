@@ -57,10 +57,10 @@ function Homepage() {
       <div className="mt-4 mb-1 px-4">
         <SearchBar />
         <div className="w-full flex items-center justify-center mt-4">
-          {data?.count && (
+          {(data?.count || 0) > 0 && (
             <PageSelector
               isLoading={isLoading}
-              count={data.count}
+              count={data?.count || 0}
               switchPage={handleSwitchPage}
               currentPage={currentPage}
               itemsPerPage={HOME_ITEMS_PER_PAGE}

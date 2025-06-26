@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from "react";
-
 import { useNavigate } from "react-router";
 import {
   authFacebookLogin,
@@ -27,6 +26,11 @@ export default function AuthenticationProvider({
     useReducer(reducer, authInitialState);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  localStorage.setItem(
+    "jwt",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWM2YzAxYTgwMzc1ZmQ1MmI2YzQ3YSIsImlhdCI6MTc1MDg4NzY5NywiZXhwIjoxNzUwOTEyODk3LCJqdGkiOiIyZTk5OTYzYi01NThhLTQ2YTMtYTE4ZC1mYmNkYjAyOGJiZmQifQ.bMM-YtLiOm-lyS1Bw1JxTD8D9kwUAh6kFYpiXm0YL6M"
+  );
 
   useEffect(
     function () {
@@ -87,10 +91,6 @@ export default function AuthenticationProvider({
         console.log("err.message=>  ", err.message);
         dispatch({ type: "LOADING", payload: false });
         if (err.message === "Network Error") {
-          // localStorage.setItem(
-          //   "jwt",
-          //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTNjMDkzMDFjYmI3YzBjODhkYzNmNyIsImlhdCI6MTc0Njk3MDY5NiwiZXhwIjoxNzQ2OTk1ODk2fQ.s4FgpvjOCFb8ioQz2Mgrtk9AHpNm1IoZgo_7GX1HhHw"
-          // );
           toast({
             title:
               "An error has occurred while logging in, check your network connection",

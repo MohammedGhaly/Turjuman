@@ -57,10 +57,10 @@ function SavedPage() {
       <div className="mt-4 mb-4 px-4">
         <SearchBar />
         <div className="w-full flex items-center justify-center mt-4">
-          {data?.count && (
+          {(data?.count || 0) > 0 && (
             <PageSelector
               isLoading={isLoading}
-              count={data.count}
+              count={data?.count || 0}
               switchPage={handleSwitchPage}
               currentPage={currentPage}
               itemsPerPage={SAVED_ITEMS_PER_PAGE}
@@ -97,135 +97,6 @@ function SavedPage() {
         ) : (
           <EmptySavedpage />
         )}
-
-        {/* <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"10"}
-          original="Entschuldigung"
-          key={10}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={true}
-          id={"20"}
-          original="Champion"
-          key={20}
-          translation="yakol"
-          synonymsTarget={["eat", "eats", "swallow"]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"30"}
-          original="Eat"
-          key={30}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"40"}
-          original="World"
-          key={40}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"50"}
-          original="Carbondioxide"
-          key={50}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"60"}
-          original="eat"
-          key={60}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"70"}
-          original="eat"
-          key={70}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        />
-        <WordTranslationItem
-          srcLang="English"
-          isFavorite={false}
-          id={"80"}
-          original="eat"
-          key={80}
-          translation="yakol"
-          synonymsTarget={[
-            "eat",
-            "eats",
-            "swallow",
-            "chew",
-            "eat",
-            "eat",
-            "eat",
-          ]}
-        /> */}
       </div>
     </motion.div>
   );
