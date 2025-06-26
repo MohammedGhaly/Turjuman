@@ -75,7 +75,10 @@ function WordPage() {
         <DifinitionCard definition={translation?.definition || ""} />
 
         {translation?.examples && (
-          <ExamplesCard examples={translation.examples || []} />
+          <ExamplesCard
+            examples={translation.examples || []}
+            srcLang={translation.srcLang}
+          />
         )}
       </div>
     </div>

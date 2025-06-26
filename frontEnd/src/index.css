@@ -4,8 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import "tailwindcss"; */
-
 * {
   transition: all;
   transition-duration: 100ms;

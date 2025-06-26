@@ -3,6 +3,7 @@ import capitalize from "../../utils/capitalize";
 import GradientBookmark from "@/components/GradientBookmark";
 import openYouglish from "@/utils/youglish";
 import AiTranslation from "./AiTranslation";
+import { pronounce } from "@/utils/pronounce";
 
 interface Props {
   original: string;
@@ -21,7 +22,10 @@ function WordBar({ id, isFavorite, original, srcLang, translation }: Props) {
       <div className="flex flex-col gap-2 items-end md:pr-1">
         <div className="flex justify-between gap-3 w-fit ">
           <button>
-            <Volume1 strokeWidth="1.5px" />
+            <Volume1
+              strokeWidth="1.5px"
+              onClick={() => pronounce(original, srcLang)}
+            />
           </button>
           <button>
             <Youtube

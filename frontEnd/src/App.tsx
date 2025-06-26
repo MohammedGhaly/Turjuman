@@ -6,22 +6,27 @@ import {
   Routes,
 } from "react-router";
 import "./App.css";
-import Homepage from "./pages/Home&SavedPage/Homepage";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
-import AppLayout from "./pages/AppLayout";
-import TranslationPage from "./pages/TranslationPage/TranslationPage";
-import GamesAreaPage from "./pages/GamesAreaPage/GamesAreaPage";
-import SavedPage from "./pages/Home&SavedPage/SavedPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "./App.css";
 import { TranslationPageProvider } from "./contexts/TranslationPageProvider";
-import WordPage from "./pages/WordPage/WordPage";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import AuthenticationProvider from "./contexts/AuthProvider";
-import AuthCallbackPage from "./pages/AuthCallbackPage";
-import VerifyUrEmail from "./pages/VerifyUrEmail";
-import EmailVerified from "./pages/EmailVerified";
+import { lazy, Suspense } from "react";
+import SpinnerPage from "./components/SpinnerPage";
+
+const Homepage = lazy(() => import("./pages/Home&SavedPage/Homepage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
+const AppLayout = lazy(() => import("./pages/AppLayout"));
+const TranslationPage = lazy(
+  () => import("./pages/TranslationPage/TranslationPage")
+);
+const GamesAreaPage = lazy(() => import("./pages/GamesAreaPage/GamesAreaPage"));
+const SavedPage = lazy(() => import("./pages/Home&SavedPage/SavedPage"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage/ProfilePage"));
+const WordPage = lazy(() => import("./pages/WordPage/WordPage"));
+const AuthCallbackPage = lazy(() => import("./pages/AuthCallbackPage"));
+const VerifyUrEmail = lazy(() => import("./pages/VerifyUrEmail"));
+const EmailVerified = lazy(() => import("./pages/EmailVerified"));
 
 function App() {
   return (
@@ -29,25 +34,27 @@ function App() {
       <AuthenticationProvider>
         <ThemeProvider>
           <TranslationPageProvider>
-            <Routes>
-              <Route path="emailVerified" element={<EmailVerified />} />
-              <Route path="verifyYourEmail" element={<VerifyUrEmail />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="signup" element={<SignupPage />} />
-              <Route path="auth/callback" element={<AuthCallbackPage />} />
-              <Route index element={<Navigate replace to="login" />} />
+            <Suspense fallback={<SpinnerPage />}>
+              <Routes>
+                <Route path="emailVerified" element={<EmailVerified />} />
+                <Route path="verifyYourEmail" element={<VerifyUrEmail />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="signup" element={<SignupPage />} />
+                <Route path="auth/callback" element={<AuthCallbackPage />} />
+                <Route index element={<Navigate replace to="login" />} />
 
-              <Route path="app" element={<AppLayout />}>
-                <Route index element={<Navigate replace to="homepage" />} />
+                <Route path="app" element={<AppLayout />}>
+                  <Route index element={<Navigate replace to="homepage" />} />
 
-                <Route path="homepage" element={<Homepage />} />
-                <Route path="saved" element={<SavedPage />} />
-                <Route path="translation" element={<TranslationPage />} />
-                <Route path="word/:id" element={<WordPage />} />
-                <Route path="gamesArea" element={<GamesAreaPage />} />
-                <Route path="profile" element={<ProfilePage />} />
-              </Route>
-            </Routes>
+                  <Route path="homepage" element={<Homepage />} />
+                  <Route path="saved" element={<SavedPage />} />
+                  <Route path="translation" element={<TranslationPage />} />
+                  <Route path="word/:id" element={<WordPage />} />
+                  <Route path="gamesArea" element={<GamesAreaPage />} />
+                  <Route path="profile" element={<ProfilePage />} />
+                </Route>
+              </Routes>
+            </Suspense>
           </TranslationPageProvider>
         </ThemeProvider>
       </AuthenticationProvider>

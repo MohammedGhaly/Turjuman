@@ -4,6 +4,7 @@ import getWordTransItemFontSize from "@/utils/getWordTransItemFont";
 import { useNavigate } from "react-router";
 import GradientBookmark from "@/components/GradientBookmark";
 import openYouglish from "@/utils/youglish";
+import { pronounce } from "@/utils/pronounce";
 
 const aiIcon = (
   <svg
@@ -92,7 +93,7 @@ function WordTranslationItem({
           >
             {original}
           </span>
-          <Volume2 />
+          <Volume2 onClick={() => pronounce(original, srcLang)} />
           <div className="text-white bg-[var(--word-tile)] h-6 w-10 rounded-full border border-[var(--box-border)]">
             <Youtube
               className="mx-auto"

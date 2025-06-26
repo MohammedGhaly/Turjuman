@@ -45,7 +45,7 @@ function FlippedCard({
         />
       )}
       {definition && <Definition definition={definition} />}
-      {examples && <Examples examples={examples?.slice(0, 2)} />}
+      {examples && <Examples examples={examples?.slice(0, 2)} lang={srcLang} />}
       <FlashCardActions />
     </div>
   );
