@@ -8,7 +8,7 @@ const googleLoginEndpoint = "auth/google";
 const facebookLoginEndpoint = "auth/facebook";
 const getMeEndpoint = "api/v1/users/me";
 const resetPasswordEndpoint = "api/v1/users/resetPassword";
-const forgotPasswordEndpoint = "api/v1/users/forgotPassword";
+const forgotPasswordEndpoint = "api/v1/users/forgetPassword";
 
 export async function authLogin(email: string, password: string) {
   const body = { email, password };
