@@ -93,25 +93,37 @@ function WordTranslationItem({
           >
             {original}
           </span>
-          <Volume2 onClick={() => pronounce(original, srcLang)} />
-          <div className="text-white bg-[var(--word-tile)] h-6 w-10 rounded-full border border-[var(--box-border)]">
-            <Youtube
-              className="mx-auto"
-              color="var(--foreground)"
+          <div className="flex gap-2 items-center">
+            <button
               onClick={(e) => {
                 e.stopPropagation();
-                openYouglish(original, srcLang);
+                pronounce(original, srcLang);
               }}
-              size={22}
-            />
+              className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all"
+            >
+              <Volume2 />
+            </button>
+            <button className="text-white bg-[var(--word-tile)] h-6 w-10 rounded-full border border-[var(--box-border)]">
+              <Youtube
+                className="mx-auto"
+                color="var(--foreground)"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openYouglish(original, srcLang);
+                }}
+                size={22}
+              />
+            </button>
           </div>
         </div>
         {/* right */}
-        <GradientBookmark
-          // isLoading={isLoadingSave}
-          isFavorite={isFavorite || false}
-          id={id}
-        />
+        <button className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all">
+          <GradientBookmark
+            // isLoading={isLoadingSave}
+            isFavorite={isFavorite || false}
+            id={id}
+          />
+        </button>
       </div>
       <div className="flex justify-end gap-4 items-center text-2xl">
         <span className="font-bold">{translation}</span>

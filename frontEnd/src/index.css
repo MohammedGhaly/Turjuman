@@ -58,6 +58,8 @@
   --pagination-glow: #4751da0c;
   --pagination-active-btn: black;
   --pagination-inactive-btn: #8f8f8f;
+
+  --icon-btn-hover: #3597dd21;
 }
 
 .dark {
@@ -102,6 +104,8 @@
   --pagination-glow: #ffffff0e;
   --pagination-active-btn: #ffffff;
   --pagination-inactive-btn: #8f8f8f;
+
+  --icon-btn-hover: #464646a9;
 }
 
 @layer base {

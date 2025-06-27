@@ -15,11 +15,14 @@ function WordCard({ original, id, isFavorite, srcLang }: Props) {
   return (
     <div className="rounded-xl px-6 py-5 font-bold text-3xl flex justify-between bg-[var(--outer-boxes-bg)] border border-[var(--box-border)]">
       <div>{original ? capitalize(original) : ""}</div>
-      <div className="flex justify-between gap-3 w-fit ">
-        <button onClick={() => pronounce(original, srcLang)}>
+      <div className="flex justify-between gap-1 w-fit ">
+        <button
+          onClick={() => pronounce(original, srcLang)}
+          className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all"
+        >
           <Volume1 strokeWidth="1.5px" />
         </button>
-        <button>
+        <button className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all">
           <Youtube
             strokeWidth="1.5px"
             onClick={(e) => {
@@ -28,7 +31,7 @@ function WordCard({ original, id, isFavorite, srcLang }: Props) {
             }}
           />
         </button>
-        <button>
+        <button className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all">
           <GradientBookmark id={id} isFavorite={isFavorite} />
         </button>
       </div>
