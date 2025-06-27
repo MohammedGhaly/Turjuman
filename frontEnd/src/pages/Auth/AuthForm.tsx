@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import Spinner from "../Spinner";
+import Spinner from "../../components/Spinner";
+import { forgotPassword } from "@/services/authClient";
+import { isValidEmail } from "@/utils/isValidEmail";
+import { toast } from "@/hooks/use-toast";
 
 const inputClassname =
   "bg-[var(--input-background)] rounded-md w-full p-[6px] px-3 border border-[var(--input-border)]";
@@ -21,6 +24,18 @@ function AuthForm({ isLogin }: Props) {
     e.preventDefault();
     if (isLogin) login?.(email, password);
     else register?.(name, email, password, passwordConfirm);
+  }
+
+  async function handleForgotPassword() {
+    if (!email || !isValidEmail(email)) {
+      toast({
+        title: "Please enter a valid email",
+        variant: "destructive",
+      });
+      return;
+    }
+    const res = await forgotPassword(email);
+    toast({ title: res, variant: "success" });
   }
 
   return (
@@ -78,7 +93,13 @@ function AuthForm({ isLogin }: Props) {
           </label>
         )}
         {isLogin && (
-          <a className="self-end text-[var(--forgot-pw)] underline cursor-pointer">
+          <a
+            className="self-end text-[var(--forgot-pw)] underline cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              handleForgotPassword();
+            }}
+          >
             forgot password?
           </a>
         )}

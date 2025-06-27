@@ -7,6 +7,8 @@ const logoutEndpoint = "api/v1/users/logout";
 const googleLoginEndpoint = "auth/google";
 const facebookLoginEndpoint = "auth/facebook";
 const getMeEndpoint = "api/v1/users/me";
+const resetPasswordEndpoint = "api/v1/users/resetPassword";
+const forgotPasswordEndpoint = "api/v1/users/forgotPassword";
 
 export async function authLogin(email: string, password: string) {
   const body = { email, password };
@@ -65,3 +67,32 @@ export async function getMe() {
   return response.data.data as User;
 }
 export async function authUpdateUser() {}
+export async function forgotPassword(email: string) {
+  const response = await apiClient.post(
+    forgotPasswordEndpoint,
+    { email },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (response.data.status !== "success") {
+    throw new Error(`an error has occurred, try again later `);
+  } else return "a token has been sent to your email, please check your inbox";
+}
+export async function resetPassword(body: {
+  password: string;
+  passwordConfirm: string;
+  token: string;
+}) {
+  const response = await apiClient.patch(resetPasswordEndpoint, body, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.data.status !== "success") {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.data.data.user as User;
+}

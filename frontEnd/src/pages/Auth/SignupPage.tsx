@@ -1,6 +1,6 @@
 import { useTheme } from "@/contexts/ThemeProvider";
-import AuthView from "../components/Auth/AuthView";
-import HomeLogo from "../components/HomeLogo";
+import AuthView from "./AuthView";
+import HomeLogo from "../../components/HomeLogo";
 import { Toaster } from "@/components/ui/toaster";
 
 function SignupPage() {

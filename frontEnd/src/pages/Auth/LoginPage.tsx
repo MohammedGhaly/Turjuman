@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
-import AuthView from "../components/Auth/AuthView";
-import HomeLogo from "../components/HomeLogo";
+import AuthView from "./AuthView";
+import HomeLogo from "../../components/HomeLogo";
 import { useTheme } from "@/contexts/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router";

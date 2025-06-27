@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import AppName from "../AppName";
+import AppName from "../../components/AppName";
 // import Logo from "../Logo";
 import AuthForm from "./AuthForm";
 import AuthOptions from "./AuthOptions";
-import LogoSvg from "../Nav/LogoSvg";
+import LogoSvg from "../../components/Nav/LogoSvg";
 
 interface Props {
   isLogin: boolean;
