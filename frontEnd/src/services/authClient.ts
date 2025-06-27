@@ -7,7 +7,7 @@ const logoutEndpoint = "api/v1/users/logout";
 const googleLoginEndpoint = "auth/google";
 const facebookLoginEndpoint = "auth/facebook";
 const getMeEndpoint = "api/v1/users/me";
-const resetPasswordEndpoint = "api/v1/users/resetPassword";
+const resetPasswordEndpoint = "api/v1/users/resetPassword/";
 const forgotPasswordEndpoint = "api/v1/users/forgetPassword";
 
 export async function authLogin(email: string, password: string) {
@@ -86,11 +86,15 @@ export async function resetPassword(body: {
   passwordConfirm: string;
   token: string;
 }) {
-  const response = await apiClient.patch(resetPasswordEndpoint, body, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await apiClient.patch(
+    resetPasswordEndpoint + body.token,
+    body,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   if (response.data.status !== "success") {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
