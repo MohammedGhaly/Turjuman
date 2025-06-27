@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 
 function LoginPage() {
   const { theme } = useTheme();
-  // const { toast } = useToast();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 

@@ -7,6 +7,7 @@ import { FlashCardType } from "@/types/FlashCard";
 
 interface Props {
   trans: FlashCardType;
+  onAction: (level: string) => void;
 }
 
 function FlippedCard({
@@ -21,6 +22,7 @@ function FlippedCard({
     id,
     srcLang,
   },
+  onAction,
 }: Props) {
   return (
     <div className="h-full w-full px-4 flex flex-col justify-between gap-3 rounded-2xl">
@@ -46,7 +48,9 @@ function FlippedCard({
       )}
       {definition && <Definition definition={definition} />}
       {examples && <Examples examples={examples?.slice(0, 2)} lang={srcLang} />}
-      <FlashCardActions />
+      <div className="pb-4">
+        <FlashCardActions onAction={onAction} />
+      </div>
     </div>
   );
 }

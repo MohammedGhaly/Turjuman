@@ -31,6 +31,20 @@ function ResetPasswordPage() {
         });
         return;
       }
+      if (!password || !passwordConfirm) {
+        toast({
+          title: "please fill all fields in",
+          variant: "destructive",
+        });
+        return;
+      }
+      if (password !== passwordConfirm) {
+        toast({
+          title: "passwords do not match",
+          variant: "destructive",
+        });
+        return;
+      }
       await resetPassword({ password, passwordConfirm, token });
       toast({
         title: "password reset successfully",

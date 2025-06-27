@@ -25,7 +25,6 @@ export async function authLogin(email: string, password: string) {
   localStorage.setItem("jwt", token);
   return response.data.data.user as User;
 }
-
 export async function authRegister(
   name: string,
   email: string,
@@ -66,7 +65,6 @@ export async function getMe() {
   });
   return response.data.data as User;
 }
-export async function authUpdateUser() {}
 export async function forgotPassword(email: string) {
   const response = await apiClient.post(
     forgotPasswordEndpoint,

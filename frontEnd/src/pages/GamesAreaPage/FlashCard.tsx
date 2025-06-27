@@ -31,9 +31,14 @@ function FlashCard({ flashCard, onSwipe, z }: Props) {
     onSwipe();
   };
 
+  function handleOnAction() {
+    // Here you can handle the action based on the level
+    handleSwipe("right"); // Reset flipped state after action
+  }
+
   return (
     <motion.div
-      className={`w-11/12 h-[86%] shadow-xl absolute rounded-2xl card-shadow overflow-y-scroll overflow-x-hidden scrollbar-hidden bg-[var(--outer-boxes-bg)] py-4 dark:border dark:border-[var(--flashcard-border)]`}
+      className={`w-11/12 h-[86%] shadow-xl absolute rounded-2xl card-shadow overflow-y-scroll overflow-x-hidden scrollbar-hidden bg-[var(--outer-boxes-bg)] pt-4 dark:border dark:border-[var(--flashcard-border)]`}
       style={{ zIndex: z, transition: "all", transitionDuration: "300ms" }}
       onClick={isTop ? () => setFlipped(true) : () => {}}
       drag={isTop ? "x" : false}
@@ -66,9 +71,8 @@ function FlashCard({ flashCard, onSwipe, z }: Props) {
       }
       animate={controls}
     >
-      {/* {isLoading && <Skeleton className="h-full w-full" />} */}
       {flipped ? (
-        <FlippedCard trans={flashCard} />
+        <FlippedCard onAction={handleOnAction} trans={flashCard} />
       ) : (
         <Hidden word={flashCard.word} />
       )}
