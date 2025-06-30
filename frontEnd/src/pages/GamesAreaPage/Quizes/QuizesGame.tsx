@@ -13,6 +13,7 @@ import { getHomeTranslations } from "@/services/translationClient";
 import "./QuizIndex.css";
 import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import prepareQuiz from "@/utils/prepareQuiz";
 
 export interface QuestionType {
   question: string;
@@ -113,7 +114,7 @@ function QuizesGame() {
     useReducer(reducer, initialState);
 
   const { theme } = useTheme();
-  const maxPossiblePoints = questions.reduce((prev) => prev + 10, 0);
+  const maxPossiblePoints = questions.length * 10;
 
   useEffect(
     function () {
@@ -136,7 +137,10 @@ function QuizesGame() {
             .then((data) => {
               if (data.detail !== undefined)
                 throw new Error(data.detail[0].msg);
-              else dispatch({ type: "dataReceived", payload: data });
+              else {
+                const quiz = prepareQuiz(data);
+                dispatch({ type: "dataReceived", payload: quiz });
+              }
             });
         } catch (e) {
           if (e instanceof Error)
