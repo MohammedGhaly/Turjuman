@@ -12,7 +12,7 @@ function FinishScreen({ points, maxPossiblePoints, dispatch }: Props) {
   const navigate = useNavigate();
   return (
     <div className="h-full flex flex-col justify-center items-center gap-10">
-      <p className="result text-4xl px-10 py-8 rounded-xl text-[var(--foreground)] bg-[var(--inner-boxes-bg)]">
+      <p className="result text-4xl px-10 py-8 rounded-xl text-[var(--foreground)] bg-[var(--inner-boxes-bg)] border-2 border-[var(--box-border)]">
         You scored {points} out of {maxPossiblePoints} ({Math.ceil(percentage)}
         %)
       </p>

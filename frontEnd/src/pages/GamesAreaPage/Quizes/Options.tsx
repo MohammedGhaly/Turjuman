@@ -22,11 +22,11 @@ function Options({ question, dispatch, answer }: Props) {
                 : "wrong"
               : ""
           }`}
-          key={option}
+          key={option[0]}
           disabled={answered}
           onClick={() => dispatch({ type: "newAnswer", payload: index })}
         >
-          {option}
+          {option.slice(3)}
         </button>
       ))}
     </>

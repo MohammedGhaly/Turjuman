@@ -49,7 +49,7 @@ export default function AuthenticationProvider({
 
       if (!isAuthenticated) tokenLogin();
     },
-    [isAuthenticated, navigate, toast]
+    [navigate, toast]
   );
 
   async function login(email: string, password: string) {

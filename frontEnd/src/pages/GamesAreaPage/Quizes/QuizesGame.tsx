@@ -6,13 +6,11 @@ import SpinnerPage from "@/components/SpinnerPage";
 import StartingScreen from "./StartingScreen";
 import Progress from "./Progress";
 import Question from "./Question";
-
-// import "./QuizApp.css";
-import "./QuizIndex.css";
 import { useTheme } from "@/contexts/ThemeProvider";
 import { SupportedLanguageEnum } from "@/types/SupportedLanguages";
 import QuizSelectLang from "./QuizSelectLang";
 import { getHomeTranslations } from "@/services/translationClient";
+import "./QuizIndex.css";
 
 export interface QuestionType {
   question: string;
@@ -151,7 +149,7 @@ function QuizesGame() {
       }`}
     >
       <div className="w-full md:w-3/5 flex flex-col gap-4">
-        {status === "error" && (
+        {status === "select" && (
           <QuizSelectLang srcLang={srcLang} dispatch={dispatch} />
         )}
         {status === "loading" && <SpinnerPage />}
@@ -181,7 +179,7 @@ function QuizesGame() {
             />
           </>
         )}
-        {status === "select" && (
+        {status === "finished" && (
           <FinishScreen
             points={points}
             maxPossiblePoints={maxPossiblePoints}
