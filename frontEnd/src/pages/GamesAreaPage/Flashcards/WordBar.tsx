@@ -1,5 +1,5 @@
 import { Volume1, Youtube } from "lucide-react";
-import capitalize from "../../utils/capitalize";
+import capitalize from "../../../utils/capitalize";
 import GradientBookmark from "@/components/GradientBookmark";
 import openYouglish from "@/utils/youglish";
 import AiTranslation from "./AiTranslation";

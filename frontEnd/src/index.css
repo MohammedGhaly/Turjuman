@@ -60,6 +60,14 @@
   --pagination-inactive-btn: #8f8f8f;
 
   --icon-btn-hover: #3597dd21;
+  --quiz-progress-bar-bg: #dddddd;
+  --quiz-progress-bar-thumb: #8ed4ff;
+  --quiz-option-bg: #f1f5f9;
+  --quiz-option-bg-hover: #dceaf7;
+  --quiz-start-btn-bg: #f1f5f9;
+
+  --color-correct: #2385d6;
+  --color-wrong: #e04d28;
 }
 
 .dark {
@@ -106,6 +114,12 @@
   --pagination-inactive-btn: #8f8f8f;
 
   --icon-btn-hover: #464646a9;
+
+  --quiz-progress-bar-bg: #494949;
+  --quiz-progress-bar-thumb: #dfdfdf;
+  --quiz-option-bg: #2e2e2e;
+  --quiz-option-bg-hover: #3d3d3d;
+  --quiz-start-btn-bg: #252525;
 }
 
 @layer base {

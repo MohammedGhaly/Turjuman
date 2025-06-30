@@ -13,6 +13,9 @@ import AuthenticationProvider from "./contexts/AuthProvider";
 import { lazy, Suspense } from "react";
 import SpinnerPage from "./components/SpinnerPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FlashCardsGame from "./pages/GamesAreaPage/Flashcards/FlashCardsGame";
+import QuizesGame from "./pages/GamesAreaPage/Quizes/QuizesGame";
+import ChooseGame from "./pages/GamesAreaPage/ChooseGame";
 
 const Homepage = lazy(() => import("./pages/Home&SavedPage/Homepage"));
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"));
@@ -62,7 +65,11 @@ function App() {
                   <Route path="saved" element={<SavedPage />} />
                   <Route path="translation" element={<TranslationPage />} />
                   <Route path="word/:id" element={<WordPage />} />
-                  <Route path="gamesArea" element={<GamesAreaPage />} />
+                  <Route path="gamesArea" element={<GamesAreaPage />}>
+                    <Route index element={<ChooseGame />} />
+                    <Route path="flashcards" element={<FlashCardsGame />} />
+                    <Route path="quiz" element={<QuizesGame />} />
+                  </Route>
                   <Route path="profile" element={<ProfilePage />} />
                 </Route>
               </Routes>

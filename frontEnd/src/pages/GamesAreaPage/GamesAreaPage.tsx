@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import FlashCardsGame from "./FlashCardsGame";
 import { Toaster } from "@/components/ui/toaster";
+import { Outlet } from "react-router";
 
 function GamesAreaPage() {
   return (
@@ -13,7 +13,8 @@ function GamesAreaPage() {
       className="flex-1 border-t border-t-[var(--box-border)] turjuman-scrollable"
     >
       <Toaster />
-      <FlashCardsGame />
+      <Outlet />
+      {/* <FlashCardsGame /> */}
     </motion.div>
   );
 }

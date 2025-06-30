@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
+.progress {
+  margin-bottom: 2rem;
+  display: grid;
+  justify-content: space-between;
+  gap: 1.2rem;
+  grid-template-columns: auto auto;
+  font-size: 1.8rem;
+  color: var(--color-medium);
+}
+progress {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 12px;
+  grid-column: 1 / -1;
+}
+::-webkit-progress-bar {
+  background-color: var(--quiz-progress-bar-bg);
+  border-radius: 100px;
+}
+::-webkit-progress-value {
+  background-color: var(--quiz-progress-bar-thumb);
+  border-radius: 100px;
+}
+
+.btn {
+  display: block;
+  font-family: inherit;
+  color: inherit;
+  /* padding: 1.2rem 2.4rem; */
+}
+
+.btn:not([disabled]):hover {
+  background-color: var(--quiz-option-bg-hover);
+}
+
+.btn-option:not([disabled]):hover {
+  transform: translateX(0.6rem);
+}
+
+.btn[disabled]:hover {
+  cursor: not-allowed;
+}
+
+.btn-ui {
+  float: right;
+}
+
+.btn-option.correct {
+  background-color: var(--color-correct);
+  /* border: 2px solid var(--color-correct); */
+  color: var(--color-light);
+}
+.btn-option.wrong {
+  background-color: var(--color-wrong);
+  /* border: 2px solid var(--color-wrong); */
+  color: var(--color-darkest);
+  color: var(--color-light);
+}
+
+.answer {
+  transform: translateX(0.6rem);
+  color: var(--color-light);
+}
+
+.result {
+  background-color: var(--color-correct);
+  color: var(--color-light);
+  border-radius: 100px;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.6rem;
+}
+
+.result span {
+  font-size: 2.2rem;
+  margin-right: 4px;
+}
+
+/* First counter example */
+/* .counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 6rem;
+}
+
+.counter * {
+  font-size: inherit;
+  padding: 0.8rem;
+} */
