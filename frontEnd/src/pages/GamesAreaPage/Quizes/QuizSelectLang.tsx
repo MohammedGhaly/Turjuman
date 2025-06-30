@@ -13,34 +13,6 @@ interface Props {
   dispatch: React.Dispatch<QuizReducerAction>;
 }
 
-// function QuizSelectLang({ dispatch, srcLang }: Props) {
-//   return (
-// <div className="flex flex-col justify-center items-center gap-4 h-full">
-//   <select
-//     name="srcLang"
-//     id="srcLang"
-//     value={srcLang}
-//     onChange={(e) => {
-//       dispatch({
-//         type: "setTargetLang",
-//         payload: e.target.value as SupportedLanguageEnum,
-//       });
-//     }}
-//     className="appearance-none w-fit font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl flex-1 flex items-center text-center gap-2 md:flex-grow-0 md:px-4 cursor-pointer hover:shadow-md transition-all duration-200"
-//   >
-//     {supportedLanguages.map((l) => (
-//       <option key={l + " to"} value={l}>
-//         {getLangEmoji(l)} {l}
-//       </option>
-//     ))}
-//   </select>
-//   <button className="appearance-none w-fit font-semibold border border-[var(--box-border)] bg-[var(--input-background)] py-3 rounded-xl flex-1 flex items-center text-center gap-2 md:flex-grow-0 md:px-4 cursor-pointer hover:shadow-md transition-all duration-200">
-//     Next
-//   </button>
-// </div>
-//   );
-// }
-
 function QuizSelectLang({ dispatch, srcLang }: Props) {
   const [langIndex, setLangIndex] = useState(0);
 
@@ -73,17 +45,17 @@ function QuizSelectLang({ dispatch, srcLang }: Props) {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-8">
-      <div className="flex gap-4">
-        <button className="">
-          <ChevronLeft onClick={() => handleLangChange("left")} />
+      <div className="flex gap-4 items-center">
+        <button className="w-12 h-12 hover:bg-[var(--icon-btn-hover)] rounded-full">
+          <ChevronLeft size={40} onClick={() => handleLangChange("left")} />
         </button>
         <img
           className="w-40 md:w-52"
           src={getLangFlag(srcLang)}
           alt="flag-img"
         />
-        <button className="">
-          <ChevronRight onClick={() => handleLangChange("right")} />
+        <button className="w-12 h-12 hover:bg-[var(--icon-btn-hover)] rounded-full">
+          <ChevronRight size={40} onClick={() => handleLangChange("right")} />
         </button>
       </div>
       <h2 className="text-xl font-semibold">{srcLang}</h2>

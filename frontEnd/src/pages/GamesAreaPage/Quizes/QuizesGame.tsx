@@ -123,7 +123,7 @@ function QuizesGame() {
         try {
           const homeWords = await getHomeTranslations(1);
           const latestWords = homeWords.res
-            .slice(0, 3)
+            .slice(0, 5)
             .map((word) => word.original);
           fetch("https://quizzesturjuman-production.up.railway.app/", {
             method: "POST",
