@@ -125,14 +125,16 @@ function QuizesGame() {
           const latestWords = homeWords.res
             .slice(0, 5)
             .map((word) => word.original);
-          fetch("https://quizzesturjuman-production.up.railway.app/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ words: latestWords, srcLang }),
-          })
+          fetch(
+            "https://quizzesturjuman-production.up.railway.app/generate-questions/",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ words: latestWords, srcLang }),
+            }
+          )
             .then((res) => res.json())
-            .then((data) => dispatch({ type: "dataReceived", payload: data }))
-            .catch(() => dispatch({ type: "dataFailed" }));
+            .then((data) => dispatch({ type: "dataReceived", payload: data }));
         } catch {
           dispatch({ type: "dataFailed" });
         }
