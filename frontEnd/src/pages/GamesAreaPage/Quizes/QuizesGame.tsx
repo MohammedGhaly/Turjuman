@@ -26,7 +26,6 @@ interface QuizState {
   index: number;
   answer: number | null;
   points: number;
-  highscore: number;
   srcLang: SupportedLanguageEnum;
 }
 
@@ -67,8 +66,6 @@ function reducer(state: QuizState, action: QuizReducerAction): QuizState {
       return {
         ...state,
         status: "finished",
-        highscore:
-          state.points > state.highscore ? state.points : state.highscore,
       };
     case "restart":
       return {
@@ -108,15 +105,12 @@ const initialState: QuizState = {
   index: 0,
   answer: null,
   points: 0,
-  highscore: 0,
   srcLang: SupportedLanguageEnum.English,
 };
 
 function QuizesGame() {
-  const [
-    { answer, highscore, index, points, questions, status, srcLang },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [{ answer, index, points, questions, status, srcLang }, dispatch] =
+    useReducer(reducer, initialState);
 
   const { theme } = useTheme();
 
@@ -189,7 +183,6 @@ function QuizesGame() {
           <FinishScreen
             points={points}
             maxPossiblePoints={maxPossiblePoints}
-            highscore={highscore}
             dispatch={dispatch}
           />
         )}
