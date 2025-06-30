@@ -27,7 +27,7 @@ function ChooseGame() {
         className="cursor-pointer w-full h-fit p-8 flex justify-center items-start bg-[var(--outer-boxes-bg)] box-hover rounded-xl transition-all duration-300 text-3xl font-bold border-2 border-[var(--box-border)] flex-col gap-3"
       >
         <div className="flex gap-3 items-center">
-          <h2>Quizzes</h2>
+          <h2>Quizes</h2>
           <MessageCircleQuestion />
         </div>
         <p className="text-sm font-normal md:pr-36">

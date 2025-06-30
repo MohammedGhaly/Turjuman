@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  // HashRouter,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import "./App.css";
 import "./App.css";
 import { TranslationPageProvider } from "./contexts/TranslationPageProvider";
@@ -14,6 +8,7 @@ import { lazy, Suspense } from "react";
 import SpinnerPage from "./components/SpinnerPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FlashCardsGame from "./pages/GamesAreaPage/Flashcards/FlashCardsGame";
+import QuizesGame from "./pages/GamesAreaPage/Quizes/QuizesGame";
 import ChooseGame from "./pages/GamesAreaPage/ChooseGame";
 
 const Homepage = lazy(() => import("./pages/Home&SavedPage/Homepage"));
@@ -31,9 +26,6 @@ const AuthCallbackPage = lazy(() => import("./pages/Auth/AuthCallbackPage"));
 const VerifyUrEmail = lazy(() => import("./pages/Auth/VerifyUrEmail"));
 const EmailVerified = lazy(() => import("./pages/Auth/EmailVerified"));
 const ResetPasswordPage = lazy(() => import("./pages/Auth/ResetPasswordPage"));
-const QuizesGame = lazy(
-  () => import("./pages/GamesAreaPage/Quizes/QuizesGame")
-);
 
 function App() {
   return (

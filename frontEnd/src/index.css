@@ -120,6 +120,9 @@
   --quiz-option-bg: #2e2e2e;
   --quiz-option-bg-hover: #3d3d3d;
   --quiz-start-btn-bg: #252525;
+
+  --color-correct: #2385d6;
+  --color-wrong: #e04d28;
 }
 
 @layer base {

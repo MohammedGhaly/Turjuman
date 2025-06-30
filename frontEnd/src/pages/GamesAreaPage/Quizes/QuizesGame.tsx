@@ -111,7 +111,6 @@ function QuizesGame() {
     useReducer(reducer, initialState);
 
   const { theme } = useTheme();
-
   const maxPossiblePoints = questions.reduce((prev) => prev + 10, 0);
 
   useEffect(
