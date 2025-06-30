@@ -151,7 +151,7 @@ function QuizesGame() {
       }`}
     >
       <div className="w-full md:w-3/5 flex flex-col gap-4">
-        {status === "select" && (
+        {status === "error" && (
           <QuizSelectLang srcLang={srcLang} dispatch={dispatch} />
         )}
         {status === "loading" && <SpinnerPage />}
@@ -181,7 +181,7 @@ function QuizesGame() {
             />
           </>
         )}
-        {status === "finished" && (
+        {status === "select" && (
           <FinishScreen
             points={points}
             maxPossiblePoints={maxPossiblePoints}
