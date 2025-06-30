@@ -8,7 +8,7 @@ interface Props {
 
 function Options({ question, dispatch, answer }: Props) {
   const answered = answer !== null;
-
+  console.log("Options component rendered with question:", question);
   return (
     <>
       {question.options.map((option, index) => (

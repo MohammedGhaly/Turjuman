@@ -100,6 +100,92 @@ function reducer(state: QuizState, action: QuizReducerAction): QuizState {
   }
 }
 
+// const fakeQuestions: {
+//   question: string;
+//   options: string[];
+//   correct_answer: "A" | "B" | "C" | "D";
+// }[] = [
+//   {
+//     question: "1. Which of the following best describes a guitar?",
+//     options: [
+//       "A. A brass instrument played by blowing",
+//       "B. A percussion instrument hit with mallets",
+//       "C. A string instrument typically played by strumming or plucking",
+//       "D. A keyboard instrument with black and white keys",
+//     ],
+//     correct_answer: "C",
+//   },
+//   {
+//     question:
+//       "2. What action is most commonly associated with playing a guitar?",
+//     options: ["A. Blowing", "B. Strumming", "C. Tapping", "D. Bowing"],
+//     correct_answer: "B",
+//   },
+//   {
+//     question: "3. What type of musical instrument is a piano?",
+//     options: [
+//       "A. A wind instrument",
+//       "B. A string instrument",
+//       "C. A keyboard instrument",
+//       "D. A percussion instrument",
+//     ],
+//     correct_answer: "C",
+//   },
+//   {
+//     question: "4. A person who plays the piano professionally is called a:",
+//     options: ["A. Guitarist", "B. Pianist", "C. Violinist", "D. Flutist"],
+//     correct_answer: "B",
+//   },
+//   {
+//     question:
+//       "5. In the context of music, what does it mean to 'play' an instrument?",
+//     options: [
+//       "A. To store it safely",
+//       "B. To listen to music from it",
+//       "C. To perform music on it",
+//       "D. To repair it",
+//     ],
+//     correct_answer: "C",
+//   },
+//   {
+//     question:
+//       "6. Which word is a synonym for 'play' when referring to a theatrical performance?",
+//     options: ["A. Work", "B. Game", "C. Drama", "D. Rest"],
+//     correct_answer: "C",
+//   },
+//   {
+//     question: "7. A violin is a string instrument typically played with a:",
+//     options: ["A. Pick", "B. Mallet", "C. Bow", "D. Reed"],
+//     correct_answer: "C",
+//   },
+//   {
+//     question:
+//       "8. In which type of musical ensemble is a violin most commonly found?",
+//     options: [
+//       "A. Rock band",
+//       "B. Jazz quartet",
+//       "C. Orchestra",
+//       "D. Marching band",
+//     ],
+//     correct_answer: "C",
+//   },
+//   {
+//     question: "9. Which family of instruments does a flute belong to?",
+//     options: ["A. Brass", "B. Percussion", "C. Woodwind", "D. String"],
+//     correct_answer: "C",
+//   },
+//   {
+//     question: "10. How is sound primarily produced on a flute?",
+//     options: [
+//       "A. By plucking strings",
+//       "B. By hitting a membrane",
+//       "C. By blowing air across an opening",
+//       "D. By pressing keys that strike strings",
+//     ],
+//     correct_answer: "C",
+//   },
+// ];
+
 const initialState: QuizState = {
   questions: [],
   status: "select",
@@ -135,6 +221,7 @@ function QuizesGame() {
           )
             .then((res) => res.json())
             .then((data) => {
+              console.log(data);
               if (data.detail !== undefined)
                 throw new Error(data.detail[0].msg);
               else {
@@ -142,6 +229,8 @@ function QuizesGame() {
                 dispatch({ type: "dataReceived", payload: quiz });
               }
             });
+          // const quiz = prepareQuiz(fakeQuestions);
+          // dispatch({ type: "dataReceived", payload: quiz });
         } catch (e) {
           if (e instanceof Error)
             toast({ title: e.message, variant: "destructive" });
