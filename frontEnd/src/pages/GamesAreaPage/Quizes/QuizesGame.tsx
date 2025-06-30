@@ -11,6 +11,8 @@ import { SupportedLanguageEnum } from "@/types/SupportedLanguages";
 import QuizSelectLang from "./QuizSelectLang";
 import { getHomeTranslations } from "@/services/translationClient";
 import "./QuizIndex.css";
+import { toast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 export interface QuestionType {
   question: string;
@@ -131,8 +133,14 @@ function QuizesGame() {
             }
           )
             .then((res) => res.json())
-            .then((data) => dispatch({ type: "dataReceived", payload: data }));
-        } catch {
+            .then((data) => {
+              if (data.detail !== undefined)
+                throw new Error(data.detail[0].msg);
+              else dispatch({ type: "dataReceived", payload: data });
+            });
+        } catch (e) {
+          if (e instanceof Error)
+            toast({ title: e.message, variant: "destructive" });
           dispatch({ type: "dataFailed" });
         }
       }
@@ -147,6 +155,7 @@ function QuizesGame() {
         status === "active" ? "pt-20" : ""
       }`}
     >
+      <Toaster />
       <div className="w-full md:w-3/5 flex flex-col gap-4">
         {status === "select" && (
           <QuizSelectLang srcLang={srcLang} dispatch={dispatch} />
