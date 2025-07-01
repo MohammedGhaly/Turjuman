@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-// import axios from "axios";
-
 export default function AuthCallbackPage() {
   const navigate = useNavigate();
   const token = new URLSearchParams(window.location.search).get("token");
@@ -10,7 +8,7 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     console.log(token);
     if (token) {
-      document.cookie = `jwt=${token}; path=/; secure; samesite=None`;
+      localStorage.setItem("jwt", token);
       navigate("/app/homepage");
     } else {
       navigate("/login");

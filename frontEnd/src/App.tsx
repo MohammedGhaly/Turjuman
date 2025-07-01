@@ -10,10 +10,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import FlashCardsGame from "./pages/GamesAreaPage/Flashcards/FlashCardsGame";
 import QuizesGame from "./pages/GamesAreaPage/Quizes/QuizesGame";
 import ChooseGame from "./pages/GamesAreaPage/ChooseGame";
+import LoginPage from "./pages/Auth/LoginPage";
+import SignupPage from "./pages/Auth/SignupPage";
 
 const Homepage = lazy(() => import("./pages/Home&SavedPage/Homepage"));
-const LoginPage = lazy(() => import("./pages/Auth/LoginPage"));
-const SignupPage = lazy(() => import("./pages/Auth/SignupPage"));
 const AppLayout = lazy(() => import("./pages/AppLayout"));
 const TranslationPage = lazy(
   () => import("./pages/TranslationPage/TranslationPage")

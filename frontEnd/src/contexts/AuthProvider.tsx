@@ -27,11 +27,6 @@ export default function AuthenticationProvider({
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // localStorage.setItem(
-  //   "jwt",
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NWM2YzAxYTgwMzc1ZmQ1MmI2YzQ3YSIsImlhdCI6MTc1MTA0NjUxOSwiZXhwIjoxNzUxMDcxNzE5LCJqdGkiOiI2NzUxZTg2Zi0zMGM0LTRjMWMtOGY0Ny02MWZhY2NhNjk5ODMifQ.YTchKvDolS5ZvkAxUpw7BhpfE9_1Dv84utAffXXcIZA"
-  // );
-
   useEffect(
     function () {
       async function tokenLogin() {
