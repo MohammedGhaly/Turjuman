@@ -12,6 +12,7 @@ export default function AuthCallbackPage() {
       navigate("/app/homepage");
     } else {
       navigate("/login");
+      console.log("redirecting to login from auth callback page");
     }
   }, [navigate, token]);
 

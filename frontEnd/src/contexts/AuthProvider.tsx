@@ -29,13 +29,13 @@ export default function AuthenticationProvider({
 
   useEffect(
     function () {
+      console.log("auth Provider effect");
       async function tokenLogin() {
         setFetchingToken?.(true);
         const token = localStorage.getItem("jwt");
         if (token && !isTokenExpired(token)) {
           const user = await getMe();
           loadUser?.(user);
-          navigate("/app");
         } else {
           localStorage.removeItem("jwt");
           setFetchingToken?.(false);
