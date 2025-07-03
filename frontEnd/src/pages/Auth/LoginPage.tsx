@@ -23,9 +23,9 @@ function LoginPage() {
         <HomeLogo />
       </div>
       <div
-        className={`flex flex-col gap-2 h-screen bg-[var(--background)] ${theme}`}
+        className={`flex flex-col gap-2 h-[100dvh] bg-[var(--background)] ${theme}`}
       >
-        <div className="flex items-center justify-center flex-1 pt-14">
+        <div className="flex items-center justify-center flex-1 md:pt-14">
           <AuthView isLogin={true} />
         </div>
         <Toaster />

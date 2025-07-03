@@ -105,6 +105,7 @@ export default function AuthenticationProvider({
       }
     }
   }
+
   async function register(
     name: string,
     email: string,
@@ -172,6 +173,7 @@ export default function AuthenticationProvider({
       }
     }
   }
+
   async function logout() {
     dispatch({ type: "LOADING", payload: true });
     try {
@@ -190,6 +192,7 @@ export default function AuthenticationProvider({
       }
     }
   }
+
   async function googleLogin() {
     dispatch({ type: "LOADING", payload: true });
     try {
@@ -201,6 +204,7 @@ export default function AuthenticationProvider({
       }
     }
   }
+
   async function facebookLogin() {
     dispatch({ type: "LOADING", payload: true });
     try {
@@ -212,6 +216,7 @@ export default function AuthenticationProvider({
       }
     }
   }
+
   async function loadUser(user: User) {
     dispatch({
       type: "LOAD_USER",

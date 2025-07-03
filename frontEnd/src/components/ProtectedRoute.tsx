@@ -7,14 +7,14 @@ interface Props {
 }
 
 function ProtectedRoute({ children }: Props) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading, fetchingToken } = useAuth();
   const navigate = useNavigate();
 
   useEffect(
     function () {
-      if (!isAuthenticated) navigate("/login");
+      if (!fetchingToken && !isLoading && !isAuthenticated) navigate("/login");
     },
-    [isAuthenticated, navigate]
+    [isAuthenticated, navigate, isLoading, fetchingToken]
   );
 
   return isAuthenticated ? children : null;
