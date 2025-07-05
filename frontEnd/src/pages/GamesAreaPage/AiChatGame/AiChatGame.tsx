@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Message from "./Message";
 import MessageType from "@/types/MessageType";
 import AiResponseLoader from "./AiResponseLoader";
-import SendButton from "./sendButton";
+import SendButton from "./SendButton";
 
 function AiChat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
