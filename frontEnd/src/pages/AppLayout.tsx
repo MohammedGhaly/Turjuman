@@ -27,7 +27,7 @@ function AppLayout() {
         <NavItem location={title} title="profile" />
       </Navbar>
       <AnimatePresence mode="wait">
-        <div className="flex flex-col flex-1 gap-2 px-6 overflow-auto max-h-screen">
+        <div className="flex flex-col flex-1 gap-2 px-0 overflow-auto max-h-screen">
           <HeaderBar title={title}></HeaderBar>
           {fetchingToken ? (
             <div className="w-full h-full flex justify-center items-center">

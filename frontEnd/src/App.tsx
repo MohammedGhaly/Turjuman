@@ -12,9 +12,10 @@ import QuizesGame from "./pages/GamesAreaPage/Quizes/QuizesGame";
 import ChooseGame from "./pages/GamesAreaPage/ChooseGame";
 import LoginPage from "./pages/Auth/LoginPage";
 import SignupPage from "./pages/Auth/SignupPage";
+import AiChat from "./pages/GamesAreaPage/AiChatGame/AiChatGame";
+import AppLayout from "./pages/AppLayout";
 
 const Homepage = lazy(() => import("./pages/Home&SavedPage/Homepage"));
-const AppLayout = lazy(() => import("./pages/AppLayout"));
 const TranslationPage = lazy(
   () => import("./pages/TranslationPage/TranslationPage")
 );
@@ -28,6 +29,11 @@ const EmailVerified = lazy(() => import("./pages/Auth/EmailVerified"));
 const ResetPasswordPage = lazy(() => import("./pages/Auth/ResetPasswordPage"));
 
 function App() {
+  localStorage.setItem(
+    "jwt",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjZlNmRmYjIzNGJlMGE5Y2ZhOTEwZiIsImxvZ2luTWV0aG9kIjoiZ29vZ2xlIiwiaWF0IjoxNzUxNzUxMjAyLCJleHAiOjE3NTE3NzY0MDJ9.fr_3VCbb9wG6KWJF7MEN58V8CLVXJXrZBwT6c_E1-ho"
+  );
+
   return (
     <BrowserRouter>
       <AuthenticationProvider>
@@ -63,6 +69,7 @@ function App() {
                     <Route index element={<ChooseGame />} />
                     <Route path="flashcards" element={<FlashCardsGame />} />
                     <Route path="quiz" element={<QuizesGame />} />
+                    <Route path="aichat" element={<AiChat />} />
                   </Route>
                   <Route path="profile" element={<ProfilePage />} />
                 </Route>

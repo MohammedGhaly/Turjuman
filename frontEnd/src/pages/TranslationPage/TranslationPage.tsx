@@ -13,7 +13,7 @@ function TranslationPage() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.1 }}
-      className="flex flex-col flex-1 border-t border-t-[var(--box-border)] px-1 pb-6 md:py-8 gap-6 md:gap-10 overflow-y-auto turjuman-scrollable"
+      className="flex flex-col flex-1 px-7 pb-6 md:py-8 gap-6 md:gap-10 overflow-y-auto turjuman-scrollable"
     >
       <Toaster />
       <LanguageSelectors />

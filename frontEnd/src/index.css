@@ -68,6 +68,10 @@
 
   --color-correct: #2385d6;
   --color-wrong: #e04d28;
+
+  --user-msg-bg: #f0f0f0;
+  --ai-msg-bg: #dfeaf5;
+  --ai-input-bg: #e8edf1;
 }
 
 .dark {
@@ -123,6 +127,11 @@
 
   --color-correct: #2385d6;
   --color-wrong: #e04d28;
+
+  --user-msg-bg: #27262b;
+  --ai-msg-bg: black;
+  --ai-input-bg: #080808;
+  --ai-send-btn-bg: #3c1488;
 }
 
 @layer base {

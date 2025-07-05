@@ -52,7 +52,7 @@ function Homepage() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.95 }}
       transition={{ duration: 0.1 }}
-      className="flex flex-col flex-1 overflow-hidden border-t border-t-[var(--box-border)]"
+      className="flex flex-col flex-1 overflow-hidden"
     >
       <div className="mt-4 mb-1 px-4">
         <SearchBar />

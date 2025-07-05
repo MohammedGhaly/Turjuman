@@ -52,7 +52,7 @@ function SavedPage() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.1 }}
-      className="border-t border-t-[var(--box-border)] flex flex-col flex-1 overflow-hidden"
+      className="flex flex-col flex-1 overflow-hidden"
     >
       <div className="mt-4 mb-4 px-4">
         <SearchBar />

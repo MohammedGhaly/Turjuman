@@ -101,3 +101,17 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.ai-send-btn-gradient-dark {
+  background: linear-gradient(60deg, #541181, #f04d1c);
+  transition: all;
+  transition-duration: 0.3s;
+}
+.ai-send-btn-gradient-light {
+  background: linear-gradient(60deg, #541181, #1c7ff0);
+  transition: all;
+  transition-duration: 0.3s;
+}
+.ai-send-btn-gradient:hover {
+  filter: brightness(0.9);
+}

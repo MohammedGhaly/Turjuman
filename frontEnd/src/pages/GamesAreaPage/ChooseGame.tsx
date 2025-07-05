@@ -1,4 +1,4 @@
-import { MessageCircleQuestion, SquareStack } from "lucide-react";
+import { Bot, MessageCircleQuestion, SquareStack } from "lucide-react";
 import { useNavigate } from "react-router";
 
 function ChooseGame() {
@@ -35,6 +35,21 @@ function ChooseGame() {
           on testing the your retention of very recent words or other related
           ones by asking to select the correct translation or definition from a
           set of options.
+        </p>
+      </div>
+
+      <div
+        onClick={() => navigate("aichat")}
+        className="cursor-pointer w-full h-fit p-8 flex justify-center items-start bg-[var(--outer-boxes-bg)] box-hover rounded-xl transition-all duration-300 text-3xl font-bold border-2 border-[var(--box-border)] flex-col gap-3"
+      >
+        <div className="flex gap-3 items-center">
+          <h2>Practice with AI chat</h2>
+          <Bot />
+        </div>
+        <p className="text-sm font-normal md:pr-36">
+          pracitice your language skills by chatting with an AI, where our
+          models are going to detect your mistakes and help you improve your
+          skills.
         </p>
       </div>
     </div>
