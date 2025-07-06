@@ -29,10 +29,6 @@ const EmailVerified = lazy(() => import("./pages/Auth/EmailVerified"));
 const ResetPasswordPage = lazy(() => import("./pages/Auth/ResetPasswordPage"));
 
 function App() {
-  localStorage.setItem(
-    "jwt",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjZlNmRmYjIzNGJlMGE5Y2ZhOTEwZiIsImxvZ2luTWV0aG9kIjoiZ29vZ2xlIiwiaWF0IjoxNzUxODA4MDc1LCJleHAiOjE3NTE4MzMyNzV9.b_tr_Xn6aCw9jSCJ5WX32IKyEbe4tnloVgdJtcqA6is"
-  );
   return (
     <BrowserRouter>
       <AuthenticationProvider>
