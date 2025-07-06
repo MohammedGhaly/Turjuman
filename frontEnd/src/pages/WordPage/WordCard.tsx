@@ -1,6 +1,6 @@
+import WordPageGradientBookmark from "./WordPageGradientBookmark";
 import { Volume1, Youtube } from "lucide-react";
 import capitalize from "../../utils/capitalize";
-import GradientBookmark from "@/components/GradientBookmark";
 import openYouglish from "@/utils/youglish";
 import { pronounce } from "@/utils/pronounce";
 
@@ -32,7 +32,7 @@ function WordCard({ original, id, isFavorite, srcLang }: Props) {
           />
         </button>
         <button className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all">
-          <GradientBookmark id={id} isFavorite={isFavorite} />
+          <WordPageGradientBookmark id={id} isFavorite={isFavorite} />
         </button>
       </div>
     </div>

@@ -12,7 +12,10 @@ interface BookmarkProps {
   id: string;
 }
 
-export default function GradientBookmark({ isFavorite, id }: BookmarkProps) {
+export default function WordPageGradientBookmark({
+  isFavorite,
+  id,
+}: BookmarkProps) {
   const queryClient = useQueryClient();
   const [tempBookmark, setTempBookmark] = useState<null | boolean>(null);
 
@@ -24,9 +27,6 @@ export default function GradientBookmark({ isFavorite, id }: BookmarkProps) {
       );
       toast({ title: "translation saved", variant: "success" });
       setTempBookmark(true);
-      setTimeout(() => {
-        setTempBookmark(null);
-      }, 3000);
     },
     onError: () => {
       toast({ title: "Error saving the translation", variant: "destructive" });
@@ -42,9 +42,6 @@ export default function GradientBookmark({ isFavorite, id }: BookmarkProps) {
 
       toast({ title: "translation removed", variant: "success" });
       setTempBookmark(false);
-      setTimeout(() => {
-        setTempBookmark(null);
-      }, 3000);
     },
     onError: () => {
       toast({
