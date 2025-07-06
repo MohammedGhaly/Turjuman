@@ -112,6 +112,7 @@
   transition: all;
   transition-duration: 0.3s;
 }
-.ai-send-btn-gradient:hover {
+.ai-send-btn-gradient-dark:hover,
+.ai-send-btn-gradient-light:hover {
   filter: brightness(0.9);
 }
