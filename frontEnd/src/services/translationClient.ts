@@ -15,6 +15,7 @@ const fetchTranslationsEndpoint = "api/v1/singleTranslation/";
 const translateImageEndpoint = "api/v1/translate-image";
 const translateFileEndpoint = "api/v1/translate-file";
 const translateAudioEndpoint = "api/v1/transcribe-audio";
+const deleteTranslationEndpoint = "api/v1/translates/";
 
 export async function translateWord(
   word: string,
@@ -85,6 +86,15 @@ export async function getSavedTranslations(page: number) {
   const result: { res: TranslationResponse[]; count: number } = { res, count };
 
   return result;
+}
+export async function deleteTranslation(id: string) {
+  const response = await api_client.delete(deleteTranslationEndpoint + id, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.status !== 200) throw Error("request failed");
 }
 
 export async function getHomeTranslations(page: number) {

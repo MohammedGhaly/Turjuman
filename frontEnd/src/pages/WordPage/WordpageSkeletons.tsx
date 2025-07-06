@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function WordpageSkeletons() {
   return (
-    <div className="flex flex-col md:flex-row w-full gap-4 border-t-[var(--box-border)] border-t py-8 px-1">
+    <div className="flex flex-col md:flex-row w-full gap-4 py-8 px-4">
       {/* left */}
       <div className="flex flex-col gap-4 flex-1">
         {/* <WordCard /> */}

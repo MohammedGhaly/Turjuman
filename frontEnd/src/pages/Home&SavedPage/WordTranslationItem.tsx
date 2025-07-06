@@ -1,10 +1,13 @@
-import { Volume2, Youtube } from "lucide-react";
+import { Trash2, Volume2, Youtube } from "lucide-react";
 import WordList from "./WordList";
 import getWordTransItemFontSize from "@/utils/getWordTransItemFont";
 import { useNavigate } from "react-router";
 import GradientBookmark from "@/components/GradientBookmark";
 import openYouglish from "@/utils/youglish";
 import { pronounce } from "@/utils/pronounce";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
+import { deleteTranslation } from "@/services/translationClient";
 
 const aiIcon = (
   <svg
@@ -73,9 +76,32 @@ function WordTranslationItem({
   srcLang,
 }: Props) {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteMutate, isPending: isPendingDelete } = useMutation({
+    mutationFn: () => deleteTranslation(id),
+    onSuccess: () => {
+      ["homeTranslations", "savedTranslations"].forEach((key) =>
+        queryClient.invalidateQueries({ queryKey: [key] })
+      );
+      toast({ title: "translation deleted", variant: "success" });
+    },
+    onError: () => {
+      toast({
+        title: "Error deleting the translation",
+        variant: "destructive",
+      });
+    },
+  });
 
   function handleClick() {
     navigate(`/app/word/${id}`);
+  }
+
+  function handleDelte(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    deleteMutate();
+    e.stopPropagation();
   }
 
   return (
@@ -117,13 +143,23 @@ function WordTranslationItem({
           </div>
         </div>
         {/* right */}
-        <button className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all">
-          <GradientBookmark
-            // isLoading={isLoadingSave}
-            isFavorite={isFavorite || false}
-            id={id}
-          />
-        </button>
+        <div className="flex gap-0">
+          <button className="hover:bg-[var(--icon-btn-hover)] p-2 rounded-full duration-200 transition-all">
+            <GradientBookmark
+              // isLoading={isLoadingSave}
+              isFavorite={isFavorite || false}
+              id={id}
+            />
+          </button>
+          <button
+            onClick={handleDelte}
+            className={`hover:bg-red-500/15 p-2 ${
+              isPendingDelete ? "hover:bg-red-500/30 p-2" : ""
+            } rounded-full duration-200 transition-all`}
+          >
+            <Trash2 />
+          </button>
+        </div>
       </div>
       <div className="flex justify-end gap-4 items-center text-2xl">
         <span className="font-bold">{translation}</span>
