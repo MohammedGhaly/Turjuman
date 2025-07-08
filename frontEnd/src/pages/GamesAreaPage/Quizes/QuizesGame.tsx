@@ -156,7 +156,7 @@ function QuizesGame() {
 
   return (
     <div
-      className={`h-full w-full flex items-top justify-center transition-none ${theme} ${
+      className={`h-full w-full flex items-top justify-center transition-none px-4 md:px-0 ${theme} ${
         status === "active" ? "pt-5 md:pt-14" : ""
       }`}
     >
